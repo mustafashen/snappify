@@ -1,4 +1,4 @@
-import Footer from 'components/layout/footer';
+
 import { Suspense } from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -9,7 +9,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Suspense>{children}</Suspense>
         </div>
       </div>
-      <Footer />
     </Suspense>
   );
 }
