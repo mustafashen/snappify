@@ -1,6 +1,6 @@
 import Cart from 'components/cart'
 import LogoIcon from 'components/icons/logo'
-import NavbarMenu from '../collections'
+import NavbarMenu from '../menu'
 
 export default function Navbar() {
   return (

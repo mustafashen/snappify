@@ -1,3 +1,4 @@
+import Grid from "components/grid";
 import { defaultSort, sorting } from "lib/constants";
 import { getCollectionProducts } from "lib/shopify"
 
@@ -12,8 +13,9 @@ export default async function page({
   const { sort } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
   const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
-  console.log(products)
   return (
-    <div>A collection</div>
+    <section>
+      <Grid products={products}/>
+    </section>
   )
 }
