@@ -1,10 +1,10 @@
-import { getCollections } from 'lib/shopify'
-import CollectionMenu from './collections-menu'
+import { getMenu } from 'lib/shopify'
+import NavbarMenuItems from './navbar-menu-items'
 
-export default async function Collections() {
+export default async function NavbarMenu() {
 
-  const collections = await getCollections()
+  const menu = await getMenu('main-menu')
   return (
-    <CollectionMenu collections={collections}/>
+    <NavbarMenuItems menu={menu}/>
   )
 }
