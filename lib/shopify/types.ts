@@ -263,3 +263,23 @@ export type ShopifyProductsOperation = {
     sortKey?: string;
   };
 };
+
+export type CustomerAccessToken = {
+  customerAccessToken: {
+    accessToken: string;
+  }
+}
+
+export type ShopifyCustomerAccessTokenCreateOperation = {
+  data: {
+    customerAccessTokenCreate: {
+      customerAccessToken: CustomerAccessToken;
+    }
+  },
+  variables: {
+    input: {
+      email: string,
+      password: string
+    }
+  }
+}

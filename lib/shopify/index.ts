@@ -27,6 +27,7 @@ import {
   Cart,
   Collection,
   Connection,
+  CustomerAccessToken,
   Image,
   Menu,
   Page,
@@ -39,6 +40,7 @@ import {
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
+  ShopifyCustomerAccessTokenCreateOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -49,6 +51,7 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
 } from './types';
+import { customerAccessTokenCreateMutation } from './mutations/customer';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -200,6 +203,10 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
 
   return reshapedProducts;
 };
+
+export async function reshapeCustomerAccessToken(customerAccessToken: CustomerAccessToken) {
+  return {...customerAccessToken}
+}
 
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
@@ -415,6 +422,26 @@ export async function getProducts({
   });
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+}
+
+export async function createCustomerAccessToken({
+  email,
+  password
+}: {
+  email: string,
+  password: string
+}): Promise<CustomerAccessToken> {
+  const res = await shopifyFetch<ShopifyCustomerAccessTokenCreateOperation>({
+    query: customerAccessTokenCreateMutation,
+    variables: {
+      input: {
+        email,
+        password
+      }
+    }
+  })
+
+  return reshapeCustomerAccessToken(res.body.data.customerAccessTokenCreate.customerAccessToken)
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
