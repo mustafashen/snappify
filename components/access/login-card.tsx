@@ -1,5 +1,6 @@
 'use client'
 import React, { FormEvent, useState } from 'react'
+import { customerLogin } from './actions'
 
 export default function LoginCard() {
   const [loginData, setLoginData]= useState({
@@ -9,14 +10,13 @@ export default function LoginCard() {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
+    customerLogin({...loginData})
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginData((prevState) => ({
-      ...prevState,
-      [e.target.id]: e.target.value
-    }))
+    setLoginData({...loginData, [e.target.id]: e.target.value})
   }
+
   return (
     <form
       onSubmit={handleLogin}
@@ -26,24 +26,24 @@ export default function LoginCard() {
         <p>Login to your account</p>
         <div>
           <label
-            htmlFor='login-email'>
+            htmlFor='email'>
           </label>
           <input
             onChange={handleChange}
             value={loginData.email}
-            id='login-email'
+            id='email'
             className='input input-primary'
             type='text'
             placeholder='Email Address' />
         </div>
         <div>
           <label
-            htmlFor='login-email'>
+            htmlFor='password'>
           </label>
           <input
             onChange={handleChange}
             value={loginData.password}
-            id='login-email'
+            id='password'
             className='input input-primary'
             type='password'
             placeholder='Password' />
@@ -54,6 +54,7 @@ export default function LoginCard() {
           <button 
             className='btn'
             type='submit'>
+              Login
           </button>
       </div>
     </form>
