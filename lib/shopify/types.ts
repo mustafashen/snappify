@@ -264,9 +264,34 @@ export type ShopifyProductsOperation = {
   };
 };
 
+export type Customer = {
+  firstName: string,
+  lastName: string,
+  email: string,
+  phone: string,
+  acceptsMarketing: boolean
+}
+
+
 export type CustomerAccessToken = {
-  customerAccessToken: {
     accessToken: string;
+}
+
+export type ShopifyCustomerCreateOperation = {
+  data: {
+    customerCreate: {
+      customer: Customer;
+    }
+  },
+  variables: {
+    input: {
+      firstName?: string,
+      lastName?: string,
+      email: string,
+      password: string,
+      phone?: string,
+      acceptsMarketing?: boolean
+    }
   }
 }
 

@@ -27,6 +27,7 @@ import {
   Cart,
   Collection,
   Connection,
+  Customer,
   CustomerAccessToken,
   Image,
   Menu,
@@ -41,6 +42,7 @@ import {
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
   ShopifyCustomerAccessTokenCreateOperation,
+  ShopifyCustomerCreateOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -51,7 +53,7 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
 } from './types';
-import { customerAccessTokenCreateMutation } from './mutations/customer';
+import { customerAccessTokenCreateMutation, customerCreateMutation } from './mutations/customer';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -203,6 +205,10 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
 
   return reshapedProducts;
 };
+
+export async function reshapeCustomer(customer: Customer) {
+  return {...customer}
+}
 
 export async function reshapeCustomerAccessToken(customerAccessToken: CustomerAccessToken) {
   return {...customerAccessToken}
@@ -422,6 +428,38 @@ export async function getProducts({
   });
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+}
+
+export async function createCustomer({
+  email,
+  password,
+  firstName,
+  lastName,
+  phone,
+  acceptsMarketing,
+}: {
+  email: string,
+  password: string
+  firstName?: string,
+  lastName?: string,
+  phone?: string,
+  acceptsMarketing?: boolean,
+}): Promise<Customer> {
+  const res = await shopifyFetch<ShopifyCustomerCreateOperation>({
+    query: customerCreateMutation,
+    variables: {
+      input: {
+        email,
+        password,
+        firstName,
+        lastName,
+        phone,
+        acceptsMarketing
+      }
+    }
+  })
+
+  return reshapeCustomer(res.body.data.customerCreate.customer)
 }
 
 export async function createCustomerAccessToken({

@@ -1,4 +1,14 @@
 
+const customerFragment = /* GraphQL */`
+  fragment customer on Customer {
+    firstName
+    lastName
+    email
+    phone
+    acceptsMarketing
+  }
+`
+
 const customerAccessTokenFragment = /* GraphQL */`
   fragment customerAccessToken on CustomerAccessToken {
     accessToken
@@ -6,5 +16,6 @@ const customerAccessTokenFragment = /* GraphQL */`
 `
 
 export {
+  customerFragment,
   customerAccessTokenFragment
 }

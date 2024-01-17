@@ -1,10 +1,9 @@
-import LoginCard from 'components/access/login-card'
-import React from 'react'
+import AccessCard from "components/access/access-card";
 
 export default function page() {
   return (
     <div>
-      <LoginCard/>
+      <AccessCard/>
     </div>
   )
 }
