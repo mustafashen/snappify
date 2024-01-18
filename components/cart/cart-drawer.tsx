@@ -1,30 +1,43 @@
-import { ShoppingBag } from 'react-feather'
+'use client'
+import { ShoppingBag, X } from 'react-feather'
 import CartLine from './cart-line'
 import { Cart } from 'lib/shopify/types'
-export default function CartDrawer({cart}: {cart: Cart | undefined}) {
+import * as Dialog from '@radix-ui/react-dialog';
+export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
   return (
-    <div className="drawer drawer-end">
-    <input id="cart-drawer" type="checkbox" className="drawer-toggle" />
-    <div className="drawer-content ml-auto">
-      <label htmlFor="cart-drawer" className="btn btn-ghost drawer-button"><ShoppingBag/></label>
-    </div> 
-      <div className="drawer-side">
-        <label htmlFor="cart-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-          {
-            !cart || cart.lines.length === 0 ? 
-              (<div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
-                <ShoppingBag size={50}/>
-                <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
-              </div>) :
-              (<div>
-                {
-                  cart.lines.map((line, index) => <CartLine key={index} line={line}/>)
-                }
-              </div>)
-          }
-        </ul>
-      </div>
-    </div>
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <button className='btn btn-ghost'><ShoppingBag /></button>
+      </Dialog.Trigger>
+      <Dialog.DialogPortal>
+        <Dialog.Overlay className='bg-black/50 inset-0 fixed' />
+        <Dialog.Content className='fixed bg-base-200 top-0 right-0 h-full w-1/6 menu menu-vertical'>
+          <div className='flex flex-row flex-nowrap justify-between items-center'>
+            <Dialog.Title>
+              <h1 className='menu-title text-2xl'>Cart</h1>
+            </Dialog.Title>
+            <Dialog.Close>
+              <button className='btn btn-ghost'>
+                <X />
+              </button>
+            </Dialog.Close>
+          </div>
+          <ul>
+            {
+              !cart || cart.lines.length === 0 ?
+                (<div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
+                  <ShoppingBag size={50} />
+                  <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
+                </div>) :
+                (<div>
+                  {
+                    cart.lines.map((line, index) => <CartLine key={index} line={line} />)
+                  }
+                </div>)
+            }
+          </ul>
+        </Dialog.Content>
+      </Dialog.DialogPortal>
+    </Dialog.Root>
   )
 }
