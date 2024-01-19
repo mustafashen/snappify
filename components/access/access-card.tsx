@@ -1,5 +1,5 @@
 'use client'
-import * as Tabs from '@radix-ui/react-tabs';
+import { Tab } from '@headlessui/react'
 import LoginCard from 'components/access/login-card'
 import RegisterCard from 'components/access/register-card'
 import React from 'react'
@@ -7,25 +7,26 @@ import React from 'react'
 export default function AccessCard() {
   return (
     <div>
-      <Tabs.Root
-        defaultValue={'login'}>
-        <Tabs.List 
+      <Tab.Group>
+        <Tab.List 
           className='tablist tabs-bordered' 
           aria-label='access cards'>
-          <Tabs.Trigger value='login' className={`tab data-[state='active']:tab-active`}>
+          <Tab value='login' className={`tab ui-selected:tab-active`}>
             Login
-          </Tabs.Trigger>
-          <Tabs.Trigger value='register' className={`tab data-[state='active']:tab-active`}>
+          </Tab>
+          <Tab value='register' className={`tab ui-selected:tab-active`}>
             Register
-          </Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value='login'>
-          <LoginCard/>
-        </Tabs.Content>
-        <Tabs.Content value='register'>
-          <RegisterCard/>
-        </Tabs.Content>
-      </Tabs.Root>
+          </Tab>
+        </Tab.List>
+        <Tab.Panels>
+          <Tab.Panel>
+            <LoginCard/>
+          </Tab.Panel>
+          <Tab.Panel>
+            <RegisterCard/>
+          </Tab.Panel>
+        </Tab.Panels>
+      </Tab.Group>
     </div>
   )
 }

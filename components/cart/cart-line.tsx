@@ -49,7 +49,7 @@ export default function CartLine({line}: {line: CartItem}) {
           amount={line.cost.totalAmount.amount}
           currencyCode={line.cost.totalAmount.currencyCode}
         />
-        <LineQuantityEdit/>
+        <LineQuantityEdit line={line}/>
       </div>
     </li>
   )
