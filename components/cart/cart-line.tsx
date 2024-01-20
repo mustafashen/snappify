@@ -21,14 +21,14 @@ export default function CartLine({line}: {line: CartItem}) {
     }
   })
 
-  const merchandiseUrl = createUrl(
-    `/product/${line.merchandise.product.handle}`,
-    new URLSearchParams(merchandiseSearchParams)
-  )
+  // const merchandiseUrl = createUrl(
+  //   `/product/${line.merchandise.product.handle}`,
+  //   new URLSearchParams(merchandiseSearchParams)
+  // )
 
   return (
-    <li className='card card-side bg-base-100 shadow-sm'>
-      <div>
+    <li className='card card-side bg-base-100 shadow-sm box-border flex-nowrap' >
+      <figure>
         <Image
           className="h-full w-full object-cover"
           width={64}
@@ -39,17 +39,19 @@ export default function CartLine({line}: {line: CartItem}) {
           }
           src={line.merchandise.product.featuredImage.url}
         />
-      </div>
+      </figure>
       <div className='card-body'> 
-        <Link href={merchandiseUrl}>
-          <div className='card-title'>{line.merchandise.product.title}</div>
-        </Link>
-        <Price
-          className="text-right text-base text-black dark:text-white"
-          amount={line.cost.totalAmount.amount}
-          currencyCode={line.cost.totalAmount.currencyCode}
-        />
-        <LineQuantityEdit line={line}/>
+        <div className='card-title'>
+          {line.merchandise.product.title}
+        </div>
+        <div>
+          <Price
+            className="text-right text-base text-black dark:text-white"
+            amount={line.cost.totalAmount.amount}
+            currencyCode={line.cost.totalAmount.currencyCode}
+          />
+          {/* <LineQuantityEdit line={line}/> */}
+        </div>
       </div>
     </li>
   )

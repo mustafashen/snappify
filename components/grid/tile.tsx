@@ -1,5 +1,6 @@
 import { Product } from 'lib/shopify/types'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function Tile({product}: {product: Product}) {
@@ -20,14 +21,17 @@ export default function Tile({product}: {product: Product}) {
         ) : null}
       </figure>
       <div className="card-body row-span-1">
-        <h2 className="card-title">{product.title}</h2>
-        <p>{product.description}</p>
+        <Link
+          href={{
+              pathname: `/product/${product.handle}`,
+              query: { product: JSON.stringify(product) },
+          }}>
+          <h2 className="card-title">{product.title}</h2>
+          <p>{product.description}</p>
+        </Link>
         <div>
           <strong>{product.priceRange.minVariantPrice.amount}</strong>
           <strong>{product.priceRange.minVariantPrice.currencyCode}</strong>
-        </div>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
         </div>
       </div>
     </li>

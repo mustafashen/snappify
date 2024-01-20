@@ -13,7 +13,8 @@ module.exports = {
   plugins: [
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
-    require("daisyui")
+    require("daisyui"),
+    require('@headlessui/tailwindcss')
   ],
   daisyui: {
     themes: ['wireframe']
