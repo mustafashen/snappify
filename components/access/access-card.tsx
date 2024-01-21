@@ -9,8 +9,7 @@ export default function AccessCard() {
     <div>
       <Tab.Group>
         <Tab.List 
-          className='tablist tabs-bordered' 
-          aria-label='access cards'>
+          className='tablist tabs-bordered'>
           <Tab value='login' className={`tab ui-selected:tab-active`}>
             Login
           </Tab>

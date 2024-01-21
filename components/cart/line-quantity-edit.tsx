@@ -36,7 +36,7 @@ export default function LineQuantityEdit({line}: {line: CartItem}) {
 
   return (
     <div className='cart-actions'>
-      <div className='join'>
+      <div className='join grid grid-cols-3 w-32'>
         <button className="join-item btn btn-outline" onClick={handleMinus}><Minus/></button>
         <input className='join-item input input-bordered text-center' value={quantity} onChange={handleChange}/>
         <button className="join-item btn btn-outline" onClick={handlePlus}><Plus/></button>

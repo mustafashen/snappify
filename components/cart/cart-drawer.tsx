@@ -24,14 +24,14 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
           <ShoppingBag />
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <Dialog.Panel className='fixed bg-base-200 top-0 right-0 h-full w-1/6 menu menu-vertical'>
-        <div className='flex flex-row flex-nowrap justify-between items-center'>
-          <Dialog.Title className='menu-title text-2xl'>
+      <Dialog.Panel className='fixed bg-base-200 top-0 right-0 h-full w-1/6'>
+        <div className='navbar justify-between'>
+          <Dialog.Title className='text-2xl'>
             Cart
           </Dialog.Title>
           <button 
             onClick={closeModal}
-            className='btn btn-ghost'>
+            className='btn btn-ghost self-end'>
             <X/>
           </button>
         </div>
