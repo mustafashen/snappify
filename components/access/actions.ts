@@ -45,14 +45,20 @@ export async function customerLogin ({
   password: string
 }) {
   try {
-    const payload = await createCustomerAccessToken({email, password})
-    
-    const currentAccessToken = cookies().get('accessToken')
+      
+    const currentAccessToken = cookies().get('accessToken')?.value
 
-    if (!currentAccessToken || payload.accessToken) { 
-      cookies().set('accessToken', payload.accessToken)
+    if (!currentAccessToken) { 
+      const payload = await createCustomerAccessToken({email, password})
+      
+      if (payload.accessToken) {
+        cookies().set('accessToken', payload.accessToken)
+        return payload
+      }
     }
-    
+
+    throw new Error()
+
   } catch (error: unknown) {
     return "Error logging in customer"
   }
