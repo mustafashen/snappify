@@ -3,20 +3,28 @@ import React, { FormEvent, useState } from 'react'
 import { customerRegister } from './actions'
 
 export default function RegisterCard() {
-  const [registerData, setRegisterData]= useState({
+  const [registerData, setRegisterData] = useState({
     email: '',
     password: '',
     firstName: '',
     lastName: ''
   })
+  const [error, setError] = useState('')
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
-    customerRegister({...registerData})
+    if (registerData.email === '' ||
+      registerData.password === '' ||
+      registerData.firstName === '' ||
+      registerData.lastName === '') {
+      customerRegister({ ...registerData })
+    } else {
+      setError('Please fill all fields')
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRegisterData({...registerData, [e.target.id]: e.target.value})
+    setRegisterData({ ...registerData, [e.target.id]: e.target.value })
   }
 
   return (
@@ -31,7 +39,7 @@ export default function RegisterCard() {
             htmlFor='email'>
           </label>
           <input
-            onChange={handleChange}
+            onInput={handleChange}
             value={registerData.email}
             id='email'
             className='input input-primary'
@@ -43,7 +51,7 @@ export default function RegisterCard() {
             htmlFor='password'>
           </label>
           <input
-            onChange={handleChange}
+            onInput={handleChange}
             value={registerData.password}
             id='password'
             className='input input-primary'
@@ -55,7 +63,7 @@ export default function RegisterCard() {
             htmlFor='firstName'>
           </label>
           <input
-            onChange={handleChange}
+            onInput={handleChange}
             value={registerData.firstName}
             id='firstName'
             className='input input-primary'
@@ -67,7 +75,7 @@ export default function RegisterCard() {
             htmlFor='lastName'>
           </label>
           <input
-            onChange={handleChange}
+            onInput={handleChange}
             value={registerData.lastName}
             id='lastName'
             className='input input-primary'
@@ -77,12 +85,18 @@ export default function RegisterCard() {
       </div>
       <div
         className='card-actions'>
-          <button 
-            className='btn'
-            type='submit'>
-              Create Account
-          </button>
+        <button
+          className='btn'
+          type='submit'>
+          Create Account
+        </button>
       </div>
+      {
+        error ? (
+          <div>{error}</div>
+        ) :
+          null
+      }
     </form>
   )
 }

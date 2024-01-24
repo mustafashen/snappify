@@ -3,18 +3,22 @@ import React, { FormEvent, useState } from 'react'
 import { customerLogin } from './actions'
 
 export default function LoginCard() {
-  const [loginData, setLoginData]= useState({
+  const [loginData, setLoginData] = useState({
     email: '',
     password: ''
   })
-
+  const [error, setError] = useState('')
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
-    customerLogin({...loginData})
+    if (loginData.email !== '' && loginData.password !== '') {
+      customerLogin({ ...loginData })
+    } else {
+      setError('Please fill all fields')
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginData({...loginData, [e.target.id]: e.target.value})
+    setLoginData({ ...loginData, [e.target.id]: e.target.value })
   }
 
   return (
@@ -51,12 +55,18 @@ export default function LoginCard() {
       </div>
       <div
         className='card-actions'>
-          <button 
-            className='btn'
-            type='submit'>
-              Login
-          </button>
+        <button
+          className='btn'
+          type='submit'>
+          Login
+        </button>
       </div>
+      {
+        error ? (
+          <div>{error}</div>
+        ) :
+          null
+      }
     </form>
   )
 }
