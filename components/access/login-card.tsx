@@ -29,7 +29,7 @@ export default function LoginCard() {
             htmlFor='email'>
           </label>
           <input
-            onChange={handleChange}
+            onInput={handleChange}
             value={loginData.email}
             id='email'
             className='input input-primary'
@@ -41,7 +41,7 @@ export default function LoginCard() {
             htmlFor='password'>
           </label>
           <input
-            onChange={handleChange}
+            onInput={handleChange}
             value={loginData.password}
             id='password'
             className='input input-primary'
