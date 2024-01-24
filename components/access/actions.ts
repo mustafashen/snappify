@@ -3,14 +3,14 @@
 import { createCustomer, createCustomerAccessToken } from "lib/shopify"
 import { cookies } from "next/headers"
 
-export async function customerRegister ({
+export async function customerRegister({
   email,
   password,
   firstName,
   lastName,
   phone,
   acceptsMarketing,
-} : {
+}: {
   email: string,
   password: string,
   firstName?: string,
@@ -19,7 +19,15 @@ export async function customerRegister ({
   acceptsMarketing?: boolean,
 }) {
   try {
-    const payload = await createCustomer({
+
+    if (email === '' ||
+      password === '' ||
+      firstName === '' ||
+      lastName === '') {
+      return "Missing required fields"
+    }
+
+    await createCustomer({
       email,
       password,
       firstName,
@@ -27,8 +35,6 @@ export async function customerRegister ({
       phone,
       acceptsMarketing,
     })
-    
-    console.log(payload)
 
   } catch (error: unknown) {
     console.log(error)
@@ -37,20 +43,25 @@ export async function customerRegister ({
 }
 
 
-export async function customerLogin ({
+export async function customerLogin({
   email,
   password
-} : {
+}: {
   email: string,
   password: string
 }) {
   try {
-      
+
+    if (email === '' ||
+      password === '') {
+      return "Missing required fields"
+    }
+
     const currentAccessToken = cookies().get('accessToken')?.value
 
-    if (!currentAccessToken) { 
-      const payload = await createCustomerAccessToken({email, password})
-      
+    if (!currentAccessToken) {
+      const payload = await createCustomerAccessToken({ email, password })
+
       if (payload.accessToken) {
         cookies().set('accessToken', payload.accessToken)
         return payload

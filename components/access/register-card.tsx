@@ -13,13 +13,10 @@ export default function RegisterCard() {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
-    if (registerData.email === '' ||
-      registerData.password === '' ||
-      registerData.firstName === '' ||
-      registerData.lastName === '') {
-      customerRegister({ ...registerData })
-    } else {
-      setError('Please fill all fields')
+    const res = await customerRegister(registerData)
+
+    if (typeof res === 'string') {
+      setError(res)
     }
   }
 

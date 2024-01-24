@@ -10,11 +10,12 @@ export default function LoginCard() {
   const [error, setError] = useState('')
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
-    if (loginData.email !== '' && loginData.password !== '') {
-      customerLogin({ ...loginData })
-    } else {
-      setError('Please fill all fields')
+    
+    const res = await customerLogin({ ...loginData })
+    if (typeof res === 'string') {
+      setError(res)
     }
+
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
