@@ -1,9 +1,25 @@
 import Grid from "components/grid";
 import { defaultSort, sorting } from "lib/constants";
-import { getCollectionProducts } from "lib/shopify"
+import { getCollection, getCollectionProducts } from "lib/shopify"
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params
+}: {
+  params: { collection: string };
+}): Promise<Metadata> {
+  const collection = await getCollection(params.collection);
 
-// TODO: Add metadata
+  if (!collection) return notFound();
+
+  return {
+    title: collection.seo?.title || collection.title,
+    description:
+      collection.seo?.description || collection.description || `${collection.title} products`
+  };
+}
+
 export default async function page({
   searchParams, params}: {
     searchParams: {[key: string]: string} | string[] | undefined, 
