@@ -137,6 +137,18 @@ export type ShopifyCartOperation = {
   };
 };
 
+export type ShopifyProductSearchOperation = {
+  data: {
+    search: ShopifyProduct[];
+  };
+  variables: {
+    query: string;
+    first?: number;
+    sortKey?: 'PRICE' | 'RELEVANCE';
+    reverse?: boolean;
+  };
+}
+
 export type ShopifyCreateCartOperation = {
   data: { cartCreate: { cart: ShopifyCart } };
 };

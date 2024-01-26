@@ -1,4 +1,4 @@
-import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS, defaultSort } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
@@ -49,11 +49,13 @@ import {
   ShopifyProduct,
   ShopifyProductOperation,
   ShopifyProductRecommendationsOperation,
+  ShopifyProductSearchOperation,
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
 } from './types';
 import { customerAccessTokenCreateMutation, customerCreateMutation } from './mutations/customer';
+import { productSearchQuery } from './queries/search';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -340,8 +342,7 @@ export async function getCollections(): Promise<Collection[]> {
       path: '/search',
       updatedAt: new Date().toISOString()
     },
-    // Filter out the `hidden` collections.
-    // Collections that start with `hidden-*` need to be hidden on the search page.
+
     ...reshapeCollections(shopifyCollections).filter(
       (collection) => !collection.handle.startsWith('hidden')
     )
@@ -476,10 +477,36 @@ export async function createCustomerAccessToken({
         email,
         password
       }
-    }
+    },
+    cache: 'no-store'
   })
 
   return reshapeCustomerAccessToken(res.body.data.customerAccessTokenCreate.customerAccessToken)
+}
+
+export async function searchProducts({
+  query, 
+  first,
+  sortKey,
+  reverse } : {
+    query: string,
+    first?: number,
+    sortKey?: 'PRICE' | 'RELEVANCE',
+    reverse?: boolean
+  }) {
+  const res = await shopifyFetch<ShopifyProductSearchOperation>({
+    query: productSearchQuery,
+    variables: { 
+      query,
+      first,
+      sortKey: sortKey ? sortKey : defaultSort.sortKey as 'RELEVANCE' | 'PRICE',
+      reverse: reverse ? reverse : defaultSort.reverse
+    },
+    tags: [TAGS.cart],
+    cache: 'no-store'
+  });
+
+  return reshapeProducts(res.body.data.search)
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
