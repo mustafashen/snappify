@@ -148,7 +148,7 @@ export type ShopifyProductSearchOperation = {
   variables: {
     query: string;
     first?: number;
-    sortKey?: 'PRICE' | 'RELEVANCE';
+    sortKey?: 'RELEVANCE' | 'BEST_SELLING' | 'CREATED_AT' | 'PRICE';
     reverse?: boolean;
   };
 }

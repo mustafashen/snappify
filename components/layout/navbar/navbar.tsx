@@ -1,6 +1,7 @@
 import Cart from 'components/cart'
 import LogoIcon from 'components/icons/logo'
 import NavbarMenu from '../menu'
+import SearchBar from '../search/search-bar'
 
 export default function Navbar() {
   return (
@@ -9,6 +10,7 @@ export default function Navbar() {
         <div><LogoIcon/></div>
         <NavbarMenu/>
       </div>
+      <SearchBar/>
       <div className='navbar-end'>
         <Cart/>
       </div>
