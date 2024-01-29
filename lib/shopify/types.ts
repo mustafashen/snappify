@@ -139,7 +139,11 @@ export type ShopifyCartOperation = {
 
 export type ShopifyProductSearchOperation = {
   data: {
-    search: ShopifyProduct[];
+    search: {
+      edges: { 
+        node: ShopifyProduct
+      }[]
+    };
   };
   variables: {
     query: string;
