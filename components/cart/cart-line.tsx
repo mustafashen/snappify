@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React from 'react'
 import LineQuantityEdit from './line-quantity-edit';
 import Price from 'components/price';
+import LineRemove from './line-remove';
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -52,6 +53,7 @@ export default function CartLine({line}: {line: CartItem}) {
             currencyCode={line.cost.totalAmount.currencyCode}
           />
           <LineQuantityEdit line={line}/>
+          <LineRemove line={line}/>
         </div>
       </div>
     </li>

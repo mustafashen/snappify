@@ -49,6 +49,13 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
               </div>)
           }
         </ul>
+        <div>
+          <a
+            className='btn btn-primary w-full'
+            href={cart?.checkoutUrl}>
+              Checkout
+          </a>
+        </div>
       </Dialog.Panel>
     </Dialog>
   </>
