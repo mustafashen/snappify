@@ -293,6 +293,15 @@ export type CustomerAccessToken = {
     accessToken: string;
 }
 
+export type ShopifyGetCustomerOperation = {
+    data: {
+        customer: Customer;
+    },
+    variables: {
+        customerAccessToken: string;
+    }
+}
+
 export type ShopifyCustomerCreateOperation = {
   data: {
     customerCreate: {
@@ -311,6 +320,25 @@ export type ShopifyCustomerCreateOperation = {
   }
 }
 
+export type ShopifyCustomerUpdateOperation = {
+    data: {
+      customerCreate: {
+        customer: Customer;
+      }
+    },
+    variables: {
+      input: {
+        firstName?: string,
+        lastName?: string,
+        email: string,
+        password: string,
+        phone?: string,
+        acceptsMarketing?: boolean
+      }
+    }
+  }
+
+  
 export type ShopifyCustomerAccessTokenCreateOperation = {
   data: {
     customerAccessTokenCreate: {
@@ -322,5 +350,107 @@ export type ShopifyCustomerAccessTokenCreateOperation = {
       email: string,
       password: string
     }
+  }
+}
+
+export type ShopifyCustomerAccessTokenDeleteOperation = {
+  data: {
+    customerAccessTokenDelete: {
+      deletedAccessToken: CustomerAccessToken;
+    }
+  },
+  variables: {
+    customerAccessToken: string;
+  }
+}
+
+export type ShopifyRecoverCustomerOperation = {
+  data: {
+  },
+  variables: {
+    email: string;
+  }
+}
+
+export type ShopifyResetCustomerOperation = {
+  data: {
+    customerResetByUrl: {
+      customer: Customer;
+    }
+  },
+  variables: {
+    resetURL: string,
+    password: string
+  }
+}
+
+export type ShopifyActivateCustomerOperation = {
+  data: {
+    customerResetByUrl: {
+      customer: Customer;
+    }
+  },
+  variables: {
+    activationURL: string,
+    password: string
+  }
+}
+
+export type CustomerAddress = {
+  address1: string,
+  address2: string,
+  city: string,
+  company: string,
+  country: string,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  province: string,
+  zip: string
+}
+
+export type ShopifyCreateCustomerAddressOperation = {
+  data: {
+    customerAddressCreate: {
+      customerAddress: CustomerAddress;
+    }
+  },
+  variables: {
+    address: CustomerAddress,
+    customerAccessToken: string
+  }
+}
+
+export type ShopifyUpdateCustomerAddressOperation = {
+  data: {
+    customerAddressUpdate: {
+      customerAddress: CustomerAddress;
+    }
+  },
+  variables: {
+    address: CustomerAddress,
+    customerAccessToken: string,
+    id: string
+  }
+}
+
+export type ShopifyUpdateDefaultCustomerAddressOperation = {
+  data: {
+    customerDefaultAddressUpdate: {
+      customer: Customer;
+    }
+  },
+  variables: {
+    addressId: string,
+    customerAccessToken: string,
+  }
+}
+
+export type ShopifyDeleteCustomerAddressOperation = {
+  data: {
+  },
+  variables: {
+    id: string,
+    customerAccessToken: string
   }
 }
