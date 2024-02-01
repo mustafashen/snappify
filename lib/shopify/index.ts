@@ -456,7 +456,8 @@ export async function getCustomer({
     query: getCustomerQuery,
     variables: {
       customerAccessToken
-    }
+    },
+    cache: 'no-store'
   })
 
   return reshapeCustomer(res.body.data.customer);
@@ -488,42 +489,31 @@ export async function createCustomer({
         phone,
         acceptsMarketing
       }
-    }
+    },
+    cache: 'no-store'
   })
 
   return reshapeCustomer(res.body.data.customerCreate.customer)
 }
 
 export async function updateCustomer({
-  email,
-  password,
-  firstName,
-  lastName,
-  phone,
-  acceptsMarketing,
+  updates,
+  customerAccessToken,
 }: {
-  email: string,
-  password: string
-  firstName?: string,
-  lastName?: string,
-  phone?: string,
-  acceptsMarketing?: boolean,
+  updates: Customer,
+  customerAccessToken: string
 }): Promise<Customer> {
   const res = await shopifyFetch<ShopifyCustomerUpdateOperation>({
     query: customerUpdateMutation,
     variables: {
-      input: {
-        email,
-        password,
-        firstName,
-        lastName,
-        phone,
-        acceptsMarketing
-      }
-    }
+      customer: updates,
+      customerAccessToken
+    },
+    cache: 'no-store'
   })
 
-  return reshapeCustomer(res.body.data.customerCreate.customer)
+  console.log(res.body.data)
+  return reshapeCustomer(res.body.data.customerUpdate.customer)
 }
 
 export async function createCustomerAccessToken({
@@ -714,8 +704,7 @@ export async function searchProducts({
       sortKey: sortKey ? sortKey : defaultSort.sortKey,
       reverse: reverse ? reverse : defaultSort.reverse
     },
-    tags: [TAGS.cart],
-    cache: 'no-store'
+    tags: [TAGS.cart]
   });
   const foundProduct = removeEdgesAndNodes(res.body.data.search)
   return reshapeProducts(foundProduct)

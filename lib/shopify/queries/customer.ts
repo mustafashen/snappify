@@ -1,8 +1,8 @@
 import { customerFragment } from "../fragments/customer";
 
 export const getCustomerQuery = `
-	query {
-		customer($customerAccessToken: !String) {
+	query getCustomer($customerAccessToken: String!){
+		customer(customerAccessToken: $customerAccessToken) {
 			...customer
 		}
 	}
