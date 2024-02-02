@@ -30,6 +30,7 @@ import {
   Customer,
   CustomerAccessToken,
   CustomerAddress,
+  CustomerOrder,
   Image,
   Menu,
   Page,
@@ -49,7 +50,9 @@ import {
   ShopifyCustomerCreateOperation,
   ShopifyCustomerUpdateOperation,
   ShopifyDeleteCustomerAddressOperation,
+  ShopifyGetCustomerAddressOperation,
   ShopifyGetCustomerOperation,
+  ShopifyGetCustomerOrdersOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -67,7 +70,7 @@ import {
 } from './types';
 import { customerAccessTokenCreateMutation, customerAccessTokenDeleteMutation, customerActivateMutation, customerAddressCreateMutation, customerAddressDeleteMutation, customerAddressUpdateDefaultMutation, customerAddressUpdateMutation, customerCreateMutation, customerRecoverMutation, customerResetMutation, customerUpdateMutation } from './mutations/customer';
 import { productSearchQuery } from './queries/search';
-import { getCustomerQuery } from './queries/customer';
+import { getCustomerAddressQuery, getCustomerOrdersQuery, getCustomerQuery } from './queries/customer';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -220,15 +223,51 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
   return reshapedProducts;
 };
 
-export async function reshapeCustomer(customer: Customer) {
+function reshapeCustomer(customer: Customer) {
   return {...customer}
 }
 
-export async function reshapeCustomerAddress(customerAddress: CustomerAddress) {
+function reshapeCustomerAddress(customerAddress: CustomerAddress) {
   return {...customerAddress}
 }
 
-export async function reshapeCustomerAccessToken(customerAccessToken: CustomerAccessToken) {
+function reshapeCustomerAddresses(customerAddresses: CustomerAddress[]) {
+    const reshapedAddresses = [];
+
+    for (const address of customerAddresses) {
+      if (address) {
+        const reshapedProduct = reshapeCustomerAddress(address);
+  
+        if (reshapedProduct) {
+            reshapedAddresses.push(reshapedProduct);
+        }
+      }
+    }
+  
+    return reshapedAddresses;
+}
+
+function reshapeCustomerOrder(customerOrder: CustomerOrder) {
+    return {...customerOrder}
+}
+  
+function reshapeCustomerOrders(customerOrders: CustomerOrder[]) {
+      const reshapedOrders = [];
+  
+      for (const order of customerOrders) {
+        if (order) {
+          const reshapedProduct = reshapeCustomerOrder(order);
+    
+          if (reshapedProduct) {
+              reshapedOrders.push(reshapedProduct);
+          }
+        }
+      }
+    
+      return reshapedOrders;
+}
+
+function reshapeCustomerAccessToken(customerAccessToken: CustomerAccessToken) {
   return {...customerAccessToken}
 }
 
@@ -541,7 +580,7 @@ export async function deleteCustomerAccessToken({
   customerAccessToken
 }: {
   customerAccessToken: string
-}): Promise<CustomerAccessToken> {
+}): Promise<string> {
   const res = await shopifyFetch<ShopifyCustomerAccessTokenDeleteOperation>({
     query: customerAccessTokenDeleteMutation,
     variables: {
@@ -550,7 +589,7 @@ export async function deleteCustomerAccessToken({
     cache: 'no-store'
   })
 
-  return reshapeCustomerAccessToken(res.body.data.customerAccessTokenDelete.deletedAccessToken)
+  return res.body.data.customerAccessTokenDelete.deletedAccessToken
 }
 
 export async function recoverCustomer({
@@ -570,16 +609,16 @@ export async function recoverCustomer({
 }
 
 export async function resetCustomer({
-  resetURL,
+  resetUrl,
   password
 } : {
-  resetURL: string,
+  resetUrl: string,
   password: string
 }) {
   const res = await shopifyFetch<ShopifyResetCustomerOperation>({
     query: customerResetMutation,
     variables: {
-      resetURL,
+      resetUrl,
       password
     },
     cache: 'no-store'
@@ -589,22 +628,41 @@ export async function resetCustomer({
 }
 
 export async function activateCustomer({
-  activationURL,
+  activationUrl,
   password
 } : {
-  activationURL: string,
+  activationUrl: string,
   password: string
 }) {
   const res = await shopifyFetch<ShopifyActivateCustomerOperation>({
     query: customerActivateMutation,
     variables: {
-      activationURL,
+      activationUrl,
       password
     },
     cache: 'no-store'
   })
 
   return reshapeCustomer(res.body.data.customerResetByUrl.customer)
+}
+
+export async function getCustomerAddress({
+    customerAccessToken,
+    first
+}: {
+    customerAccessToken: string,
+    first: number
+}): Promise<CustomerAddress[]> {
+  const res = await shopifyFetch<ShopifyGetCustomerAddressOperation>({
+    query: getCustomerAddressQuery,
+    variables: {
+      customerAccessToken,
+      first
+    },
+    cache: 'no-store'
+  })
+  
+  return reshapeCustomerAddresses(removeEdgesAndNodes(res.body.data.customer.addresses))
 }
 
 export async function createCustomerAddress({
@@ -685,6 +743,25 @@ export async function updateCustomerDefaultAddress({
 
   return reshapeCustomer(res.body.data.customerDefaultAddressUpdate.customer)
 }
+
+export async function getCustomerOrders({
+    first,
+    customerAccessToken,
+  } : {
+    first: number,
+    customerAccessToken: string,
+  }) {
+    const res = await shopifyFetch<ShopifyGetCustomerOrdersOperation>({
+      query: getCustomerOrdersQuery,
+      variables: {
+        first,
+        customerAccessToken,
+      },
+      cache: 'no-store'
+    })
+  
+    return reshapeCustomerOrders(removeEdgesAndNodes(res.body.data.customer.orders))
+  }
 
 export async function searchProducts({
   query, 

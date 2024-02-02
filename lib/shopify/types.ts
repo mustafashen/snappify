@@ -294,6 +294,8 @@ export type CustomerAccessToken = {
     accessToken: string;
 }
 
+export type DeletedAccessToken = string;
+
 export type ShopifyGetCustomerOperation = {
     data: {
         customer: Customer;
@@ -351,7 +353,7 @@ export type ShopifyCustomerAccessTokenCreateOperation = {
 export type ShopifyCustomerAccessTokenDeleteOperation = {
   data: {
     customerAccessTokenDelete: {
-      deletedAccessToken: CustomerAccessToken;
+      deletedAccessToken: string;
     }
   },
   variables: {
@@ -374,7 +376,7 @@ export type ShopifyResetCustomerOperation = {
     }
   },
   variables: {
-    resetURL: string,
+    resetUrl: string,
     password: string
   }
 }
@@ -386,7 +388,7 @@ export type ShopifyActivateCustomerOperation = {
     }
   },
   variables: {
-    activationURL: string,
+    activationUrl: string,
     password: string
   }
 }
@@ -402,6 +404,22 @@ export type CustomerAddress = {
   phone: string,
   province: string,
   zip: string
+}
+
+export type ShopifyGetCustomerAddressOperation = {
+  data: {
+    customer: {
+      addresses: {
+        edges: {
+          node: CustomerAddress
+        }[]
+      }
+    }
+  },
+  variables: {
+    customerAccessToken: string,
+    first: number
+  }
 }
 
 export type ShopifyCreateCustomerAddressOperation = {
@@ -448,4 +466,130 @@ export type ShopifyDeleteCustomerAddressOperation = {
     id: string,
     customerAccessToken: string
   }
+}
+
+type OrderCancelReason =
+  | 'CUSTOMER'
+  | 'DECLINED'
+  | 'FRAUD'
+  | 'INVENTORY'
+  | 'OTHER'
+  | 'STAFF';
+
+type CurrencyCode = |"AED"|"AFN"|"ALL"|"AMD"|"ANG"|"AOA"|"ARS"|"AUD"|"AWG"|"AZN"|"BAM"|"BBD"|"BDT"|"BGN"|"BHD"|"BIF"|"BMD"|"BND"|"BOB"|"BRL"|"BSD"|"BTN"|"BWP"|"BYN"|"BZD"|"CAD"|"CDF"|"CHF"|"CLP"|"CNY"|"COP"|"CRC"|"CVE"|"CZK"|"DJF"|"DKK"|"DOP"|"DZD"|"EGP"|"ERN"|"ETB"|"EUR"|"FJD"|"FKP"|"GBP"|"GEL"|"GHS"|"GIP"|"GMD"|"GNF"|"GTQ"|"GYD"|"HKD"|"HNL"|"HRK"|"HTG"|"HUF"|"IDR"|"ILS"|"INR"|"IQD"|"IRR"|"ISK"|"JEP"|"JMD"|"JOD"|"JPY"|"KES"|"KGS"|"KHR"|"KID"|"KMF"|"KRW"|"KWD"|"KYD"|"KZT"|"LAK"|"LBP"|"LKR"|"LRD"|"LSL"|"LTL"|"LVL"|"LYD"|"MAD"|"MDL"|"MGA"|"MKD"|"MMK"|"MNT"|"MOP"|"MRU"|"MUR"|"MVR"|"MWK"|"MXN"|"MYR"|"MZN"|"NAD"|"NGN"|"NIO"|"NOK"|"NPR"|"NZD"|"OMR"|"PAB"|"PEN"|"PGK"|"PHP"|"PKR"|"PLN"|"PYG"|"QAR"|"RON"|"RSD"|"RUB"|"RWF"|"SAR"|"SBD"|"SCR"|"SDG"|"SEK"|"SGD"|"SHP"|"SLL"|"SOS"|"SRD"|"SSP"|"STN"|"SYP"|"SZL"|"THB"|"TJS"|"TMT"|"TND"|"TOP"|"TRY"|"TTD"|"TWD"|"TZS"|"UAH"|"UGX"|"USD"|"UYU"|"UZS"|"VED"|"VES"|"VND"|"VUV"|"WST"|"XAF"|"XCD"|"XOF"|"XPF"|"XXX"|"YER"|"ZAR"|"ZMW";
+
+type MoneyV2 = {
+  amount: number,
+  currencyCode: CurrencyCode
+}
+
+type OrderFinancialStatus =
+  | "Authorized"
+  | "Paid"
+  | "Partially paid"
+  | "Partially refunded"
+  | "Pending"
+  | "Refunded"
+  | "Voided";
+
+type OrderFulfillmentStatus =
+  | "Fulfilled"
+  | "In progress"
+  | "On hold"
+  | "Open"
+  | "Partially fulfilled"
+  | "Pending fulfillment"
+  | "Restocked"
+  | "Scheduled"
+  | "Unfulfilled";
+
+type DiscountApplicationAllocationMethod =
+  | 'ACROSS'
+  | 'EACH'
+  | 'ONE';
+
+type DiscountApplicationTargetSelection =
+  | 'ALL'
+  | 'ENTITLED'
+  | 'EXPLICIT';
+
+type DiscountApplicationTargetType =
+  | 'LINE_ITEM'
+  | 'SHIPPING_LINE';
+
+type PricingPercentageValue = {
+  percentage: number;
+}
+
+type PricingValue = MoneyV2 | PricingPercentageValue;
+
+type DiscountApplication = {
+  allocationMethod: DiscountApplicationAllocationMethod;
+  targetSelection: DiscountApplicationTargetSelection;
+  targetType: DiscountApplicationTargetType;
+  value: PricingValue;
+}
+
+type DiscountAllocation = {
+  allocatedAmount: MoneyV2;
+  discountApplication: DiscountApplication;
+};
+
+type FulfillmentTrackingInfo = {
+  number: string;
+  url: URL;
+};
+
+type Fulfillment = {
+  trackingCompany: string;
+  trackingInfo: FulfillmentTrackingInfo[];
+};
+
+export type CustomerOrder = {
+  billingAddress: CustomerAddress;
+  cancelReason: OrderCancelReason | null;
+  canceledAt: string | null;
+  currencyCode: CurrencyCode;
+  currentSubtotalPrice: MoneyV2;
+  currentTotalDuties: MoneyV2 | null;
+  currentTotalPrice: MoneyV2;
+  currentTotalTax: MoneyV2;
+  customerLocale: string;
+  customerUrl: URL;
+  edited: boolean;
+  email: string;
+  financialStatus: OrderFinancialStatus;
+  fulfillmentStatus: OrderFulfillmentStatus;
+  id: string;
+  name: string;
+  orderNumber: number;
+  originalTotalDuties: MoneyV2 | null;
+  originalTotalPrice: MoneyV2;
+  phone: string | null;
+  processedAt: string;
+  shippingAddress: CustomerAddress;
+  shippingDiscountAllocations: Array<DiscountAllocation>;
+  statusUrl: URL;
+  subtotalPrice: MoneyV2;
+  successfulFulfillments: Array<Fulfillment>;
+  totalPrice: MoneyV2;
+  totalRefunded: MoneyV2;
+  totalShippingPrice: MoneyV2;
+  totalTax: MoneyV2 | null;
+};
+
+export type ShopifyGetCustomerOrdersOperation = {
+    data: {
+      customer: {
+        orders: {
+          edges: {
+            node: CustomerOrder
+          }[]
+        }
+      }
+    },
+    variables: {
+      customerAccessToken: string,
+      first: number
+    }
 }
