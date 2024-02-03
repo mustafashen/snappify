@@ -15,13 +15,6 @@ const customerAccessTokenFragment = /* GraphQL */`
   }
 `
 
-const deletedCustomerAccessTokenFragment = /* GraphQL */`
-  fragment deletedCustomerAccessToken on deletedCustomerAccessToken {
-    deletedAccessToken
-    deletedCustomerAccessTokenId
-  }
-`
-
 const customerAddressFragment = /* GraphQL */`
   fragment customerAddress on CustomerAddress {
     address1 
@@ -39,6 +32,5 @@ const customerAddressFragment = /* GraphQL */`
 export {
   customerFragment,
   customerAccessTokenFragment,
-  deletedCustomerAccessTokenFragment,
   customerAddressFragment,
 }

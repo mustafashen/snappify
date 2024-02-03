@@ -53,21 +53,22 @@ export default function LoginCard() {
             type='password'
             placeholder='Password' />
         </div>
+        <div
+          className='card-actions'>
+          <button
+            className='btn'
+            type='submit'>
+            Login
+          </button>
+        </div>
+        {
+          error ? (
+            <div>{error}</div>
+          ) :
+            null
+        }
       </div>
-      <div
-        className='card-actions'>
-        <button
-          className='btn'
-          type='submit'>
-          Login
-        </button>
-      </div>
-      {
-        error ? (
-          <div>{error}</div>
-        ) :
-          null
-      }
+
     </form>
   )
 }

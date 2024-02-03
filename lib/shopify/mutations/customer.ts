@@ -1,4 +1,4 @@
-import { customerAccessTokenFragment, customerAddressFragment, customerFragment, deletedCustomerAccessTokenFragment } from "../fragments/customer";
+import { customerAccessTokenFragment, customerAddressFragment, customerFragment } from "../fragments/customer";
 
 export const customerCreateMutation = /* GraphQL */ `
   mutation customerCreate($input: CustomerCreateInput!) {
@@ -25,12 +25,9 @@ export const customerAccessTokenCreateMutation = /* GraphQL */ `
 export const customerAccessTokenDeleteMutation = /* GraphQL */ `
   mutation customerAccessTokenDelete($customerAccessToken: String!) {
     customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
-      customerAccessToken {
-        ...deletedCustomerAccessToken
-      }
+			deletedAccessToken
     }
   }
-  ${deletedCustomerAccessTokenFragment}
 `
 
 export const customerActivateMutation = /* GraphQL */ `

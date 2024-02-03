@@ -2,9 +2,11 @@
 import { Tab } from '@headlessui/react'
 import LoginCard from 'components/access/login-card'
 import RegisterCard from 'components/access/register-card'
-import React from 'react'
+import React, { useState } from 'react'
+import RecoverCard from './recover-card'
 
 export default function AccessCard() {
+  const [recoverView, setRecoverView] = useState(false)
   return (
     <div>
       <Tab.Group>
@@ -19,7 +21,13 @@ export default function AccessCard() {
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            <LoginCard/>
+            {
+              recoverView ? (
+                <RecoverCard/>
+              ) : ( 
+                <LoginCard/>
+              )
+            }
           </Tab.Panel>
           <Tab.Panel>
             <RegisterCard/>

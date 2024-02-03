@@ -2,6 +2,7 @@ import Cart from 'components/cart'
 import LogoIcon from 'components/icons/logo'
 import NavbarMenu from '../menu'
 import SearchBar from '../search/search-bar'
+import UserAction from './user'
 
 export default function Navbar() {
   return (
@@ -13,6 +14,7 @@ export default function Navbar() {
       <SearchBar/>
       <div className='navbar-end'>
         <Cart/>
+        <UserAction/>
       </div>
     </nav>
   )

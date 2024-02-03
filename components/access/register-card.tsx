@@ -79,21 +79,21 @@ export default function RegisterCard() {
             type='text'
             placeholder='Last name' />
         </div>
+        <div
+          className='card-actions'>
+          <button
+            className='btn'
+            type='submit'>
+            Create Account
+          </button>
+        </div>
+        {
+          error ? (
+            <div>{error}</div>
+          ) :
+            null
+        }
       </div>
-      <div
-        className='card-actions'>
-        <button
-          className='btn'
-          type='submit'>
-          Create Account
-        </button>
-      </div>
-      {
-        error ? (
-          <div>{error}</div>
-        ) :
-          null
-      }
     </form>
   )
 }
