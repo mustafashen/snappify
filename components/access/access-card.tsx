@@ -4,9 +4,13 @@ import LoginCard from 'components/access/login-card'
 import RegisterCard from 'components/access/register-card'
 import React, { useState } from 'react'
 import RecoverCard from './recover-card'
+import { ChevronLeft } from 'react-feather'
 
 export default function AccessCard() {
   const [recoverView, setRecoverView] = useState(false)
+
+  const returnLogin = <button className='btn btn-link' onClick={() => setRecoverView(false)}><ChevronLeft/>Return to Login</button>
+  const switchRecover = <button className='btn btn-link' onClick={() => setRecoverView(true)}>Forgot Password?</button>
   return (
     <div>
       <Tab.Group>
@@ -23,9 +27,11 @@ export default function AccessCard() {
           <Tab.Panel>
             {
               recoverView ? (
-                <RecoverCard/>
+                <RecoverCard
+                  returnLogin={returnLogin}/>
               ) : ( 
-                <LoginCard/>
+                <LoginCard
+                  switchRecover={switchRecover}/>
               )
             }
           </Tab.Panel>

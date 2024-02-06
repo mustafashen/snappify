@@ -1,4 +1,6 @@
-import { customerAddressFragment, customerFragment } from "../fragments/customer";
+import { 
+	// customerAddressFragment,
+	customerFragment } from "../fragments/customer";
 import {customerOrderFragment} from "../fragments/order";
 
 export const getCustomerQuery = `
@@ -16,12 +18,22 @@ export const getCustomerAddressQuery = `
 			addresses(first: $first) {
 				edges {
 					node {
-						...customerAddress
-                }
-            }
+						id
+						address1 
+						address2 
+						city 
+						company 
+						country 
+						firstName 
+						lastName 
+						phone 
+						province 
+						zip 
+          }
+        }
+			}
 		}
 	}
-	${customerAddressFragment}
 `
 export const getCustomerOrdersQuery = `
 	query getCustomerAddress($customerAccessToken: String!, $first: Int){
@@ -30,8 +42,9 @@ export const getCustomerOrdersQuery = `
 				edges {
 					node {
 						...customerOrder
-                }
-            }
+					}
+				}
+			}
 		}
 	}
 	${customerOrderFragment}

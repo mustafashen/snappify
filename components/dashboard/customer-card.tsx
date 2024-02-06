@@ -4,6 +4,7 @@ import { Customer } from 'lib/shopify/types'
 import React from 'react'
 import EditCard from './edit-card'
 import InfoCard from './info-card'
+import CustomerAddresses from './customer-addresses'
 
 export default function CustomerCard({customer}: {customer: Customer}) {
   return (
@@ -14,6 +15,9 @@ export default function CustomerCard({customer}: {customer: Customer}) {
         <Tab value='info' className={`tab ui-selected:tab-active`}>
           Info
         </Tab>
+        <Tab value='addresses' className={`tab ui-selected:tab-active`}>
+          Addresses
+        </Tab>
         <Tab value='edit' className={`tab ui-selected:tab-active`}>
           Edit
         </Tab>
@@ -21,6 +25,9 @@ export default function CustomerCard({customer}: {customer: Customer}) {
       <Tab.Panels>
         <Tab.Panel>
           <InfoCard customer={customer}/>
+        </Tab.Panel>
+        <Tab.Panel>
+          <CustomerAddresses/>
         </Tab.Panel>
         <Tab.Panel>
           <EditCard customer={customer}/>

@@ -1,8 +1,8 @@
 'use client'
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, ReactElement, useState } from 'react'
 import { customerLogin } from './actions'
 
-export default function LoginCard() {
+export default function LoginCard({switchRecover}: {switchRecover: ReactElement}) {
   const [loginData, setLoginData] = useState({
     email: '',
     password: ''
@@ -67,8 +67,8 @@ export default function LoginCard() {
           ) :
             null
         }
+        {switchRecover}
       </div>
-
     </form>
   )
 }

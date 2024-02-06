@@ -1,8 +1,9 @@
 'use client'
-import { recoverCustomer } from 'lib/shopify'
-import { useState } from 'react'
 
-export default function RecoverCard() {
+import { ReactElement, useState } from 'react'
+import { customerRecover } from './actions'
+
+export default function RecoverCard({returnLogin}: {returnLogin: ReactElement}) {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
 
@@ -12,7 +13,7 @@ export default function RecoverCard() {
 
   const handleRecover = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const res = await recoverCustomer({email})
+    const res = await customerRecover({email})
     if (typeof res === 'string') {
       setError(res)
     }
@@ -23,8 +24,8 @@ export default function RecoverCard() {
       onSubmit={handleRecover}
       className='card'>
       <div className='card-body'>
-        <h2 className='card-title'>Login</h2>
-        <p>Login to your account</p>
+        <h2 className='card-title'>Recover Account</h2>
+        <p>Enter email address for password change</p>
         <div>
           <label
             htmlFor='email'>
@@ -37,21 +38,22 @@ export default function RecoverCard() {
             type='text'
             placeholder='Email Address' />
         </div>
-      </div>
-      <div
-        className='card-actions'>
-        <button
-          className='btn'
-          type='submit'>
-          Login
-        </button>
-      </div>
-      {
+        <div
+          className='card-actions'>
+          <button
+            className='btn'
+            type='submit'>
+            Send
+          </button>
+        </div>
+        {
         error ? (
           <div>{error}</div>
         ) :
           null
-      }
+        }
+        {returnLogin}
+      </div>
   </form>
   )
 }

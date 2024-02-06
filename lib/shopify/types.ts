@@ -403,7 +403,8 @@ export type CustomerAddress = {
   lastName: string,
   phone: string,
   province: string,
-  zip: string
+  zip: string,
+  id?: string
 }
 
 export type ShopifyGetCustomerAddressOperation = {

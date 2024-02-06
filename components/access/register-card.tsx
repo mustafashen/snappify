@@ -29,8 +29,8 @@ export default function RegisterCard() {
       onSubmit={handleLogin}
       className='card'>
       <div className='card-body'>
-        <h2 className='card-title'>Login</h2>
-        <p>Login to your account</p>
+        <h2 className='card-title'>Register</h2>
+        <p>Create a new account</p>
         <div>
           <label
             htmlFor='email'>
