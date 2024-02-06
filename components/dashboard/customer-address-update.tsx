@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import { CustomerAddress } from 'lib/shopify/types'
 import React, { useState } from 'react'
-import { addressUpdate } from './actions'
+import { addressUpdate, addressUpdateDefault } from './actions'
 
 export default function CustomerAddressUpdate({address}: {address: CustomerAddress}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -25,6 +25,11 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
 
   const handleSubmit = async () => {
     const res = await addressUpdate({id: address.id as string, address: newAddress})
+    console.log(res)
+  }
+
+  const handleSetDefault = async () => {
+    const res = await addressUpdateDefault({id: address.id as string})
     console.log(res)
   }
 
@@ -148,6 +153,12 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   className='btn' 
                   type='submit'>
                   Update Address
+                </button>
+                <button
+                  className='btn'
+                  type='button'
+                  onClick={handleSetDefault}>
+                  Set Default
                 </button>
                 <button 
                   className='btn' 
