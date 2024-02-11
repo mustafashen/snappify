@@ -467,11 +467,13 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 export async function getProducts({
   query,
   reverse,
-  sortKey
+  sortKey,
+  first
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
+  first?: number
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
@@ -479,7 +481,8 @@ export async function getProducts({
     variables: {
       query,
       reverse,
-      sortKey
+      sortKey,
+      first,
     }
   });
 

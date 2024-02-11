@@ -1,11 +1,11 @@
 import InfoCard from 'components/product/info-card'
+import ProductRecommendations from 'components/product/product-recommendations'
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants'
 import { getProduct } from 'lib/shopify'
 import { Product } from 'lib/shopify/types'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 
 export async function generateMetadata({
   params,
@@ -66,8 +66,8 @@ export default async function page({
       JSON.parse(productParams.product) : await getProduct(params.product)
 
   return (
-    <div className='card lg:card-side bg-base-100 shadow-xl'>
-      <Suspense>
+    <div>
+      <div className='card lg:card-side bg-base-100 shadow-xl'>
         <figure>
           {
             productInfo.images.length > 0 ?
@@ -86,7 +86,10 @@ export default async function page({
           }
         </figure>
         <InfoCard productInfo={productInfo} />
-      </Suspense>
     </div>
+    <div>
+      <ProductRecommendations productId={productInfo.id}/>
+    </div>
+  </div>
   )
 }
