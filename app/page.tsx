@@ -1,4 +1,4 @@
-import Hero from 'components/banners/hero';
+import Hero from 'components/banner/hero';
 import Grid from 'components/grid';
 import { getProducts } from 'lib/shopify';
 import { Suspense } from 'react';

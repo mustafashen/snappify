@@ -1,7 +1,7 @@
 'use-client'
 
 import { CartItem } from "lib/shopify/types"
-import { X } from "react-feather"
+import { XMarkIcon } from "@heroicons/react/24/outline"
 import { removeItem } from "./actions"
 
 export default function LineRemove({line}: {line: CartItem}) {
@@ -13,7 +13,7 @@ export default function LineRemove({line}: {line: CartItem}) {
   return (
     <div>
       <button
-        onClick={handleRemove}><X/></button>
+        onClick={handleRemove}><XMarkIcon className="w-5 h-5"/></button>
     </div>
   )
 }

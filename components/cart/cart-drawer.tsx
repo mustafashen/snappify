@@ -1,5 +1,5 @@
 'use client'
-import { ShoppingBag, X } from 'react-feather'
+import { ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import CartLine from './cart-line'
 import { Cart } from 'lib/shopify/types'
 import { Dialog } from '@headlessui/react'
@@ -21,7 +21,7 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
         className='btn btn-ghost'
         type="button"
         onClick={openModal}>
-          <ShoppingBag />
+          <ShoppingBagIcon className='w-5 h-5'/>
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <Dialog.Panel className='fixed bg-base-200 top-0 right-0 h-full w-1/6'>
@@ -32,14 +32,14 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
           <button 
             onClick={closeModal}
             className='btn btn-ghost self-end'>
-            <X/>
+            <XMarkIcon className='w-5 h-5'/>
           </button>
         </div>
         <ul>
           {
             !cart || cart.lines.length === 0 ?
               (<div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
-                <ShoppingBag size={50} />
+                <ShoppingBagIcon className='w-24 h-24'/>
                 <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
               </div>) :
               (<div>

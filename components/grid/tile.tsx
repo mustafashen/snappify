@@ -1,3 +1,4 @@
+import Price from 'components/price'
 import { Product } from 'lib/shopify/types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,7 +7,7 @@ import React from 'react'
 export default function Tile({product}: {product: Product}) {
 
   return (
-    <li className="card bg-base-100 shadow-xl grid grid-rows-3">
+    <li className="card bg-base-100 shadow-xl grid grid-rows-3 aspect-[10/16]">
       <figure className='row-span-2 overflow-hidden'>
         {product.images[0] ? 
         (
@@ -20,7 +21,7 @@ export default function Tile({product}: {product: Product}) {
         />
         ) : null}
       </figure>
-      <div className="card-body row-span-1">
+      <div className="card-body row-span-1 flex flex-column justify-center">
         <Link
           href={{
               pathname: `/product/${product.handle}`,
@@ -30,8 +31,10 @@ export default function Tile({product}: {product: Product}) {
           <p>{product.description}</p>
         </Link>
         <div>
-          <strong>{product.priceRange.minVariantPrice.amount}</strong>
-          <strong>{product.priceRange.minVariantPrice.currencyCode}</strong>
+          <Price
+            amount={product.priceRange.minVariantPrice.amount}
+            currencyCode={product.priceRange.minVariantPrice.currencyCode}
+            />
         </div>
       </div>
     </li>

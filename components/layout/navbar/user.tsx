@@ -1,8 +1,9 @@
 'use client'
 import { Menu } from '@headlessui/react'
-import { User } from 'react-feather'
+import { UserIcon } from '@heroicons/react/24/outline'
 import { logoutCustomer } from '../actions'
 import Link from 'next/link'
+
 export default function UserAction() {
 
   const handleLogout = () => {
@@ -12,7 +13,7 @@ export default function UserAction() {
   return (
     <Menu as={'div'} className="dropdown dropdown-end">
       <Menu.Button className='btn btn-ghost'>
-        <User/>
+        <UserIcon className='w-5 h-5'/>
       </Menu.Button>
       <Menu.Items>
         <ul className='dropdown-content z-[1] menu'>

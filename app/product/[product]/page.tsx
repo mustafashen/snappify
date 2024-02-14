@@ -1,10 +1,10 @@
 import InfoCard from 'components/product/info-card'
+import ProductCarousel from 'components/product/product-carousel'
 import ProductRecommendations from 'components/product/product-recommendations'
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants'
 import { getProduct } from 'lib/shopify'
 import { Product } from 'lib/shopify/types'
 import { Metadata } from 'next'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({
@@ -67,29 +67,19 @@ export default async function page({
 
   return (
     <div>
-      <div className='card lg:card-side bg-base-100 shadow-xl'>
+      <div className='card bg-base-100 shadow-xl grid grid-cols-2'>
         <figure>
           {
             productInfo.images.length > 0 ?
-              productInfo.images.map((image, idx) => {
-                return (
-                  <Image
-                    src={image.url}
-                    width={300}
-                    height={300}
-                    alt={image.altText}
-                    key={idx}>
-                  </Image>
-                )
-              }) :
+              <ProductCarousel productImages={productInfo.images}/> :
               null
           }
         </figure>
         <InfoCard productInfo={productInfo} />
-    </div>
-    <div>
-      <ProductRecommendations productId={productInfo.id}/>
-    </div>
+      </div>
+      <div>
+        <ProductRecommendations productId={productInfo.id}/>
+      </div>
   </div>
   )
 }
