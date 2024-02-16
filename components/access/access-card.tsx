@@ -4,12 +4,18 @@ import LoginCard from 'components/access/login-card'
 import RegisterCard from 'components/access/register-card'
 import React, { useState } from 'react'
 import RecoverCard from './recover-card'
-import { ChevronLeft } from 'react-feather'
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 
 export default function AccessCard() {
   const [recoverView, setRecoverView] = useState(false)
 
-  const returnLogin = <button className='btn btn-link' onClick={() => setRecoverView(false)}><ChevronLeft/>Return to Login</button>
+  const returnLogin = (
+    <button className='btn btn-link' onClick={() => setRecoverView(false)}>
+      <ChevronLeftIcon 
+        className='w-5 h-5'/>
+      Return to Login
+    </button>
+  )
   const switchRecover = <button className='btn btn-link' onClick={() => setRecoverView(true)}>Forgot Password?</button>
   return (
     <div>

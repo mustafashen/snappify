@@ -5,6 +5,8 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, NextButton, PrevButton } from './embla-buttons'
 import Image from 'next/image'
 import { Image as ProductImage } from 'lib/shopify/types'
+import { StopIcon as Dot } from '@heroicons/react/24/outline'
+import { StopIcon as SelectedDot } from '@heroicons/react/24/solid'
 
 type PropType = {
   slides: ProductImage[]
@@ -53,40 +55,44 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   }, [emblaApi, onInit, onSelect])
 
   return (
-    <>
-      <div className="relative">
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex touch-pan-y">
-            {slides.map((slide, index) => (
-              <div className="w-full min-w-full flex justify-center items-center" key={index}>
-                <Image
-                  src={slide.url}
-                  alt={slide.altText}
-                  width={400}
-                  height={400}
+    <div className='relative w-full'>
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex touch-pan-y">
+          {slides.map((slide, index) => (
+            <div className="w-full min-w-full flex justify-center items-center" key={index}>
+              <Image
+                src={slide.url}
+                alt={slide.altText}
+                width={400}
+                height={400}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      {
+        slides.length > 1 ? (
+          <>
+            <div className="absolute h-0 overflow-visible top-[50%] flex w-full items-center justify-between">
+              <PrevButton onClick={scrollPrev} disabled={prevBtnDisabled} />
+              <NextButton onClick={scrollNext} disabled={nextBtnDisabled} />
+            </div>
+            <div className="absolute bottom-5 h-0 overflow-visible w-full flex items-center justify-center opacity-80">
+              {scrollSnaps.map((_, index) => (
+                <DotButton
+                  key={index}
+                  onClick={() => scrollTo(index)}
+                  className={'w-5 h-5'}
+                  icon={selectedIndex === index ? <SelectedDot/> : <Dot/>}
                 />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="absolute h-0 overflow-visible top-[50%] flex w-full items-center justify-between">
-          <PrevButton onClick={scrollPrev} disabled={prevBtnDisabled} />
-          <NextButton onClick={scrollNext} disabled={nextBtnDisabled} />
-        </div>
-      </div>
+              ))}
+            </div>
+          </>
+        ) :
+        null
+      }
 
-      <div className="absolute">
-        {scrollSnaps.map((_, index) => (
-          <DotButton
-            key={index}
-            onClick={() => scrollTo(index)}
-            className={'w-40 h-40'.concat(
-              index === selectedIndex ? ' ' : ''
-            )}
-          />
-        ))}
-      </div>
-    </>
+    </div>
   )
 }
 

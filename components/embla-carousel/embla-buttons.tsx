@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react'
 import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/outline'
-
 type PropType = PropsWithChildren<
   React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -9,10 +8,11 @@ type PropType = PropsWithChildren<
 >
 
 export const DotButton: React.FC<PropType> = (props) => {
-  const { children, ...restProps } = props
+  const { icon, children, ...restProps } = props
 
   return (
     <button type="button" {...restProps}>
+      {icon}
       {children}
     </button>
   )

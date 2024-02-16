@@ -66,8 +66,8 @@ export default async function page({
       JSON.parse(productParams.product) : await getProduct(params.product)
 
   return (
-    <div>
-      <div className='card bg-base-100 shadow-xl grid grid-cols-2'>
+    <div className='card'>
+      <div className='card-body bg-base-100 shadow-xl grid grid-cols-2'>
         <figure>
           {
             productInfo.images.length > 0 ?
