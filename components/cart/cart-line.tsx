@@ -28,32 +28,36 @@ export default function CartLine({line}: {line: CartItem}) {
   )
 
   return (
-    <li className='card card-side bg-base-100 shadow-sm box-border flex-nowrap' >
-      <figure>
-        <Image
-          width={64}
-          height={64}
-          alt={
-            line.merchandise.product.featuredImage.altText ||
-            line.merchandise.product.title
-          }
-          src={line.merchandise.product.featuredImage.url}
-        />
-      </figure>
-      <div className='card-body flex flex-col flex-nowrap'> 
-        <Link
-          href={merchandiseUrl}>
-          <div className='card-title'>
-            {line.merchandise.product.title}
-          </div>
-        </Link>
-        <div>
-          <Price
-            amount={line.cost.totalAmount.amount}
-            currencyCode={line.cost.totalAmount.currencyCode}
-          />
-          <LineQuantityEdit line={line}/>
-          <LineRemove line={line}/>
+    <li>
+      <div className="card card-side bg-base-100 shadow-xl w-full h-36 grid grid-cols-3 overflow-hidden">
+        <div className='relative col-span-1'>
+          <figure>
+            <Image
+              alt={
+                line.merchandise.product.featuredImage.altText ||
+                line.merchandise.product.title
+              }
+              src={line.merchandise.product.featuredImage.url}
+              fill
+            />
+          </figure>
+        </div>
+        <div className="card-body col-span-2">
+            <Link
+              href={merchandiseUrl}
+              className='flex-grow'>
+              <h2 className="card-title">{line.merchandise.product.title}</h2>
+              <Price
+                amount={line.cost.totalAmount.amount}
+                currencyCode={line.cost.totalAmount.currencyCode}
+              />
+            </Link>
+            <div className="card-actions">
+              <LineQuantityEdit line={line}/>
+              <LineRemove 
+                line={line}
+                classname='absolute top-4 right-4'/>
+            </div>
         </div>
       </div>
     </li>

@@ -7,20 +7,20 @@ import React from 'react'
 export default function Tile({product}: {product: Product}) {
 
   return (
-    <li className="card bg-base-100 shadow-xl grid grid-rows-3 aspect-[10/16]">
-      <figure className='row-span-2 overflow-hidden'>
-        {product.images[0] ? 
-        (
-        <Image
-          src={product.images[0]?.url}
-          alt={product.title}
-          width={0}
-          height={0}
-          sizes="100vw"
-          className='w-fit h-fit'
-        />
-        ) : null}
-      </figure>
+    <li className="card bg-base-100 shadow-xl grid grid-rows-3 aspect-[10/16] overflow-hidden">
+      <div className='relative row-span-2'>
+        <figure>
+          {product.images[0] ? 
+          (
+          <Image
+            src={product.images[0]?.url}
+            alt={product.title}
+            fill
+            className='object-cover'
+          />
+          ) : null}
+        </figure>
+      </div>
       <div className="card-body row-span-1 flex flex-column justify-center">
         <Link
           href={{
