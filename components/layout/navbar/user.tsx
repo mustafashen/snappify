@@ -16,7 +16,7 @@ export default function UserAction() {
         <UserIcon className='w-5 h-5'/>
       </Menu.Button>
       <Menu.Items>
-        <ul className='dropdown-content z-[1] menu'>
+        <ul className='dropdown-content z-[1] menu bg-base-200'>
           <li>
             <Menu.Item>
               <Link
