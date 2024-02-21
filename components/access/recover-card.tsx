@@ -23,7 +23,7 @@ export default function RecoverCard({returnLogin}: {returnLogin: ReactElement}) 
     <form
       onSubmit={handleRecover}
       className='card'>
-      <div className='card-body'>
+      <div className='card-body px-0'>
         <h2 className='card-title'>Recover Account</h2>
         <p>Enter email address for password change</p>
         <div>
@@ -39,20 +39,20 @@ export default function RecoverCard({returnLogin}: {returnLogin: ReactElement}) 
             placeholder='Email Address' />
         </div>
         <div
-          className='card-actions'>
+          className='card-actions flex-nowrap flex-col'>
           <button
             className='btn'
             type='submit'>
             Send
           </button>
+          {
+          error ? (
+            <div>{error}</div>
+          ) :
+            null
+          }
+          {returnLogin}
         </div>
-        {
-        error ? (
-          <div>{error}</div>
-        ) :
-          null
-        }
-        {returnLogin}
       </div>
   </form>
   )

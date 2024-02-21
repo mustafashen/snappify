@@ -26,7 +26,7 @@ export default function LoginCard({switchRecover}: {switchRecover: ReactElement}
     <form
       onSubmit={handleLogin}
       className='card'>
-      <div className='card-body'>
+      <div className='card-body px-0'>
         <h2 className='card-title'>Login</h2>
         <p>Login to your account</p>
         <div>
@@ -54,20 +54,20 @@ export default function LoginCard({switchRecover}: {switchRecover: ReactElement}
             placeholder='Password' />
         </div>
         <div
-          className='card-actions'>
+          className='card-actions flex-nowrap flex-col'>
           <button
             className='btn'
             type='submit'>
             Login
           </button>
-        </div>
-        {
+          {
           error ? (
             <div>{error}</div>
           ) :
             null
-        }
-        {switchRecover}
+          }
+          {switchRecover}
+        </div>
       </div>
     </form>
   )

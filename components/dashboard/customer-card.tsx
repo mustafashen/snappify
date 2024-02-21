@@ -11,7 +11,7 @@ export default function CustomerCard({customer}: {customer: Customer}) {
   <div className='card card-bordered shadow-xl'>
     <Tab.Group>
       <Tab.List 
-        className='tablist tabs-bordered'>
+        className='tabs tabs-boxed flex justify-center *:flex-grow'>
         <Tab value='info' className={`tab ui-selected:tab-active`}>
           Info
         </Tab>
