@@ -33,7 +33,7 @@ export default function CustomerAddressCreate() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className='btn btn-primary'>
+          className='btn btn-primary w-full'>
           Create Address
         </button>
       </div>

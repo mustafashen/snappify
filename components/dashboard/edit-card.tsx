@@ -21,7 +21,10 @@ export default function EditCard({customer}: {customer: Customer}) {
 
   return (
     <div className='card-body'>
-      <form onSubmit={handleCustomerUpdate}>
+      <form 
+        onSubmit={handleCustomerUpdate}
+        className='flex flex-col gap-4 *:flex *:flex-col *:gap-2'
+        >
         <div>
           <label htmlFor='firstName'>First name:</label>
           <input
@@ -72,7 +75,7 @@ export default function EditCard({customer}: {customer: Customer}) {
             onChange={handleChange}
             placeholder='New phone number'/>
         </div>
-        <div>
+        <div className='!flex-row'>
           <input
             className='checkbox checkbox-primary'
             id='acceptsMarketing' 
