@@ -19,22 +19,24 @@ export default function CustomerAddresses() {
   }, [])
 
   return (
-    <div>
-      <div>
-        <CustomerAddressCreate/>
-      </div>
-      <div>
-        <ul>
-          {
-            customerAddresses.map((address: CustomerAddress) => {
-              return (
-                <CustomerAddressCard
-                  key={address.id} 
-                  address={address}/>
-              )
-            })
-          }
-        </ul>
+    <div className="card">
+      <div className="card-body">
+        <div>
+          <CustomerAddressCreate/>
+        </div>
+        <div>
+          <ul>
+            {
+              customerAddresses.map((address: CustomerAddress) => {
+                return (
+                  <CustomerAddressCard
+                    key={address.id} 
+                    address={address}/>
+                )
+              })
+            }
+          </ul>
+        </div>
       </div>
     </div>
   )
