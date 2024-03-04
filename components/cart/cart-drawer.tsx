@@ -24,7 +24,7 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
           <ShoppingBagIcon className='w-5 h-5'/>
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <Dialog.Panel className='fixed top-0 right-0 h-full w-1/6 p-4 flex flex-col card card-bordered shadow-xl bg-base-200'>
+      <Dialog.Panel className='fixed top-0 right-0 h-full w-1/5 max-xl:w-1/2 max-md:w-full p-4 flex flex-col card card-bordered shadow-xl bg-base-200'>
         <div className='navbar justify-between mb-4'>
           <Dialog.Title className='text-2xl card-title'>
             Cart

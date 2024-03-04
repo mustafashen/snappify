@@ -1,10 +1,11 @@
-import { getMenu } from 'lib/shopify'
 import NavbarMenuItems from './navbar-menu-items'
+import { Menu } from 'lib/shopify/types'
 
-export default async function NavbarMenu() {
+export default async function NavbarMenu({menu}: {menu: Menu[]}) {
 
-  const menu = await getMenu('main-menu')
   return (
-    <NavbarMenuItems menu={menu}/>
+    <div className='max-xl:hidden'>
+      <NavbarMenuItems menu={menu}/>
+    </div>
   )
 }
