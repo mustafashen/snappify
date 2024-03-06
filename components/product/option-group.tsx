@@ -1,21 +1,27 @@
 import { RadioGroup } from '@headlessui/react'
 import { ProductOption } from 'lib/shopify/types'
-import { useState } from 'react'
 
 export default function OptionGroup({
-  option
+  option,
+  selectedValue,
+  handleValueSelect
 }: {
-  option: ProductOption
+  option: ProductOption,
+  selectedValue: string,
+  // eslint-disable-next-line no-unused-vars
+  handleValueSelect: (optionId: string ,value: string) => void
 }) {
 
-  const [selectedValue, setSelectedValue] = useState(option.values[0])
-
+  const handleChange = (value: string) => {
+    handleValueSelect(option.id, value)
+  }
+  
   return (
     <div>
       <RadioGroup 
         key={option.id}
         value={selectedValue}
-        onChange={setSelectedValue}>
+        onChange={handleChange}>
         <RadioGroup.Label>{option.name}: </RadioGroup.Label>
         <div className='flex *:mr-2'>
         {
