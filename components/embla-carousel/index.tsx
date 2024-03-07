@@ -55,17 +55,18 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   }, [emblaApi, onInit, onSelect])
 
   return (
-    <div className='relative w-full'>
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex touch-pan-y">
+    <div className='relative w-full h-full'>
+      <div className="overflow-hidden h-full" ref={emblaRef}>
+        <div className="flex touch-pan-y h-full">
           {slides.map((slide, index) => (
-            <div className="w-full min-w-full flex justify-center items-center" key={index}>
+            <div className="w-full min-w-full h-full relative flex justify-center items-center" key={index}>
+              <figure>
               <Image
                 src={slide.url}
                 alt={slide.altText}
-                width={400}
-                height={400}
+                fill
               />
+              </figure>
             </div>
           ))}
         </div>
@@ -73,7 +74,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       {
         slides.length > 1 ? (
           <>
-            <div className="absolute h-0 overflow-visible top-[50%] flex w-full items-center justify-between">
+            <div className="absolute h-0 overflow-visible top-[50%] flex w-full items-center justify-between px-5">
               <PrevButton onClick={scrollPrev} disabled={prevBtnDisabled} />
               <NextButton onClick={scrollNext} disabled={nextBtnDisabled} />
             </div>

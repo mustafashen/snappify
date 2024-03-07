@@ -3,9 +3,11 @@ import AddToCart from 'components/cart/add-to-cart'
 import { Product } from 'lib/shopify/types'
 import OptionGroup from './option-group'
 import { useEffect, useState } from 'react'
+import Price from 'components/price'
 
 export default function InfoCard({ productInfo }: { productInfo: Product }) {
 
+  // Generate initial option state from the first values of every option array
   const generateInitialValues = () => {
     const initialState: {[key: string]: string} = {}
     productInfo.options.forEach((option) => {
@@ -21,11 +23,13 @@ export default function InfoCard({ productInfo }: { productInfo: Product }) {
     setSelectedValues((prevState) => ({ ...prevState, [optionId]: newValue }))
   }
 
-  const generateInitialVariant = () => {
+  // Set initial variant state from the option state via filtering the specific variant with selected options.
+  // We set initial variant from initial option values just to have a single source of truth.
+  const setInitialVariant = () => {
     const initialValues = Object.values(selectedValues)
     
     const foundVariant = productInfo.variants.filter((variant) => {
-      const variantOptions = variant.title.replaceAll(' ', '').split('/')
+      const variantOptions = variant.title.split('/').map((variant) => variant.trim())
       if (variantOptions.every((option) => initialValues.includes(option))) {
         return true
       }
@@ -34,12 +38,12 @@ export default function InfoCard({ productInfo }: { productInfo: Product }) {
     return foundVariant[0]
   }
 
-  const [selectedVariant, setSelectedVariant] = useState(generateInitialVariant())
+  const [selectedVariant, setSelectedVariant] = useState(setInitialVariant())
 
   useEffect(() => {
     const currentSelectedValues = Object.values(selectedValues)
     const foundVariant = productInfo.variants.filter((variant) => {
-      const variantOptions = variant.title.replaceAll(' ', '').split('/')
+      const variantOptions = variant.title.split('/').map((variant) => variant.trim())
       if (variantOptions.every((option) => currentSelectedValues.includes(option))) {
         return true
       }
@@ -49,11 +53,15 @@ export default function InfoCard({ productInfo }: { productInfo: Product }) {
   }, [productInfo.variants, selectedValues])
 
   return (
-    <div className='card-body'>
+    <div className='card-body *:mb-8'>
       <h1 className='card-title'>{productInfo.title}</h1>
-      <p className='flex-grow-0'>{productInfo.description}</p>
+      <Price
+        className='text-xl font-bold flex-grow-0'
+        amount={selectedVariant?.price.amount as string}
+        currencyCode={selectedVariant?.price.currencyCode as string}/>
       <div className='flex-grow'>
-        {
+        { 
+          productInfo.variants.length === 1 && productInfo.variants[0]?.title == 'Default Title' ? null : 
           productInfo.options.map((option) => (
             <OptionGroup
               option={option}
@@ -64,7 +72,8 @@ export default function InfoCard({ productInfo }: { productInfo: Product }) {
         }
       </div>
       <div className='card-actions'>
-        <AddToCart variant={selectedVariant}/>
+        <AddToCart 
+          variant={selectedVariant}/>
       </div>
     </div>
 

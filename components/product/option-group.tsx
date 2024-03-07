@@ -17,12 +17,14 @@ export default function OptionGroup({
   }
   
   return (
-    <div>
+    <div className='mb-8'>
       <RadioGroup 
         key={option.id}
         value={selectedValue}
         onChange={handleChange}>
-        <RadioGroup.Label>{option.name}: </RadioGroup.Label>
+        <div className='mb-3'>
+          <RadioGroup.Label>{option.name} </RadioGroup.Label>
+        </div>
         <div className='flex *:mr-2'>
         {
           option.values.map((value: string, index) => (
@@ -30,7 +32,7 @@ export default function OptionGroup({
               value={value}
               key={option.id + '-' + index}
               className={({ checked }) =>
-                `${checked ? 'btn-active' : ''} btn`
+                `${checked ? 'btn-active' : ''} btn btn-outline btn-sm`
               }>
               <RadioGroup.Label>{value}</RadioGroup.Label>
             </RadioGroup.Option>

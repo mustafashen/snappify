@@ -2,16 +2,16 @@ import { ProductVariant } from 'lib/shopify/types'
 import React from 'react'
 import { addItem } from './actions'
 
-export default function AddToCart({variant}: {variant?: ProductVariant}) {
+export default function AddToCart({variant, className}: {variant?: ProductVariant, className?: string}) {
 
   const handleAddCart = (variant: ProductVariant) => {
     addItem(null, variant.id)
   }
-
+  const buttonStyle = `btn btn-block ${className}`
   if (variant && variant.availableForSale) {
     return (
       <button 
-        className='btn btn-primary'
+        className={buttonStyle}
         onClick={() => handleAddCart(variant)}>
         Add to cart
       </button>
@@ -20,7 +20,7 @@ export default function AddToCart({variant}: {variant?: ProductVariant}) {
     return (
       <button
         disabled={true}
-        className='btn btn-disabled'>
+        className={`${buttonStyle} btn-disabled`}>
           Out of stock
       </button>
     )

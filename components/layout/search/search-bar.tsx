@@ -30,7 +30,7 @@ export default function SearchBar() {
         type="text"
         value={query}
         onChange={handleChange}
-        className="input input-bordered"
+        className="input input-bordered input-sm"
         onKeyDown={handleKeyDown}/>
       <ul className='card absolute top-14'>
         { 

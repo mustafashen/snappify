@@ -54,32 +54,33 @@ export async function generateMetadata({
 }
 
 export default async function page({
-  params,
-  searchParams }: {
+  params}: {
     params: { product: string },
     searchParams: { [key: string]: string } | string[] | undefined
   }) {
 
-  const productParams = searchParams as { product: string }
-  const productInfo: Product =
-    productParams.product && typeof productParams.product === 'string' ?
-      JSON.parse(productParams.product) : await getProduct(params.product)
+  const productInfo: Product | undefined = await getProduct(params.product)
 
-  return (
-    <div className='card'>
-      <div className='card-body bg-base-100 shadow-xl grid grid-cols-2'>
-        <figure>
-          {
-            productInfo.images.length > 0 ?
-              <ProductCarousel productImages={productInfo.images}/> :
-              null
-          }
-        </figure>
-        <InfoCard productInfo={productInfo} />
-      </div>
+  if (!productInfo) return <h1>Product not found!</h1>
+  else {
+    return (
       <div>
-        <ProductRecommendations productId={productInfo.id}/>
-      </div>
-  </div>
-  )
+        <div className='card card-side bg-base-100 shadow-xl grid lg:grid-cols-2 max-lg:grid-rows-2 min-h-[90vh]'>
+          <figure>
+            {
+              productInfo.images.length > 0 ?
+                <ProductCarousel productImages={productInfo.images}/> :
+                null
+            }
+          </figure>
+          {
+            <InfoCard productInfo={productInfo} />
+          }
+        </div>
+        <div>
+            <ProductRecommendations productId={productInfo.id}/>
+        </div>
+    </div>
+    )
+  }
 }
