@@ -24,7 +24,7 @@ export default function MobileMenu({menu}: {menu: Menu[]}) {
       <Dialog 
         open={isOpen} 
         onClose={() => setIsOpen(false)}>
-        <Dialog.Panel className='fixed top-0 left-0 h-full w-full flex flex-col card card-bordered shadow-xl bg-base-200 sm:w-1/2'>
+        <Dialog.Panel className='fixed top-0 left-0 h-full w-full flex flex-col card card-bordered shadow-xl bg-base-200 sm:w-1/2 z-10'>
           <div className='navbar justify-between mb-4'>
             <Dialog.Title className='text-2xl card-title'>
               <LogoIcon/>

@@ -18,24 +18,23 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
   return (
   <>
     <button 
-        className='btn btn-ghost'
+        className='btn btn-ghost btn-square'
         type="button"
         onClick={openModal}>
           <ShoppingBagIcon className='w-5 h-5'/>
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <Dialog.Panel className='fixed top-0 right-0 h-full w-1/5 max-xl:w-1/2 max-md:w-full p-4 flex flex-col card card-bordered shadow-xl bg-base-200'>
+      <Dialog.Panel className='fixed top-0 right-0 h-full w-1/5 max-xl:w-1/2 max-md:w-full p-4 flex flex-col card card-bordered shadow-xl bg-base-200 z-10'>
         <div className='navbar justify-between mb-4'>
           <Dialog.Title className='text-2xl card-title'>
             Cart
           </Dialog.Title>
           <button 
             onClick={closeModal}
-            className='btn btn-ghost self-end'>
+            className='btn btn-ghost btn-square self-end'>
             <XMarkIcon className='w-5 h-5'/>
           </button>
         </div>
-        <hr/>
         <ul className='flex-grow'>
           {
             !cart || cart.lines.length === 0 ? (
@@ -54,7 +53,7 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
         </ul>
         <div>
           <a
-            className='btn btn-primary w-full'
+            className='btn btn-block btn-primary'
             href={cart?.checkoutUrl}>
               Checkout
           </a>
