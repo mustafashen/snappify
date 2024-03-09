@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react'
 import { quickProductQuery } from './actions'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { ChevronLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 
-export default function SearchBar() {
+export default function MobileSearch() {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [products, setProducts] = useState<Product[] | []>([])
-  const [dropdownVisible, setDropdownVisible] = useState(false)
+  const [searchVisible, setSearchVisible] = useState('hidden')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.toLowerCase())
@@ -24,51 +25,64 @@ export default function SearchBar() {
   useEffect(() => {
     quickProductQuery({query}).then(products => setProducts(products))
   }, [query])
-
-  const dropdownVisibility = () => {
-    if (query.length > 0 && products.length > 0 && dropdownVisible) return true
-  }
   
   return (
-    <div className='w-80 h-8 z-10 gap-1 flex flex-col items-center box-border overflow-visible max-lg:absolute max-lg:w-full'>
+    <>
+      <button
+        onClick={() => setSearchVisible('')}
+        className='btn btn-square btn-ghost lg:hidden'>
+        <MagnifyingGlassIcon className='w-5 h-5'/>
+      </button>
+      <div className={`absolute w-full h-full top-0 left-0 z-20 bg-base-100 p-4 ${searchVisible}`}>
+      <div className='flex items-center gap-4'>
+        <button
+          onClick={() => setSearchVisible('hidden')}
+          className='btn btn-ghost btn-square'>
+          <ChevronLeftIcon className='w-5 h-5'/>
+        </button>
+        <h1 className='text-xl font-semibold leading-none'>
+          Search
+        </h1>
+      </div>
       <label
-        onFocus={() => setDropdownVisible(true)}
-        onBlur={() => setDropdownVisible(false)}
-        className="input input-bordered input-sm flex items-center gap-2 w-full h-full">
+        className="input input-bordered input flex items-center gap-2 w-full">
         <input 
           type="text" 
-          className="grow h-full" 
+          className="grow" 
           placeholder="Search"
           value={query}
           onChange={handleChange}
           onKeyDown={handleKeyDown}/>
-        <button
-          className='btn btn-ghost btn-circle btn-xs'>
+        <Link
+          onClick={() => setSearchVisible('hidden')}
+          className='btn btn-ghost btn-circle btn-md'
+          href={{
+              pathname: `/search`,
+              query: {q: query}
+          }}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-        </button>
+        </Link>
       </label>
-      {
-        dropdownVisibility() ? (
-          <ul className='card card-bordered bg-base-100 w-full'>
-            {
-              products.map((product) => {
-                return (
-                  <li 
-                    key={product.id} 
-                    value={product.title}
-                    className='hover:bg-base-200 py-1 pl-3'>
-                    <Link
-                      href={{
-                          pathname: `/product/${product.handle}`
-                      }}>
-                      <p>{product.title}</p>
-                    </Link>
-                  </li>
-                )
-              })
-            }
-          </ul>) : null
-      }
+      <ul className=''>
+        {
+          products.map((product) => {
+            return (
+              <li 
+                key={product.id} 
+                value={product.title}
+                className='hover:bg-base-200 p-4'>
+                <Link
+                  href={{
+                      pathname: `/product/${product.handle}`
+                  }}>
+                  <p>{product.title}</p>
+                </Link>
+              </li>
+            )
+          })
+        }
+      </ul>
     </div>
+    </>
   )
 }

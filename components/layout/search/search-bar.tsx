@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { quickProductQuery } from './actions'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-
 export default function SearchBar() {
   const router = useRouter()
   const [query, setQuery] = useState('')
@@ -30,10 +29,10 @@ export default function SearchBar() {
   }
   
   return (
-    <div className='w-80 h-8 z-10 gap-1 flex flex-col items-center box-border overflow-visible max-lg:absolute max-lg:w-full'>
+    <div className='w-80 h-8 z-10 gap-1 flex flex-col items-center box-border overflow-visible'>
       <label
         onFocus={() => setDropdownVisible(true)}
-        onBlur={() => setDropdownVisible(false)}
+        onBlur={() => {setTimeout(() => setDropdownVisible(false), 180)}}
         className="input input-bordered input-sm flex items-center gap-2 w-full h-full">
         <input 
           type="text" 
@@ -42,10 +41,14 @@ export default function SearchBar() {
           value={query}
           onChange={handleChange}
           onKeyDown={handleKeyDown}/>
-        <button
-          className='btn btn-ghost btn-circle btn-xs'>
+        <Link
+          className='btn btn-ghost btn-circle btn-xs'
+          href={{
+              pathname: `/search`,
+              query: {q: query}
+          }}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-        </button>
+        </Link>
       </label>
       {
         dropdownVisibility() ? (

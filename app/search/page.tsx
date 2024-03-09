@@ -18,6 +18,21 @@ export default async function SearchPage({
 
   const products = await searchProducts({ sortKey, reverse, query: searchValue })
   return (
-    <Grid products={products}></Grid>
+    <div>
+      <div className="p-5 flex justify-between items-center">
+        <h1
+          className="text-xl font-semibold">
+          Results for &quot;{searchValue}&quot;
+        </h1>
+        <select className="select select-bordered select-sm w-full max-w-xs">
+          {
+            sorting.map((item) => (
+              <option key={item.sortKey}>{item.title}</option>
+            ))
+          }
+        </select>
+      </div>
+      <Grid products={products}></Grid>
+    </div>
   )
 }
