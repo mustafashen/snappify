@@ -6,7 +6,8 @@ export default function NavbarMenuItem({menuItem}: {menuItem: Menu}) {
     <li>
       <Link
         href={{
-          pathname: `${menuItem.path}`
+          pathname: `${menuItem.path}`,
+          query: {title: menuItem.title}
           }}>
         {menuItem.title}
       </Link>

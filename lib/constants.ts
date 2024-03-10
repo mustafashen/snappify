@@ -5,7 +5,14 @@ export type SortFilterItem = {
   reverse: boolean;
 };
 
-export const defaultSort: SortFilterItem = {
+export type SearchSortFilterItem = {
+  title: string;
+  slug: string | null;
+  sortKey: 'RELEVANCE' | 'PRICE';
+  reverse: boolean;
+};
+
+export const defaultSort: SearchSortFilterItem = {
   title: 'Relevance',
   slug: null,
   sortKey: 'RELEVANCE',
@@ -19,6 +26,13 @@ export const sorting: SortFilterItem[] = [
   { title: 'Price: Low to high', slug: 'price-asc', sortKey: 'PRICE', reverse: false }, // asc
   { title: 'Price: High to low', slug: 'price-desc', sortKey: 'PRICE', reverse: true }
 ];
+
+export const searchSorting: SearchSortFilterItem[] = [
+  defaultSort,
+  { title: 'Price: Low to high', slug: 'price-asc', sortKey: 'PRICE', reverse: false }, // asc
+  { title: 'Price: High to low', slug: 'price-desc', sortKey: 'PRICE', reverse: true }
+];
+
 
 export const TAGS = {
   collections: 'collections',

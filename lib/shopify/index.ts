@@ -774,9 +774,10 @@ export async function searchProducts({
   reverse } : {
     query?: string,
     first?: number,
-    sortKey?: 'RELEVANCE' | 'BEST_SELLING' | 'CREATED_AT' | 'PRICE',
+    sortKey?: 'RELEVANCE' | 'PRICE',
     reverse?: boolean
   }) {
+  console.log(sortKey)
   const res = await shopifyFetch<ShopifyProductSearchOperation>({
     query: productSearchQuery,
     variables: { 

@@ -1,6 +1,7 @@
 import Grid from "components/grid"
 import { searchProducts } from "lib/shopify";
-import { defaultSort, sorting } from 'lib/constants';
+import { defaultSort, searchSorting } from 'lib/constants';
+import SearchSort from "components/search/search-sort";
 
 export const metadata = {
   title: 'Search',
@@ -14,7 +15,7 @@ export default async function SearchPage({
 }) {
 
   const { sort, q: searchValue } = searchParams as { [key: string]: string };
-  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
+  const { sortKey, reverse } = searchSorting.find((item) => item.slug === sort) || defaultSort;
 
   const products = await searchProducts({ sortKey, reverse, query: searchValue })
   return (
@@ -24,13 +25,7 @@ export default async function SearchPage({
           className="text-xl font-semibold">
           Results for &quot;{searchValue}&quot;
         </h1>
-        <select className="select select-bordered select-sm w-full max-w-xs">
-          {
-            sorting.map((item) => (
-              <option key={item.sortKey}>{item.title}</option>
-            ))
-          }
-        </select>
+        <SearchSort/>
       </div>
       <Grid products={products}></Grid>
     </div>
