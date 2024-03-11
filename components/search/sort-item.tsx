@@ -10,9 +10,11 @@ export default function SortItem({item}: {item: SortFilterItem}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const q = searchParams.get('q');
+  const title = searchParams.get('title');
   const href = createUrl(
     pathname,
     new URLSearchParams({
+      ...(title && {title}),
       ...(q && { q }),
       ...(item.slug && item.slug.length && { sort: item.slug })
     })
