@@ -16,7 +16,6 @@ export default function NavbarMenuItems({menu}: {menu: Menu[]}) {
       </ul>
     )
   } else {
-    // TODO: Suspense skeleton
     return <></>
   }
 }

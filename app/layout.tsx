@@ -2,6 +2,7 @@ import { GeistSans } from 'geist/font';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
 import Navbar from 'components/layout/navbar/navbar';
+import Footer from 'components/layout/footer';
 
 const { SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -27,6 +28,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Suspense>
           <Navbar/>
           <main>{children}</main>
+          <footer>
+            <Footer/>
+          </footer>
         </Suspense>
       </body>
     </html>
