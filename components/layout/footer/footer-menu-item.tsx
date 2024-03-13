@@ -4,12 +4,12 @@ import React from 'react'
 
 export default function FooterMenuItem({menuItem}: {menuItem: Menu}) {
   return (
-    <div>
-      <Link href={menuItem.path}>
-        {
-          menuItem.title
-        }
-      </Link>
-    </div>
+    <Link
+      className='link link-hover' 
+      href={menuItem.path}>
+      {
+        menuItem.title
+      }
+    </Link>
   )
 }

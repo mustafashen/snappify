@@ -3,7 +3,7 @@ import FooterMenuItem from './footer-menu-item'
 
 export default function FooterMenuItems({menu}: {menu: Menu[]}) {
   return (
-    <div>
+    <nav>
       {
         Array.isArray(menu) ? menu.map((menuItem: Menu) => {
           return (
@@ -11,6 +11,6 @@ export default function FooterMenuItems({menu}: {menu: Menu[]}) {
           )
         }) : null
       }
-    </div>
+    </nav>
   )
 }

@@ -2,11 +2,11 @@ import clsx from 'clsx';
 import Link from 'next/link';
 
 
-export default function LogoIcon(props: React.ComponentProps<'svg'>) {
+export default function LogoIcon(props: React.ComponentProps<'svg'> & {title?: string}) {
   return (
     <Link
       href='/'>
-      <button className='btn btn-ghost'>
+      <button className='btn'>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           aria-label={`${process.env.SITE_NAME} logo`}

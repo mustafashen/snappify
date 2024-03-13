@@ -28,9 +28,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Suspense>
           <Navbar/>
           <main>{children}</main>
-          <footer>
-            <Footer/>
-          </footer>
+          <Footer/>
         </Suspense>
       </body>
     </html>
