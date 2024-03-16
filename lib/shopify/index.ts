@@ -27,11 +27,13 @@ import {
   Cart,
   Collection,
   Connection,
+  CoverImage,
   Customer,
   CustomerAccessToken,
   CustomerAddress,
   CustomerOrder,
   Image,
+  Logo,
   Menu,
   Page,
   Product,
@@ -50,9 +52,12 @@ import {
   ShopifyCustomerCreateOperation,
   ShopifyCustomerUpdateOperation,
   ShopifyDeleteCustomerAddressOperation,
+  ShopifyGetCoverOperation,
   ShopifyGetCustomerAddressOperation,
   ShopifyGetCustomerOperation,
   ShopifyGetCustomerOrdersOperation,
+  ShopifyGetLogoOperation,
+  ShopifyGetStoreDescriptionOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -66,11 +71,13 @@ import {
   ShopifyResetCustomerOperation,
   ShopifyUpdateCartOperation,
   ShopifyUpdateCustomerAddressOperation,
-  ShopifyUpdateDefaultCustomerAddressOperation
+  ShopifyUpdateDefaultCustomerAddressOperation,
+  StoreDescription
 } from './types';
 import { customerAccessTokenCreateMutation, customerAccessTokenDeleteMutation, customerActivateMutation, customerAddressCreateMutation, customerAddressDeleteMutation, customerAddressUpdateDefaultMutation, customerAddressUpdateMutation, customerCreateMutation, customerRecoverMutation, customerResetMutation, customerUpdateMutation } from './mutations/customer';
 import { productSearchQuery } from './queries/search';
 import { getCustomerAddressQuery, getCustomerOrdersQuery, getCustomerQuery } from './queries/customer';
+import { getCoverQuery, getLogoQuery, getShopDescriptionQuery } from './queries/brand';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -250,7 +257,19 @@ function reshapeCustomerAddresses(customerAddresses: CustomerAddress[]) {
 function reshapeCustomerOrder(customerOrder: CustomerOrder) {
     return {...customerOrder}
 }
-  
+
+function reshapeStoreLogo(logo: Logo) {
+  return {...logo}
+}
+
+function reshapeStoreCoverImage(coverImage: CoverImage) {
+  return {...coverImage}
+}
+
+function reshapeStoreDescription(storeDescription: StoreDescription) {
+  return {...storeDescription}
+}
+
 function reshapeCustomerOrders(customerOrders: CustomerOrder[]) {
       const reshapedOrders = [];
   
@@ -377,6 +396,33 @@ export async function getCollectionProducts({
   }
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
+}
+
+export async function getLogo() {
+  const res = await shopifyFetch<ShopifyGetLogoOperation>({
+    query: getLogoQuery,
+  });
+
+
+  return reshapeStoreLogo(res.body?.data?.shop.brand.logo);
+}
+
+export async function getCoverImage() {
+  const res = await shopifyFetch<ShopifyGetCoverOperation>({
+    query: getCoverQuery,
+  });
+
+
+  return reshapeStoreCoverImage(res.body?.data?.shop.brand.coverImage);
+}
+
+export async function getDescription() {
+  const res = await shopifyFetch<ShopifyGetStoreDescriptionOperation>({
+    query: getShopDescriptionQuery,
+  });
+
+
+  return reshapeStoreDescription(res.body?.data?.shop.brand);
 }
 
 export async function getCollections(): Promise<Collection[]> {

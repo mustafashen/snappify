@@ -595,3 +595,55 @@ export type ShopifyGetCustomerOrdersOperation = {
       first: number
     }
 }
+
+export type Logo = {
+  id: string,
+  image: Image
+}
+
+export type ShopifyGetLogoOperation = {
+  data: {
+    shop: {
+      brand: {
+        logo: {
+          id: string,
+          image: Image
+        }
+      }
+    }
+  }
+}
+
+export type CoverImage = {
+  id: string,
+  image: Image
+}
+
+export type ShopifyGetCoverOperation = {
+  data: {
+    shop: {
+      brand: {
+        coverImage: {
+          id: string,
+          image: Image
+        }
+      }
+    }
+  }
+}
+
+export type StoreDescription = {
+  shortDescription: string
+  slogan: string
+}
+
+export type ShopifyGetStoreDescriptionOperation = {
+  data: {
+    shop: {
+      brand: {
+        shortDescription: string
+        slogan: string
+      }
+    }
+  }
+}
