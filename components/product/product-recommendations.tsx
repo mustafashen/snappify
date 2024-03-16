@@ -1,4 +1,4 @@
-import Tile from 'components/grid/tile'
+import Slider from 'components/slider'
 import { getProductRecommendations } from 'lib/shopify'
 import React from 'react'
 
@@ -10,15 +10,7 @@ export default async function ProductRecommendations({productId}: {productId: st
     <div className='card'>
       <div className='card-body'>
         <h2 className='card-title'>Similar Products</h2>
-        <div className='overflow-x-auto flex flex-row flex-nowrap'>
-          {
-            recommendations.map((product) => (
-              <Tile
-                key={product.id} 
-                product={product}/>
-            ))
-          }  
-        </div>
+        <Slider products={recommendations}/>
       </div>
     </div>
   )
