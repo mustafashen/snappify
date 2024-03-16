@@ -656,13 +656,19 @@ export type ShopifyGetCoverOperation = {
 }
 
 export type StoreDescription = {
-  shortDescription: string
-  slogan: string
+  id: string,
+  name: string,
+  brand: {
+    shortDescription: string
+    slogan: string
+  }
 }
 
 export type ShopifyGetStoreDescriptionOperation = {
   data: {
     shop: {
+      id: string,
+      name: string
       brand: {
         shortDescription: string
         slogan: string

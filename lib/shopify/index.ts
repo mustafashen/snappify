@@ -276,7 +276,7 @@ function reshapeStoreCoverImage(coverImage: CoverImage) {
 }
 
 function reshapeStoreDescription(storeDescription: StoreDescription) {
-  return {...storeDescription}
+  return {...storeDescription.brand, id: storeDescription.id, name: storeDescription.name}
 }
 
 function reshapeStorePolicy(storePolicy: StorePolicy) {
@@ -452,7 +452,7 @@ export async function getDescription() {
   });
 
 
-  return reshapeStoreDescription(res.body?.data?.shop.brand);
+  return reshapeStoreDescription(res.body?.data?.shop);
 }
 
 export async function getPolicies() {

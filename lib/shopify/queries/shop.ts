@@ -52,6 +52,8 @@ export const getCoverQuery = /* GraphQL*/ `
 export const getShopDescriptionQuery = /* GraphQL*/ `
   query getDescription {
     shop {
+      id
+      name
       brand {
         shortDescription
         slogan
