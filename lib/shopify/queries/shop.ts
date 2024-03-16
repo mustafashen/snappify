@@ -1,4 +1,5 @@
 import imageFragment from "../fragments/image";
+import { ShopPolicyFragment, ShopPolicyWithDefaultFragment } from "../fragments/shop";
 
 export const getLogoQuery = /* GraphQL*/ `
   query getLogo {
@@ -57,4 +58,28 @@ export const getShopDescriptionQuery = /* GraphQL*/ `
       }
     }
   }
+`;
+
+export const getShopPolicyQuery = /* GraphQL*/ `
+  query getDescription {
+    shop {
+      privacyPolicy {
+        ...shopPolicy
+      }
+      refundPolicy {
+        ...shopPolicy
+      }
+      shippingPolicy {
+        ...shopPolicy
+      }
+      subscriptionPolicy {
+        ...shopPolicyWithDefault
+      }
+      termsOfService {
+        ...shopPolicy
+      }
+    }
+  }
+  ${ShopPolicyFragment}
+  ${ShopPolicyWithDefaultFragment}
 `;

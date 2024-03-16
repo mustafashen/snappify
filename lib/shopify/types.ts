@@ -670,3 +670,33 @@ export type ShopifyGetStoreDescriptionOperation = {
     }
   }
 }
+
+export type ShopPolicy = {
+  body: string,
+  handle: string,
+  id: string,
+  title: string,
+  url: string
+}
+
+export type Policy = 'privacyPolicy' | 'refundPolicy' | 'shippingPolicy' | 'subscriptionPolicy' | 'termsOfService'
+
+export type StorePolicy = {
+  privacyPolicy: ShopPolicy,
+  refundPolicy: ShopPolicy,
+  shippingPolicy: ShopPolicy,
+  subscriptionPolicy: ShopPolicy,
+  termsOfService: ShopPolicy
+}
+
+export type ShopifyGetStorePolicyOperation = {
+  data: {
+    shop: {
+      privacyPolicy: ShopPolicy,
+      refundPolicy: ShopPolicy,
+      shippingPolicy: ShopPolicy,
+      subscriptionPolicy: ShopPolicy,
+      termsOfService: ShopPolicy
+    }
+  }
+}

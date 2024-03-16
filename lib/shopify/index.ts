@@ -37,6 +37,7 @@ import {
   Menu,
   Page,
   Product,
+  ShopPolicy,
   ShopifyActivateCustomerOperation,
   ShopifyAddToCartOperation,
   ShopifyCart,
@@ -59,6 +60,7 @@ import {
   ShopifyGetLogoOperation,
   ShopifyGetSquareLogoOperation,
   ShopifyGetStoreDescriptionOperation,
+  ShopifyGetStorePolicyOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -74,12 +76,13 @@ import {
   ShopifyUpdateCustomerAddressOperation,
   ShopifyUpdateDefaultCustomerAddressOperation,
   SquareLogo,
-  StoreDescription
+  StoreDescription,
+  StorePolicy
 } from './types';
 import { customerAccessTokenCreateMutation, customerAccessTokenDeleteMutation, customerActivateMutation, customerAddressCreateMutation, customerAddressDeleteMutation, customerAddressUpdateDefaultMutation, customerAddressUpdateMutation, customerCreateMutation, customerRecoverMutation, customerResetMutation, customerUpdateMutation } from './mutations/customer';
 import { productSearchQuery } from './queries/search';
 import { getCustomerAddressQuery, getCustomerOrdersQuery, getCustomerQuery } from './queries/customer';
-import { getCoverQuery, getLogoQuery, getShopDescriptionQuery, getSquareLogoQuery } from './queries/brand';
+import { getCoverQuery, getLogoQuery, getShopDescriptionQuery, getShopPolicyQuery, getSquareLogoQuery } from './queries/shop';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -276,6 +279,19 @@ function reshapeStoreDescription(storeDescription: StoreDescription) {
   return {...storeDescription}
 }
 
+function reshapeStorePolicy(storePolicy: StorePolicy) {
+  const policies: ShopPolicy[] = []
+
+  Object.keys(storePolicy).forEach((policy) => {
+    policies.push({
+      //@ts-ignore
+      ...storePolicy[policy]
+    })
+  })
+
+  return policies
+}
+
 function reshapeCustomerOrders(customerOrders: CustomerOrder[]) {
       const reshapedOrders = [];
   
@@ -437,6 +453,15 @@ export async function getDescription() {
 
 
   return reshapeStoreDescription(res.body?.data?.shop.brand);
+}
+
+export async function getPolicies() {
+  const res = await shopifyFetch<ShopifyGetStorePolicyOperation>({
+    query: getShopPolicyQuery,
+  });
+
+
+  return reshapeStorePolicy(res.body?.data?.shop);
 }
 
 export async function getCollections(): Promise<Collection[]> {
