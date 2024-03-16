@@ -3,7 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 
-export default async function LogoIcon() {
+export default async function LogoIcon({
+  width,
+  height
+}: {
+  width?: number
+  height?: number
+}) {
   const logo = await getLogo()
   return (
     <Link
@@ -12,8 +18,8 @@ export default async function LogoIcon() {
         <Image
           src={logo.image.url}
           alt={logo.image.altText}
-          width={logo.image.width}
-          height={logo.image.height}
+          width={width? width : logo.image.width}
+          height={height? height : logo.image.height}
         />
       </button>
     </Link>
