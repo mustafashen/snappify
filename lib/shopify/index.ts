@@ -568,7 +568,7 @@ export async function getProducts({
       query,
       reverse,
       sortKey,
-      first,
+      first: first ? first : 250,
     }
   });
 
