@@ -1,4 +1,4 @@
-import { GeistSans } from 'geist/font';
+import { GeistSans } from 'geist/font/sans';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
 import Navbar from 'components/layout/navbar/navbar';
@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body>
         <Suspense>
           <Navbar/>
-          <main>{children}</main>
+          <main className='min-h-[100vh]'>{children}</main>
           <Footer/>
         </Suspense>
       </body>

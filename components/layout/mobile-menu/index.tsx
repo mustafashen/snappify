@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import LogoIcon from 'components/icons/logo'
+// import LogoIcon from 'components/icons/logo'
 import MobileMenuItems from './mobile-menu-items'
 import { Menu } from 'lib/shopify/types'
 
@@ -27,7 +27,7 @@ export default function MobileMenu({menu}: {menu: Menu[]}) {
         <Dialog.Panel className='fixed top-0 left-0 h-full w-full flex flex-col card card-bordered shadow-xl bg-base-200 sm:w-1/2 z-10'>
           <div className='navbar justify-between mb-4'>
             <Dialog.Title className='text-2xl card-title'>
-              <LogoIcon/>
+              {/* <LogoIcon/> */}
             </Dialog.Title>
             <button 
               onClick={() => setIsOpen(false)}

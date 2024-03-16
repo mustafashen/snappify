@@ -12,15 +12,11 @@ module.exports = {
         hostname: 'cdn.shopify.com',
         pathname: '/s/files/**'
       }
-    ]
+    ],
+    dangerouslyAllowSVG: true
   },
   async redirects() {
     return [
-      {
-        source: '/password',
-        destination: '/',
-        permanent: true
-      }
     ];
   }
 };

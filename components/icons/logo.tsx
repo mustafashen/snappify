@@ -1,22 +1,20 @@
-import clsx from 'clsx';
+import { getLogo } from 'lib/shopify';
+import Image from 'next/image';
 import Link from 'next/link';
 
 
-export default function LogoIcon(props: React.ComponentProps<'svg'> & {title?: string}) {
+export default async function LogoIcon() {
+  const logo = await getLogo()
   return (
     <Link
       href='/'>
-      <button className='btn'>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          aria-label={`${process.env.SITE_NAME} logo`}
-          viewBox="0 0 32 28"
-          {...props}
-          className={clsx('h-6 w-6', props.className)}
-        >
-          <path d="M21.5758 9.75769L16 0L0 28H11.6255L21.5758 9.75769Z" />
-          <path d="M26.2381 17.9167L20.7382 28H32L26.2381 17.9167Z" />
-        </svg>
+      <button className='btn btn-ghost'>
+        <Image
+          src={logo.image.url}
+          alt={logo.image.altText}
+          width={logo.image.width}
+          height={logo.image.height}
+        />
       </button>
     </Link>
   );

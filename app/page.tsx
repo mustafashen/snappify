@@ -1,8 +1,6 @@
 import Hero from 'components/banner/hero';
-import Grid from 'components/grid';
-import { getProducts } from 'lib/shopify';
-import { Suspense } from 'react';
-
+import BestSellers from 'components/custom-collection/best-sellers';
+import LatestArrivals from 'components/custom-collection/latest-arrivals';
 export const runtime = 'edge';
 
 export const metadata = {
@@ -14,14 +12,11 @@ export const metadata = {
 
 export default async function HomePage() {
 
-  const products = await getProducts({first: 4})
-
   return (
     <div>
       <Hero/>
-      <Suspense>
-        <Grid products={products}/>
-      </Suspense>
+      <LatestArrivals/>
+      <BestSellers/>
     </div>
   );
 }

@@ -33,16 +33,18 @@ export default async function Page({ params }: { params: { page: string } }) {
   if (!page) return notFound();
 
   return (
-    <>
-      <h1 className="">{page.title}</h1>
-      <Prose className="" html={page.body as string} />
-      <p className="">
-        {`This document was last updated on ${new Intl.DateTimeFormat(undefined, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }).format(new Date(page.updatedAt))}.`}
-      </p>
-    </>
+    <div className='card lg:max-w-[60vw] m-auto'>
+      <div className='card-body'>
+        <h1 className="card-title text-3xl py-12">{page.title}</h1>
+        <Prose className="" html={page.body as string} />
+        <p className="italic font-light py-8">
+          {`This document was last updated on ${new Intl.DateTimeFormat(undefined, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          }).format(new Date(page.updatedAt))}.`}
+        </p>
+      </div>
+    </div>
   );
 }
