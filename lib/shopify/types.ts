@@ -608,11 +608,34 @@ export type ShopifyGetLogoOperation = {
         logo: {
           id: string,
           image: Image
+        },
+        squareLogo: {
+          id: string,
+          image: Image
         }
       }
     }
   }
 }
+
+export type SquareLogo = {
+  id: string,
+  image: Image
+}
+
+export type ShopifyGetSquareLogoOperation = {
+  data: {
+    shop: {
+      brand: {
+        squareLogo: {
+          id: string,
+          image: Image
+        }
+      }
+    }
+  }
+}
+
 
 export type CoverImage = {
   id: string,

@@ -6,7 +6,25 @@ export const getLogoQuery = /* GraphQL*/ `
       brand {
         logo {
           id
-          ...image
+          image {
+            ...image
+          }
+        }
+      }
+    }
+  }
+  ${imageFragment}
+`;
+
+export const getSquareLogoQuery = /* GraphQL*/ `
+  query getLogo {
+    shop {
+      brand {
+        squareLogo {
+          id
+          image {
+            ...image
+          }
         }
       }
     }
@@ -20,7 +38,9 @@ export const getCoverQuery = /* GraphQL*/ `
       brand {
         coverImage {
           id
-          ...image
+          image {
+            ...image
+          }
         }
       }
     }

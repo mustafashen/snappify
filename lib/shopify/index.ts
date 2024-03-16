@@ -57,6 +57,7 @@ import {
   ShopifyGetCustomerOperation,
   ShopifyGetCustomerOrdersOperation,
   ShopifyGetLogoOperation,
+  ShopifyGetSquareLogoOperation,
   ShopifyGetStoreDescriptionOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
@@ -72,12 +73,13 @@ import {
   ShopifyUpdateCartOperation,
   ShopifyUpdateCustomerAddressOperation,
   ShopifyUpdateDefaultCustomerAddressOperation,
+  SquareLogo,
   StoreDescription
 } from './types';
 import { customerAccessTokenCreateMutation, customerAccessTokenDeleteMutation, customerActivateMutation, customerAddressCreateMutation, customerAddressDeleteMutation, customerAddressUpdateDefaultMutation, customerAddressUpdateMutation, customerCreateMutation, customerRecoverMutation, customerResetMutation, customerUpdateMutation } from './mutations/customer';
 import { productSearchQuery } from './queries/search';
 import { getCustomerAddressQuery, getCustomerOrdersQuery, getCustomerQuery } from './queries/customer';
-import { getCoverQuery, getLogoQuery, getShopDescriptionQuery } from './queries/brand';
+import { getCoverQuery, getLogoQuery, getShopDescriptionQuery, getSquareLogoQuery } from './queries/brand';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -262,6 +264,10 @@ function reshapeStoreLogo(logo: Logo) {
   return {...logo}
 }
 
+function reshapeStoreSquareLogo(squareLogo: SquareLogo) {
+  return {...squareLogo}
+}
+
 function reshapeStoreCoverImage(coverImage: CoverImage) {
   return {...coverImage}
 }
@@ -407,12 +413,20 @@ export async function getLogo() {
   return reshapeStoreLogo(res.body?.data?.shop.brand.logo);
 }
 
+export async function getSquareLogo() {
+  const res = await shopifyFetch<ShopifyGetSquareLogoOperation>({
+    query: getSquareLogoQuery,
+  });
+
+
+  return reshapeStoreSquareLogo(res.body?.data?.shop.brand.squareLogo);
+}
+
 export async function getCoverImage() {
   const res = await shopifyFetch<ShopifyGetCoverOperation>({
     query: getCoverQuery,
   });
-
-
+  
   return reshapeStoreCoverImage(res.body?.data?.shop.brand.coverImage);
 }
 
