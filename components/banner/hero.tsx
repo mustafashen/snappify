@@ -1,11 +1,11 @@
 import { getCoverImage } from 'lib/shopify'
 import Link from 'next/link'
-import React from 'react'
+import coverImagePlaceholder from '../../public/static/image/cover-placeholder.jpg'
 
 export default async function Hero() {
   const cover = await getCoverImage()
   return (
-  <div className="hero min-h-screen" style={{backgroundImage: `url(${cover.image ? cover.image.url : ''})`}}>
+  <div className="hero min-h-screen" style={{backgroundImage: `url(${cover && cover.image ? cover.image.url : coverImagePlaceholder.src})`}}>
     <div className="hero-overlay bg-opacity-40"></div>
     <div className="hero-content text-center text-neutral-content">
       <div className="max-w-md">

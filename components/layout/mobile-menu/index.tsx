@@ -4,9 +4,9 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 // import LogoIcon from 'components/icons/logo'
 import MobileMenuItems from './mobile-menu-items'
-import { Menu } from 'lib/shopify/types'
+import { Blog, Menu } from 'lib/shopify/types'
 
-export default function MobileMenu({menu}: {menu: Menu[]}) {
+export default function MobileMenu({menu, blogs}: {menu: Menu[], blogs: Blog[]}) {
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -35,7 +35,7 @@ export default function MobileMenu({menu}: {menu: Menu[]}) {
               <XMarkIcon className='w-5 h-5'/>
             </button>
           </div>
-          <MobileMenuItems menu={menu}/>
+          <MobileMenuItems menu={menu} blogs={blogs}/>
         </Dialog.Panel>
       </Dialog>
     </div>

@@ -45,7 +45,7 @@ export default function MobileSearch() {
         </h1>
       </div>
       <label
-        className="input input-bordered input flex items-center gap-2 w-full">
+        className="input input-bordered flex items-center gap-2 w-full">
         <input 
           type="text" 
           className="grow" 
