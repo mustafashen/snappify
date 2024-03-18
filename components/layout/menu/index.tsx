@@ -4,7 +4,7 @@ import { Menu } from 'lib/shopify/types'
 export default async function NavbarMenu({menu}: {menu: Menu[]}) {
 
   return (
-    <div className='max-xl:hidden'>
+    <div>
       <NavbarMenuItems menu={menu}/>
     </div>
   )

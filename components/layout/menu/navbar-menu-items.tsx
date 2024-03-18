@@ -5,7 +5,7 @@ export default function NavbarMenuItems({menu}: {menu: Menu[]}) {
 
   if (menu.length > 0) {
     return (
-      <ul className='menu menu-horizontal'>
+      <ul className='menu menu-horizontal menu-sm'>
         {
           menu.map((menuItem, idx) => (
             <NavbarMenuItem 

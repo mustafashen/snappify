@@ -10,23 +10,27 @@ import MobileSearch from '../search/mobile-search'
 export default async function Navbar() {
   const menu = await getMenu('main-menu')
   return (
-    <>
-      <nav className='navbar'>
-        <div className='navbar-start flex flex-row flex-nowrap'>
+    <div>
+      <nav className='flex flex-nowrap items-center justify-between px-5 py-2'>
+        <div className='flex flex-row flex-nowrap'>
           <MobileMenu menu={menu}/>
           <div><LogoIcon/></div>
-          <NavbarMenu 
-            menu={menu}/>
         </div>
         <div className='max-lg:hidden'>
           <SearchBar/>
         </div>
-        <div className='navbar-end'>
+        <div className=''>
           <MobileSearch/>
           <Cart/>
           <UserAction/>
         </div>
       </nav>
-    </>
+      <nav className='flex flex-nowrap items-center justify-center max-xl:hidden bg-base-200'>
+        <div className=''>
+          <NavbarMenu 
+            menu={menu}/>
+        </div>
+      </nav>
+    </div>
   )
 }
