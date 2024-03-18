@@ -8,7 +8,8 @@ export default function NavbarMenuItem({menuItem}: {menuItem: Menu}) {
         href={{
           pathname: `${menuItem.path}`,
           query: {title: menuItem.title}
-          }}>
+          }}
+        className="btn btn-ghost btn-md">
         {menuItem.title}
       </Link>
     </li>

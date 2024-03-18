@@ -4,16 +4,17 @@ import NavbarMenu from '../menu'
 import SearchBar from '../search/search-bar'
 import UserAction from './user'
 import MobileMenu from '../mobile-menu'
-import { getMenu } from 'lib/shopify'
+import { getBlogs, getMenu } from 'lib/shopify'
 import MobileSearch from '../search/mobile-search'
 
 export default async function Navbar() {
   const menu = await getMenu('main-menu')
+  const blogs = await getBlogs({first: 10})
   return (
     <div>
-      <nav className='flex flex-nowrap items-center justify-between px-5 py-2'>
+      <nav className='flex flex-nowrap items-center justify-between px-5 py-2 max-md:px-0'>
         <div className='flex flex-row flex-nowrap'>
-          <MobileMenu menu={menu}/>
+          <MobileMenu menu={menu} blogs={blogs}/>
           <div><LogoIcon/></div>
         </div>
         <div className='max-lg:hidden'>
@@ -28,7 +29,8 @@ export default async function Navbar() {
       <nav className='flex flex-nowrap items-center justify-center max-xl:hidden bg-base-200'>
         <div className=''>
           <NavbarMenu 
-            menu={menu}/>
+            menu={menu}
+            blogs={blogs}/>
         </div>
       </nav>
     </div>
