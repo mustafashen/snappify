@@ -24,6 +24,8 @@ import {
   getProductsQuery
 } from './queries/product';
 import {
+  Article,
+  Blog,
   Cart,
   Collection,
   Connection,
@@ -40,6 +42,9 @@ import {
   ShopPolicy,
   ShopifyActivateCustomerOperation,
   ShopifyAddToCartOperation,
+  ShopifyArticleOperation,
+  ShopifyBlogOperation,
+  ShopifyBlogsOperation,
   ShopifyCart,
   ShopifyCartOperation,
   ShopifyCollection,
@@ -83,6 +88,7 @@ import { customerAccessTokenCreateMutation, customerAccessTokenDeleteMutation, c
 import { productSearchQuery } from './queries/search';
 import { getCustomerAddressQuery, getCustomerOrdersQuery, getCustomerQuery } from './queries/customer';
 import { getCoverQuery, getLogoQuery, getShopDescriptionQuery, getShopPolicyQuery, getSquareLogoQuery } from './queries/shop';
+import { getArticleQuery, getArticlesQuery, getBlogsQuery } from './queries/blog';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -907,4 +913,37 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
+}
+
+export async function getBlogs({first}: {first: number}): Promise<Blog[]> {
+  const res = await shopifyFetch<ShopifyBlogsOperation>({
+    query: getBlogsQuery,
+    variables: { first }
+  });
+
+  const blogs = removeEdgesAndNodes(res.body.data.blogs)
+  return blogs
+}
+
+export async function getArticles({first, id}: {first: number, id: string}): Promise<Blog> {
+  const res = await shopifyFetch<ShopifyBlogOperation>({
+    query: getArticlesQuery,
+    variables: { 
+      first,
+      id
+    }
+  });
+
+  const articles = removeEdgesAndNodes(res.body.data.blog.articles)
+  const blog = {...res.body.data.blog, articles}
+  return blog;
+}
+
+export async function getArticle({id}: {id: string}): Promise<Article> {
+  const res = await shopifyFetch<ShopifyArticleOperation>({
+    query: getArticleQuery,
+    variables: { id }
+  });
+
+  return res.body.data.article;
 }

@@ -706,3 +706,63 @@ export type ShopifyGetStorePolicyOperation = {
     }
   }
 }
+
+export type Article = {
+  id: string,
+  handle: string,
+  title: string,
+  contentHtml: string
+  author: {
+    name: string
+  },
+  image: Image,
+  publishedAt: string
+}
+
+export type Blog = {
+  id: string,
+  handle: string,
+  title: string
+  articles: Article[]
+}
+
+export type ShopifyBlogsOperation = {
+  data: {
+    blogs: {
+      edges: {
+        node: Blog
+      }[]
+    }
+  },
+  variables: {
+    first: number
+  }
+}
+
+export type ShopifyBlogOperation = {
+  data: {
+    blog: {
+      id: string,
+      handle: string,
+      title: string,
+      articles: {
+        edges: {
+          node: Article
+        }[]
+      }
+    }
+  },
+  variables: {
+    id: string,
+    first: number
+  }
+}
+
+export type ShopifyArticleOperation = {
+  data: {
+    article: Article
+  },
+  variables: {
+    id: string
+  }
+}
