@@ -1,13 +1,21 @@
-import { Blog, Menu } from 'lib/shopify/types'
+import { Blog, Collection, Menu } from 'lib/shopify/types'
 import Link from 'next/link'
 import MobileMenuItem from './mobile-menu-item'
 
-export default async function MobileMenuItems({menu, blogs}: {menu: Menu[], blogs: Blog[]}) {
+export default async function MobileMenuItems({
+  menu, 
+  blogs,
+  collections
+  }: {
+    menu: Menu[], 
+    blogs: Blog[]
+    collections: Collection[]
+  }) {
 
   return (
     <div>
       <div>
-        <h2 className='text-xl font-semibold py-4 pl-5'>Collection</h2>
+        <h2 className='text-xl font-semibold py-4 pl-5'>Featured</h2>
         {
           menu.length > 0 ? (
             <ul>
@@ -19,7 +27,23 @@ export default async function MobileMenuItems({menu, blogs}: {menu: Menu[], blog
                 ))
               }
             </ul>
-          ) : <></>
+          ) : null
+        }
+      </div>
+      <div>
+        <h2 className='text-xl font-semibold py-4 pl-5'>Collections</h2>
+        {
+          collections && collections.length > 0 ? (
+            <ul>
+              {
+                collections.map((collection, idx) => (
+                  <MobileMenuItem 
+                    key={idx}
+                    menuItem={collection}/>
+                ))
+              }
+            </ul>
+          ) : null
         }
       </div>
       <div>

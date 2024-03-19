@@ -1,6 +1,6 @@
 'use server'
 
-import { createCustomerAddress, deleteCustomerAccessToken, deleteCustomerAddress, getCustomer, getCustomerAddress, updateCustomer, updateCustomerAddress, updateCustomerDefaultAddress } from "lib/shopify";
+import { createCustomerAddress, deleteCustomerAccessToken, deleteCustomerAddress, getCustomer, getCustomerAddress, getCustomerOrders, updateCustomer, updateCustomerAddress, updateCustomerDefaultAddress } from "lib/shopify";
 import { Customer, CustomerAddress } from "lib/shopify/types";
 import { cookies } from "next/headers"
 
@@ -154,4 +154,24 @@ export async function addressUpdateDefault({id}: {id: string}) {
     } catch (error: unknown) {
       return "Error during default address update"
     }
+}
+
+export async function ordersGet({first}: {first: number}) {
+  try {
+    const currentAccessToken = cookies().get('accessToken')?.value
+
+    if (typeof currentAccessToken === 'string') {
+      const accessToken = currentAccessToken as string
+      const payload = await getCustomerOrders({first, customerAccessToken: currentAccessToken})
+
+      if (payload) {
+        return payload
+      }
+    }
+
+    throw new Error()
+
+  } catch (error: unknown) {
+    return "Error during default getting orders"
+  }
 }
