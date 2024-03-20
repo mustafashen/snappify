@@ -155,7 +155,12 @@ export async function shopifyFetch<T>({
 }
 
 const removeEdgesAndNodes = (array: Connection<any>) => {
-  return array.edges.map((edge) => edge?.node);
+  return array.edges.map((edge) => {
+    if (edge.cursor) {
+      edge.node.cursor = edge.cursor;
+    }
+    return edge?.node
+  });
 };
 
 const reshapeCart = (cart: ShopifyCart): Cart => {
@@ -862,20 +867,23 @@ export async function searchProducts({
   query, 
   first,
   sortKey,
-  reverse } : {
+  reverse,
+  after } : {
     query?: string,
     first?: number,
     sortKey?: 'RELEVANCE' | 'PRICE',
-    reverse?: boolean
+    reverse?: boolean,
+    after?: string
   }) {
-  console.log(sortKey)
+
   const res = await shopifyFetch<ShopifyProductSearchOperation>({
     query: productSearchQuery,
     variables: { 
       query: query ? query : '',
       first: first ? first : 5,
       sortKey: sortKey ? sortKey : defaultSort.sortKey,
-      reverse: reverse ? reverse : defaultSort.reverse
+      reverse: reverse ? reverse : defaultSort.reverse,
+      after: after ? after : null
     },
     tags: [TAGS.cart]
   });

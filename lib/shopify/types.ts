@@ -6,6 +6,7 @@ export type Connection<T> = {
 
 export type Edge<T> = {
   node: T;
+  cursor?: string;
 };
 
 export type Cart = Omit<ShopifyCart, 'lines'> & {
@@ -150,6 +151,7 @@ export type ShopifyProductSearchOperation = {
     first?: number;
     sortKey?: 'RELEVANCE' | 'BEST_SELLING' | 'CREATED_AT' | 'PRICE';
     reverse?: boolean;
+    after: string | null;
   };
 }
 

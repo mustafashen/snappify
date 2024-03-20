@@ -1,7 +1,6 @@
-import Grid from "components/grid"
 import { searchProducts } from "lib/shopify";
 import { defaultSort, searchSorting } from 'lib/constants';
-import SearchSort from "components/search/search-sort";
+import ProductsSearch from "components/product-search";
 
 export const metadata = {
   title: 'Search',
@@ -20,14 +19,7 @@ export default async function SearchPage({
   const products = await searchProducts({ sortKey, reverse, query: searchValue })
   return (
     <div>
-      <div className="p-5 flex justify-between items-center">
-        <h1
-          className="text-xl font-semibold">
-          Results for &quot;{searchValue}&quot;
-        </h1>
-        <SearchSort/>
-      </div>
-      <Grid products={products}></Grid>
+      <ProductsSearch products={products} searchValue={searchValue}/>
     </div>
   )
 }
