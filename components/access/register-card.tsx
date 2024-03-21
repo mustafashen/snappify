@@ -33,7 +33,9 @@ export default function RegisterCard() {
         <p>Create a new account</p>
         <div>
           <label
+            className='hidden'
             htmlFor='email'>
+            Email
           </label>
           <input
             onInput={handleChange}
@@ -45,7 +47,9 @@ export default function RegisterCard() {
         </div>
         <div>
           <label
+            className='hidden'
             htmlFor='password'>
+            Password
           </label>
           <input
             onInput={handleChange}
@@ -57,7 +61,9 @@ export default function RegisterCard() {
         </div>
         <div>
           <label
+            className='hidden'
             htmlFor='firstName'>
+            First name
           </label>
           <input
             onInput={handleChange}
@@ -69,7 +75,9 @@ export default function RegisterCard() {
         </div>
         <div>
           <label
+            className='hidden'
             htmlFor='lastName'>
+            Last name
           </label>
           <input
             onInput={handleChange}

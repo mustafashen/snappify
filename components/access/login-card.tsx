@@ -31,7 +31,9 @@ export default function LoginCard({switchRecover}: {switchRecover: ReactElement}
         <p>Login to your account</p>
         <div>
           <label
+            className='hidden'
             htmlFor='email'>
+            Email
           </label>
           <input
             onInput={handleChange}
@@ -43,7 +45,9 @@ export default function LoginCard({switchRecover}: {switchRecover: ReactElement}
         </div>
         <div>
           <label
+            className='hidden'
             htmlFor='password'>
+            Password
           </label>
           <input
             onInput={handleChange}

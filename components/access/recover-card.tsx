@@ -28,7 +28,9 @@ export default function RecoverCard({returnLogin}: {returnLogin: ReactElement}) 
         <p>Enter email address for password change</p>
         <div>
           <label
+            className='hidden'
             htmlFor='email'>
+            Email
           </label>
           <input
             onInput={handleChange}
