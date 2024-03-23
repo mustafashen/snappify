@@ -19,7 +19,13 @@ export default async function SearchPage({
   const products = await searchProducts({ sortKey, reverse, query: searchValue })
   return (
     <div>
-      <ProductsSearch products={products} searchValue={searchValue}/>
+      <ProductsSearch 
+        products={products.productList}
+        pageInfo={products.pageInfo}
+        searchValue={searchValue}
+        query={searchValue}
+        sortKey={sortKey}
+        reverse={reverse}/>
     </div>
   )
 }

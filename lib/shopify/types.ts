@@ -65,6 +65,7 @@ export type Page = {
 export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
+  cursor?: string;
 };
 
 export type ProductOption = {
@@ -143,7 +144,11 @@ export type ShopifyProductSearchOperation = {
     search: {
       edges: { 
         node: ShopifyProduct
-      }[]
+      }[],
+      pageInfo: {
+        endCursor: string,
+        hasNextPage: boolean,
+      }
     };
   };
   variables: {

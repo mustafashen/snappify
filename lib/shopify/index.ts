@@ -880,7 +880,7 @@ export async function searchProducts({
     query: productSearchQuery,
     variables: { 
       query: query ? query : '',
-      first: first ? first : 5,
+      first: first ? first : 2,
       sortKey: sortKey ? sortKey : defaultSort.sortKey,
       reverse: reverse ? reverse : defaultSort.reverse,
       after: after ? after : null
@@ -888,7 +888,9 @@ export async function searchProducts({
     tags: [TAGS.cart]
   });
   const foundProduct = removeEdgesAndNodes(res.body.data.search)
-  return reshapeProducts(foundProduct)
+  const productList = reshapeProducts(foundProduct)
+
+  return {productList, pageInfo: res.body.data.search.pageInfo}
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
