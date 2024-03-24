@@ -1,6 +1,6 @@
 import { searchProducts } from "lib/shopify";
 import { defaultSort, searchSorting } from 'lib/constants';
-import ProductsSearch from "components/product-search";
+import SearchProducts from "components/products-list/search-products";
 
 export const metadata = {
   title: 'Search',
@@ -19,7 +19,7 @@ export default async function SearchPage({
   const products = await searchProducts({ sortKey, reverse, query: searchValue })
   return (
     <div>
-      <ProductsSearch 
+      <SearchProducts 
         products={products.productList}
         pageInfo={products.pageInfo}
         searchValue={searchValue}

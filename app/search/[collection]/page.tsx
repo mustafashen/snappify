@@ -1,5 +1,4 @@
-import Grid from "components/grid";
-import CollectionSort from "components/search/collection-sort";
+import CollectionProducts from "components/products-list/collection-products";
 import { defaultSort, sorting } from "lib/constants";
 import { getCollection, getCollectionProducts } from "lib/shopify"
 import { Metadata } from "next";
@@ -32,14 +31,14 @@ export default async function page({
   const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
   return (
     <div>
-      <div className="p-5 flex justify-between items-center">
-        <h1
-          className="text-xl font-semibold">
-          {title}
-        </h1>
-        <CollectionSort/>
-      </div>
-      <Grid products={products}></Grid>
+      <CollectionProducts
+        collection={params.collection}
+        title={title}
+        products={products.productList}
+        sortKey={sortKey}
+        reverse={reverse}
+        pageInfo={products.pageInfo}
+      />
     </div>
   )
 }

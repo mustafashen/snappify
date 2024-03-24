@@ -219,13 +219,23 @@ export type ShopifyCollectionOperation = {
 export type ShopifyCollectionProductsOperation = {
   data: {
     collection: {
-      products: Connection<ShopifyProduct>;
+      products: {
+        edges: { 
+          node: ShopifyProduct
+        }[],
+        pageInfo: {
+          endCursor: string,
+          hasNextPage: boolean,
+        }
+      };
     };
   };
   variables: {
     handle: string;
     reverse?: boolean;
     sortKey?: string;
+    first?: number;
+    after: string | null;
   };
 };
 

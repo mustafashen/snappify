@@ -1,24 +1,24 @@
 'use client'
 import Grid from "components/grid";
-import SearchSort from "components/search/search-sort";
 import { Product } from "lib/shopify/types";
 import { useState } from "react";
-import { getMoreProducts } from "./actions";
+import { getMoreCollectionProducts } from "./actions";
+import CollectionSort from "components/search/collection-sort";
 
 
-export default function ProductsSearch({
+export default function CollectionProducts({
   products, 
-  searchValue,
+  title,
   sortKey,
   reverse,
-  query,
+  collection,
   pageInfo
 }: {
     products: Product[], 
-    searchValue?: string,
-    sortKey: 'RELEVANCE' | 'PRICE',
+    title?: string,
+    sortKey: 'RELEVANCE' | 'BEST_SELLING' | 'CREATED_AT' | 'PRICE',
     reverse: boolean,
-    query?: string,
+    collection: string,
     pageInfo: {
       hasNextPage: boolean,
       endCursor: string
@@ -28,8 +28,9 @@ export default function ProductsSearch({
   const [hasNextPage, setHasNextPage] = useState(pageInfo.hasNextPage);
   const [endCursor, setEndCursor] = useState(pageInfo.endCursor);
   const handleLoadMore = async () => {
-    const nextProducts = await getMoreProducts({sortKey, reverse, query, cursor: endCursor})
+    const nextProducts = await getMoreCollectionProducts({collection, sortKey, reverse, cursor: endCursor})
     
+    console.log(nextProducts)
     setEndCursor(nextProducts.pageInfo.endCursor)
     setHasNextPage(nextProducts.pageInfo.hasNextPage)
     setCurrentProducts([...currentProducts, ...(nextProducts.productList)])
@@ -40,13 +41,12 @@ export default function ProductsSearch({
       <div className="p-5 flex justify-between items-center">
         <h1
           className="text-xl font-semibold">
-          Results for &quot;{searchValue}&quot;
+          {title}
         </h1>
-        <SearchSort/>
+        <CollectionSort/>
       </div>
       <div>
-        <Grid
-          products={currentProducts}/>
+        <Grid products={currentProducts}></Grid>
       </div>
       <div className="flex justify-center p-5">
         {hasNextPage ? (
@@ -58,7 +58,6 @@ export default function ProductsSearch({
         ) : (
           <button
             disabled={true}
-            onClick={handleLoadMore}
             className="btn btn-outline btn-block btn-disabled">
             Load More
           </button>
