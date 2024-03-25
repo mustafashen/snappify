@@ -8,6 +8,6 @@ export const quickProductQuery = async ({query}: {query: string}) => {
   }
 
   const products = await searchProducts({query, first: 5})
-  return products
+  return products.productList
 
 }
