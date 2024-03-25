@@ -1,23 +1,20 @@
 'use client'
 import Grid from "components/grid";
 import { Product } from "lib/shopify/types";
-import { useState } from "react";
-import { getMoreCollectionProducts } from "./actions";
-import CollectionSort from "components/search/collection-sort";
+import { useEffect, useState } from "react";
+import { getMoreCollectionProducts, getNewCollectionProducts } from "./actions";
+import CollectionSort from "components/sorting/collection-sort";
+import { defaultSort } from "lib/constants";
 
 
 export default function CollectionProducts({
   products, 
   title,
-  sortKey,
-  reverse,
   collection,
   pageInfo
 }: {
     products: Product[], 
     title?: string,
-    sortKey: 'RELEVANCE' | 'BEST_SELLING' | 'CREATED_AT' | 'PRICE',
-    reverse: boolean,
     collection: string,
     pageInfo: {
       hasNextPage: boolean,
@@ -27,14 +24,23 @@ export default function CollectionProducts({
   const [currentProducts, setCurrentProducts] = useState(products);
   const [hasNextPage, setHasNextPage] = useState(pageInfo.hasNextPage);
   const [endCursor, setEndCursor] = useState(pageInfo.endCursor);
+  const [sortState, setSortState] = useState(defaultSort)
+
   const handleLoadMore = async () => {
-    const nextProducts = await getMoreCollectionProducts({collection, sortKey, reverse, cursor: endCursor})
+    const nextProducts = await getMoreCollectionProducts({collection, sortKey: sortState.sortKey, reverse: sortState.reverse, cursor: endCursor})
     
-    console.log(nextProducts)
     setEndCursor(nextProducts.pageInfo.endCursor)
     setHasNextPage(nextProducts.pageInfo.hasNextPage)
     setCurrentProducts([...currentProducts, ...(nextProducts.productList)])
   }
+
+  useEffect(() => {
+    getNewCollectionProducts({collection, sortKey: sortState.sortKey, reverse: sortState.reverse}).then((nextProducts) => {
+      setEndCursor(nextProducts.pageInfo.endCursor)
+      setHasNextPage(nextProducts.pageInfo.hasNextPage)
+      setCurrentProducts([...(nextProducts.productList)])
+    })
+  }, [sortState, collection])
 
   return (
     <div>
@@ -43,7 +49,10 @@ export default function CollectionProducts({
           className="text-xl font-semibold">
           {title}
         </h1>
-        <CollectionSort/>
+        <CollectionSort
+          sortState={sortState}
+          setSortState={setSortState}
+          />
       </div>
       <div>
         <Grid products={currentProducts}></Grid>

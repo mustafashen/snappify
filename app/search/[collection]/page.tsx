@@ -35,8 +35,6 @@ export default async function page({
         collection={params.collection}
         title={title}
         products={products.productList}
-        sortKey={sortKey}
-        reverse={reverse}
         pageInfo={products.pageInfo}
       />
     </div>

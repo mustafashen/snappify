@@ -23,9 +23,7 @@ export default async function SearchPage({
         products={products.productList}
         pageInfo={products.pageInfo}
         searchValue={searchValue}
-        query={searchValue}
-        sortKey={sortKey}
-        reverse={reverse}/>
+        query={searchValue}/>
     </div>
   )
 }

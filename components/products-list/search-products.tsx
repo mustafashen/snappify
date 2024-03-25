@@ -1,23 +1,20 @@
 'use client'
 import Grid from "components/grid";
-import SearchSort from "components/search/search-sort";
+import SearchSort from "components/sorting/search-sort";
 import { Product } from "lib/shopify/types";
-import { useState } from "react";
-import { getMoreSearchProducts } from "./actions";
+import { useEffect, useState } from "react";
+import { getMoreSearchProducts, getNewSearchProducts } from "./actions";
+import { defaultSort } from "lib/constants";
 
 
 export default function SearchProducts({
   products, 
   searchValue,
-  sortKey,
-  reverse,
   query,
   pageInfo
 }: {
     products: Product[], 
     searchValue?: string,
-    sortKey: 'RELEVANCE' | 'PRICE',
-    reverse: boolean,
     query?: string,
     pageInfo: {
       hasNextPage: boolean,
@@ -27,13 +24,23 @@ export default function SearchProducts({
   const [currentProducts, setCurrentProducts] = useState(products);
   const [hasNextPage, setHasNextPage] = useState(pageInfo.hasNextPage);
   const [endCursor, setEndCursor] = useState(pageInfo.endCursor);
+  const [sortState, setSortState] = useState(defaultSort)
+
   const handleLoadMore = async () => {
-    const nextProducts = await getMoreSearchProducts({sortKey, reverse, query, cursor: endCursor})
+    const nextProducts = await getMoreSearchProducts({sortKey: sortState.sortKey, reverse: sortState.reverse, query, cursor: endCursor})
     
     setEndCursor(nextProducts.pageInfo.endCursor)
     setHasNextPage(nextProducts.pageInfo.hasNextPage)
     setCurrentProducts([...currentProducts, ...(nextProducts.productList)])
   }
+
+  useEffect(() => {
+    getNewSearchProducts({query, sortKey: sortState.sortKey, reverse: sortState.reverse}).then((nextProducts) => {
+      setEndCursor(nextProducts.pageInfo.endCursor)
+      setHasNextPage(nextProducts.pageInfo.hasNextPage)
+      setCurrentProducts([...(nextProducts.productList)])
+    })
+  }, [sortState, query])
 
   return (
     <div>
@@ -42,7 +49,10 @@ export default function SearchProducts({
           className="text-xl font-semibold">
           Results for &quot;{searchValue}&quot;
         </h1>
-        <SearchSort/>
+        <SearchSort
+          sortState={sortState}
+          setSortState={setSortState}
+          />
       </div>
       <div>
         <Grid
