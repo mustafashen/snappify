@@ -6,6 +6,7 @@ import UserAction from './user'
 import MobileMenu from '../mobile-menu'
 import { getBlogs, getCollections, getMenu } from 'lib/shopify'
 import MobileSearch from '../search/mobile-search'
+import Wishlist from 'components/wishlist'
 
 export default async function Navbar() {
   const menu = await getMenu('main-menu')
@@ -26,6 +27,7 @@ export default async function Navbar() {
         </div>
         <div className=''>
           <MobileSearch/>
+          <Wishlist/>
           <Cart/>
           <UserAction/>
         </div>

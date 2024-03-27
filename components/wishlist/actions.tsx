@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { cookies } from "next/headers"
 
@@ -22,4 +22,11 @@ export async function toggleItem(productId: string | undefined) {
     cookies().set('wishlist', JSON.stringify(wishlistItems))
   }
 
+}
+
+export async function getWishlist() {
+  const wishlist = cookies().get('wishlist') ? cookies().get('wishlist') : undefined
+
+  if (wishlist) return JSON.parse(wishlist.value)
+  else return "No wishlist created yet"
 }
