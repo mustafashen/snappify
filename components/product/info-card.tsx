@@ -4,6 +4,7 @@ import { Product } from 'lib/shopify/types'
 import OptionGroup from './option-group'
 import { useEffect, useState } from 'react'
 import Price from 'components/price'
+import AddToWishlist from 'components/wishlist/line-add'
 
 export default function InfoCard({ productInfo }: { productInfo: Product }) {
 
@@ -71,9 +72,11 @@ export default function InfoCard({ productInfo }: { productInfo: Product }) {
           ))
         }
       </div>
-      <div className='card-actions'>
+      <div className='flex gap-2'>
         <AddToCart 
+          className='flex-grow'
           variant={selectedVariant}/>
+        <AddToWishlist product={productInfo}/>
       </div>
     </div>
 

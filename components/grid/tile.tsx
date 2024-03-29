@@ -1,4 +1,5 @@
 import Price from 'components/price'
+import AddToWishlist from 'components/wishlist/line-add'
 import { Product } from 'lib/shopify/types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -34,6 +35,9 @@ export default function Tile({product}: {product: Product}) {
                 currencyCode={product.priceRange.minVariantPrice.currencyCode}
                 />
             </div>
+            <AddToWishlist
+              product={product} 
+              className='absolute right-2 top-2 btn-circle btn-sm'/>
           </div>
         </div>
       </Link>
