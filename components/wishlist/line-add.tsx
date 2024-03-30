@@ -1,19 +1,18 @@
 'use client'
-import { Product } from "lib/shopify/types"
 import { toggleItem } from "./actions"
 import { HeartIcon } from "@heroicons/react/24/outline"
 
-export default function AddToWishlist({product, className}: {product?: Product, className?: string}) {
-  const handleToggleLine = (product: Product) => {
-    toggleItem(product)
+export default function AddToWishlist({productHandle, className}: {productHandle?: string, className?: string}) {
+  const handleToggleLine = (productHandle: string) => {
+    toggleItem(productHandle)
   }
-
+  console.log(productHandle)
   const buttonStyle = `btn ${className}`
-  if (product) {
+  if (productHandle) {
     return (
       <button 
         className={buttonStyle}
-        onClick={() => handleToggleLine(product)}>
+        onClick={() => handleToggleLine(productHandle)}>
         <HeartIcon className="w-5 h-5"/>
       </button>
     )

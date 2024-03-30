@@ -3,9 +3,8 @@ import { Dialog } from '@headlessui/react'
 import { HeartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 import WishlistLine from './wishlist-line'
-import { Product } from 'lib/shopify/types'
 
-export default function WishlistDrawer({wishlist}: {wishlist: any}) {
+export default function WishlistDrawer({wishlist}: {wishlist: string[]}) {
   const [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -35,7 +34,7 @@ export default function WishlistDrawer({wishlist}: {wishlist: any}) {
             <XMarkIcon className='w-5 h-5'/>
           </button>
         </div>
-        <ul className='flex-grow'>
+        <ul className='flex-grow overflow-auto'>
           {
             !wishlist || wishlist.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
@@ -45,19 +44,12 @@ export default function WishlistDrawer({wishlist}: {wishlist: any}) {
               ) : (
                 <div className='flex flex-col gap-4'>
                   {
-                    wishlist.map((line: Product, index: number) => <WishlistLine key={index} line={line}/>)
+                    wishlist.map((productHandle: string, index: number) => <WishlistLine key={index} productHandle={productHandle}/>)
                   }
                 </div>
               )
           }
         </ul>
-        <div>
-          <a
-            className='btn btn-block btn-primary'
-            href={wishlist?.checkoutUrl}>
-              Checkout
-          </a>
-        </div>
       </Dialog.Panel>
     </Dialog>
   </>

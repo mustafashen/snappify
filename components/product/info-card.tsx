@@ -76,7 +76,7 @@ export default function InfoCard({ productInfo }: { productInfo: Product }) {
         <AddToCart 
           className='flex-grow'
           variant={selectedVariant}/>
-        <AddToWishlist product={productInfo}/>
+        <AddToWishlist productHandle={productInfo.handle}/>
       </div>
     </div>
 
