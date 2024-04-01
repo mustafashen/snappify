@@ -20,8 +20,8 @@ export default function UserAction() {
           <li>
             <Menu.Item>
               <Link
-                href={'/dashboard'}>
-                Dashboard
+                href={'/account'}>
+                Account
               </Link>
             </Menu.Item>
           </li>

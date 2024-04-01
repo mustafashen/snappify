@@ -5,12 +5,8 @@ export default function page() {
   const accessToken = cookies().get('accessToken')?.value
   
   if (accessToken) {
-    redirect(`/dashboard/${accessToken}`)
+    redirect(`/account/${accessToken}`)
   } else {
     redirect(`/access`)
   }
-
-  return (
-    <div>Redirecting...</div>
-  )
 }

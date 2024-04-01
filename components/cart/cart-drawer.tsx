@@ -35,7 +35,7 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
             <XMarkIcon className='w-5 h-5'/>
           </button>
         </div>
-        <ul className='flex-grow'>
+        <ul className='flex-grow overflow-auto'>
           {
             !cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
