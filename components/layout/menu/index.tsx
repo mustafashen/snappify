@@ -12,7 +12,7 @@ export default async function NavbarMenu({
 }) { 
    
   return (
-    <div className='flex items-center animate-fade-down'>
+    <div className='flex items-center'>
       <NavbarMenuItems 
         menu={menu}
         blogs={blogs}
