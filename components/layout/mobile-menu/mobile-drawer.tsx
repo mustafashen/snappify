@@ -19,8 +19,8 @@ export default function MobileDrawer({
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div>
-      <div className="">
+    <div className='bg-base-200'>
+      <div>
         <button
           type="button"
           onClick={() => setIsOpen(true)}
@@ -32,7 +32,7 @@ export default function MobileDrawer({
       <Dialog 
         open={isOpen} 
         onClose={() => setIsOpen(false)}>
-        <Dialog.Panel className='fixed top-0 left-0 h-full w-full flex flex-col card card-bordered shadow-xl bg-base-200 sm:w-1/2 z-10'>
+        <Dialog.Panel className='fixed top-0 left-0 h-full w-full flex flex-col card card-bordered shadow-xl bg-base-200 sm:w-1/2 z-10 animate-fade-right'>
           <div className='navbar justify-between mb-4'>
             <Dialog.Title className='flex items-center'>
               <LogoIcon/>

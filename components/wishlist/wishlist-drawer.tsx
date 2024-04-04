@@ -23,7 +23,7 @@ export default function WishlistDrawer({wishlist}: {wishlist: string[]}) {
           <HeartIcon className='w-5 h-5'/>
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <Dialog.Panel className='fixed top-0 right-0 h-full w-1/5 max-xl:w-1/2 max-md:w-full p-4 flex flex-col card card-bordered shadow-xl bg-base-200 z-10'>
+      <Dialog.Panel className='fixed top-0 right-0 h-full w-1/5 max-xl:w-1/2 max-md:w-full p-4 flex flex-col card card-bordered shadow-xl bg-base-200 z-10 animate-fade-left'>
         <div className='navbar justify-between mb-4'>
           <Dialog.Title className='text-2xl card-title'>
             Wishlist

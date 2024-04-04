@@ -14,29 +14,30 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
     require("daisyui"),
-    require('@headlessui/tailwindcss')
+    require('@headlessui/tailwindcss'),
+    require('tailwindcss-animated')
   ],
   daisyui: {
     themes: [{
       custom: {
-        "--rounded-box": "0.15rem",
-        "--rounded-btn": "0.05rem",
-        "--rounded-badge": "0.15rem",
-        "--animation-btn": "0.1s",
-        "--animation-input": "0.08s",
-        "--btn-focus-scale": "0.98",
-        "--border-btn": "1.5px",
-        "--tab-border": "1.5px",
-        "--tab-radius": "0.15rem",
-        "primary": "#273c75",
-        "secondary": "#3e528d",
-        "accent": "#84a5c5",
-        "neutral": "#4e5667",
-        "base-100": "#fafafa",
-        "info": "#273c75",
-        "success": "#3e528d",
-        "warning": "#84a5c5",
-        "error": "#e74c3c"
+        "--rounded-box": "0.3rem",
+        "--rounded-btn": "0.2rem",
+        "--rounded-badge": "0.3rem",
+        "--animation-btn": "0.3s",
+        "--animation-input": "0.2s",
+        "--btn-focus-scale": "0.94",
+        "--border-btn": "2.5px",
+        "--tab-border": "2.5px",
+        "--tab-radius": "0.3rem",
+        "primary": "#00be93",
+        "secondary": "#005fff",
+        "accent": "#00efff",
+        "neutral": "#0e101f",
+        "base-100": "#fffbf6",
+        "info": "#0083c5",
+        "success": "#008a6a",
+        "warning": "#ffd000",
+        "error": "#ff4c75"
       }
     }]
   }

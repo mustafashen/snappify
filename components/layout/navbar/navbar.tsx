@@ -13,7 +13,7 @@ export default async function Navbar() {
   const blogs = await getBlogs({first: 10})
   const collections = await getCollections()
   return (
-    <div>
+    <div className='bg-base-200'>
       <nav className='flex flex-nowrap items-center justify-between px-5 py-2 max-md:px-0'>
         <div className='flex flex-row flex-nowrap'>
           <MobileMenu 
@@ -25,15 +25,15 @@ export default async function Navbar() {
         <div className='max-lg:hidden'>
           <SearchBar/>
         </div>
-        <div className=''>
+        <div className='flex flex-nowrap'>
           <MobileSearch/>
           <Wishlist/>
           <Cart/>
           <UserAction/>
         </div>
       </nav>
-      <nav className='flex flex-nowrap items-center justify-center max-xl:hidden bg-base-200'>
-        <div className=''>
+      <nav className='flex flex-nowrap items-center justify-center max-xl:hidden'>
+        <div>
           <NavbarMenu 
             menu={menu}
             blogs={blogs}

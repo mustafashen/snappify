@@ -43,7 +43,7 @@ export default function RecoverCard({returnLogin}: {returnLogin: ReactElement}) 
         <div
           className='card-actions flex-nowrap flex-col'>
           <button
-            className='btn'
+            className='btn btn-primary'
             type='submit'>
             Send
           </button>

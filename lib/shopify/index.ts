@@ -29,7 +29,7 @@ import {
   Cart,
   Collection,
   Connection,
-  CoverImage,
+  Cover,
   Customer,
   CustomerAccessToken,
   CustomerAddress,
@@ -282,8 +282,8 @@ function reshapeStoreSquareLogo(squareLogo: SquareLogo) {
   return {...squareLogo}
 }
 
-function reshapeStoreCoverImage(coverImage: CoverImage) {
-  return {...coverImage}
+function reshapeStoreCover(brand: Cover) {
+  return {...brand}
 }
 
 function reshapeStoreDescription(storeDescription: StoreDescription) {
@@ -462,12 +462,12 @@ export async function getSquareLogo() {
   return reshapeStoreSquareLogo(res.body?.data?.shop.brand.squareLogo);
 }
 
-export async function getCoverImage() {
+export async function getCover() {
   const res = await shopifyFetch<ShopifyGetCoverOperation>({
     query: getCoverQuery,
   });
   
-  return reshapeStoreCoverImage(res.body?.data?.shop.brand.coverImage);
+  return reshapeStoreCover(res.body?.data?.shop.brand);
 }
 
 export async function getDescription() {

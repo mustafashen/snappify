@@ -37,6 +37,8 @@ export const getCoverQuery = /* GraphQL*/ `
   query getCover {
     shop {
       brand {
+        slogan
+        shortDescription
         coverImage {
           id
           image {

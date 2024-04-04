@@ -29,14 +29,14 @@ export default function SearchBar() {
   }
   
   return (
-    <div className='w-80 h-8 z-10 gap-1 flex flex-col items-center box-border overflow-visible'>
+    <div className='w-80 h-8 z-10 gap-1 flex flex-col items-center box-border overflow-visible bg-base-100'>
       <label
         onFocus={() => setDropdownVisible(true)}
         onBlur={() => {setTimeout(() => setDropdownVisible(false), 180)}}
         className="input input-bordered input-sm flex items-center gap-2 w-full h-full">
         <input 
           type="text" 
-          className="grow h-full" 
+          className="grow h-full bg-base-100" 
           placeholder="Search"
           value={query}
           onChange={handleChange}
@@ -52,7 +52,7 @@ export default function SearchBar() {
       </label>
       {
         dropdownVisibility() ? (
-          <ul className='card card-bordered bg-base-100 w-full'>
+          <ul className='card card-bordered bg-base-100 w-full z-30 animate-fade-down'>
             {
               products.map((product) => {
                 return (

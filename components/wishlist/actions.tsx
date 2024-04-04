@@ -32,6 +32,5 @@ export async function getWishlist() {
 }
 
 export async function getWishlistProduct(productHandle: string) {
-  console.log(productHandle)
   return await getProduct(productHandle)
 }

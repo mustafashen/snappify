@@ -654,18 +654,24 @@ export type ShopifyGetSquareLogoOperation = {
 }
 
 
-export type CoverImage = {
-  id: string,
-  image: Image
+export type Cover = {
+  coverImage: {
+    id: string,
+    image: Image,
+  }
+  slogan: string,
+  shortDescription: string
 }
 
 export type ShopifyGetCoverOperation = {
   data: {
     shop: {
       brand: {
+        slogan: string,
+        shortDescription: string
         coverImage: {
           id: string,
-          image: Image
+          image: Image,
         }
       }
     }

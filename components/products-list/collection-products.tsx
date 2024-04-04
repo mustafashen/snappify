@@ -49,10 +49,12 @@ export default function CollectionProducts({
           className="text-xl font-semibold">
           {title}
         </h1>
-        <CollectionSort
-          sortState={sortState}
-          setSortState={setSortState}
-          />
+        <div className="max-sm:w-36">
+          <CollectionSort
+            sortState={sortState}
+            setSortState={setSortState}
+            />
+        </div>
       </div>
       <div>
         <Grid products={currentProducts}></Grid>

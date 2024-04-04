@@ -90,7 +90,7 @@ export default function RegisterCard() {
         <div
           className='card-actions'>
           <button
-            className='btn'
+            className='btn btn-primary'
             type='submit'>
             Create Account
           </button>

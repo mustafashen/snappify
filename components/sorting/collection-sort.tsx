@@ -9,7 +9,7 @@ export default function CollectionSort({
   setSortState: Dispatch<SetStateAction<SearchSortFilterItem>>
 }) {
   return (
-    <select
+    <select 
       value={sortState.title}
       onChange={(e) => {
         const newSort = sorting.find((item) => item.title === e.target.value) as SearchSortFilterItem;

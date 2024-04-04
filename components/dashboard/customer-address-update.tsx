@@ -46,7 +46,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
         onClose={() => setIsOpen(false)}
         className='card'>
         <div className='fixed top-0 w-full h-full flex justify-center items-center'>
-          <Dialog.Panel className='card bg-base-200 w-1/3'>
+          <Dialog.Panel className='card bg-base-200 w-[600px] animate-fade-up'>
             <div className='card-body'>
               <Dialog.Title className='card-title'>Update Address</Dialog.Title>
               <form action={handleSubmit} className='flex flex-col gap-4'>
@@ -57,7 +57,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='firstName' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.firstName}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -67,7 +67,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='lastName' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.lastName}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -77,7 +77,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='phone' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.phone}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -87,7 +87,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='country' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.country}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -97,7 +97,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='city' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.city}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -107,7 +107,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='province' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.province}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -117,7 +117,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='zip' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.zip}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -127,7 +127,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='address1' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.address1}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -137,7 +137,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='address2' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.address2}/>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -147,7 +147,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
                   <input
                     onChange={handleChange}
                     id='company' 
-                    className='input input-bordered'
+                    className='input input-primary input-bordered'
                     value={newAddress.company}/>
                 </div>
                 <div className='card-actions'>

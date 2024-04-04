@@ -9,7 +9,7 @@ import CustomerOrders from './customer-orders'
 
 export default function CustomerCard({customer}: {customer: Customer}) {
   return (
-    <div className='pt-16 overflow-visible flex justify-center items-center'>
+    <div className='pt-16 overflow-visible flex justify-center items-center animate-fade-up'>
       <div className='card card-bordered w-96'>
         <Tab.Group>
           <Tab.List 

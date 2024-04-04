@@ -60,7 +60,7 @@ export default function LoginCard({switchRecover}: {switchRecover: ReactElement}
         <div
           className='card-actions flex-nowrap flex-col'>
           <button
-            className='btn'
+            className='btn btn-primary'
             type='submit'>
             Login
           </button>

@@ -44,15 +44,17 @@ export default function SearchProducts({
 
   return (
     <div>
-      <div className="p-5 flex justify-between items-center">
+      <div className="p-5 flex flex-col">
         <h1
           className="text-xl font-semibold">
           Results for &quot;{searchValue}&quot;
         </h1>
-        <SearchSort
-          sortState={sortState}
-          setSortState={setSortState}
-          />
+        <div className="max-sm:w-36 self-end">
+          <SearchSort
+            sortState={sortState}
+            setSortState={setSortState}
+            />
+        </div>
       </div>
       <div>
         <Grid

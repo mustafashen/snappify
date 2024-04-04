@@ -7,7 +7,7 @@ export default function AddToCart({variant, className}: {variant?: ProductVarian
   const handleAddCart = (variant: ProductVariant) => {
     addItem(null, variant.id)
   }
-  const buttonStyle = `btn ${className}`
+  const buttonStyle = `btn btn-primary ${className}`
   if (variant && variant.availableForSale) {
     return (
       <button 

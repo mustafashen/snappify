@@ -6,6 +6,7 @@ export default async function ProductRecommendations({productId}: {productId: st
   
   const recommendations = await getProductRecommendations(productId)
 
+  if (recommendations.length === 0) return null
   return (
     <div className='card'>
       <div className='card-body'>
