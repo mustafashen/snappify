@@ -17,9 +17,10 @@ export default function WishlistDrawer({wishlist}: {wishlist: string[]}) {
   return (
   <>
     <button 
-        className='btn btn-ghost btn-square'
+        className='btn btn-ghost btn-square relative'
         type="button"
         onClick={openModal}>
+          <span className='absolute bottom-0 right-0 rounded-full bg-neutral flex justify-center items-center w-5 h-5'>{wishlist.length}</span>
           <HeartIcon className='w-5 h-5'/>
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>

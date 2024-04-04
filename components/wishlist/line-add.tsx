@@ -6,7 +6,6 @@ export default function AddToWishlist({productHandle, className}: {productHandle
   const handleToggleLine = (productHandle: string) => {
     toggleItem(productHandle)
   }
-  console.log(productHandle)
   const buttonStyle = `btn btn-secondary ${className}`
   if (productHandle) {
     return (

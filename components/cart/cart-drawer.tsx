@@ -18,9 +18,10 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
   return (
   <>
     <button 
-        className='btn btn-ghost btn-square'
+        className='btn btn-ghost btn-square relative'
         type="button"
         onClick={openModal}>
+          <span className='absolute bottom-0 right-0 rounded-full bg-neutral flex justify-center items-center w-5 h-5'>{cart?.lines.length}</span>
           <ShoppingBagIcon className='w-5 h-5'/>
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
