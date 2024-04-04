@@ -732,12 +732,14 @@ export type ShopifyGetStorePolicyOperation = {
 
 export type Article = {
   id: string,
+  tags: string[],
   handle: string,
   title: string,
   contentHtml: string
   author: {
     name: string
   },
+  seo: SEO,
   image: Image,
   publishedAt: string
 }
@@ -745,7 +747,8 @@ export type Article = {
 export type Blog = {
   id: string,
   handle: string,
-  title: string
+  title: string,
+  seo: SEO
   articles: Article[]
 }
 
@@ -768,6 +771,7 @@ export type ShopifyBlogOperation = {
       id: string,
       handle: string,
       title: string,
+      seo: SEO,
       articles: {
         edges: {
           node: Article

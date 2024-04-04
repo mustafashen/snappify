@@ -20,6 +20,10 @@ export const getArticlesQuery = /* GraphQL */ `
       id
       handle
       title
+      seo {
+        title
+        description
+      }
       articles(first: $first) {
         edges {
           node {
@@ -41,6 +45,11 @@ export const getArticleQuery = /* GraphQL */ `
   query getArticle($id: ID!) {
     article(id: $id) {
       id
+      tags
+      seo {
+        title
+        description
+      }
       handle
       title
       contentHtml

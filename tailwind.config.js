@@ -20,24 +20,24 @@ module.exports = {
   daisyui: {
     themes: [{
       custom: {
-        "--rounded-box": "0.3rem",
-        "--rounded-btn": "0.2rem",
-        "--rounded-badge": "0.3rem",
-        "--animation-btn": "0.3s",
-        "--animation-input": "0.2s",
-        "--btn-focus-scale": "0.94",
-        "--border-btn": "2.5px",
-        "--tab-border": "2.5px",
-        "--tab-radius": "0.3rem",
-        "primary": "#00be93",
-        "secondary": "#005fff",
-        "accent": "#00efff",
-        "neutral": "#0e101f",
-        "base-100": "#fffbf6",
-        "info": "#0083c5",
-        "success": "#008a6a",
-        "warning": "#ffd000",
-        "error": "#ff4c75"
+        "--rounded-box": "0.4rem",
+        "--rounded-btn": "0.3rem",
+        "--rounded-badge": "0.4rem",
+        "--animation-btn": "0.4s",
+        "--animation-input": "0.25s",
+        "--btn-focus-scale": "0.92",
+        "--border-btn": "3px",
+        "--tab-border": "3px",
+        "--tab-radius": "0.4rem",
+        "primary": "#3c2d75",
+        "secondary": "#4e5667",
+        "accent": "#756d84",
+        "neutral": "#fafafa",
+        "base-100": "#fff",
+        "info": "#273c75",
+        "success": "#3e528d",
+        "warning": "#84a5c5",
+        "error": "#e74c3c"
       }
     }]
   }

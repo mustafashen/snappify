@@ -1,6 +1,29 @@
 import Prose from "components/prose";
 import { getPolicies } from "lib/shopify";
 import { Policy } from "lib/shopify/types";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export async function generateMetadata({
+  params,
+  searchParams
+}: {
+  params: { policy: string },
+  searchParams: {
+    title: string
+  }
+}): Promise<Metadata> {
+
+  const policy = (await getPolicies()).find(p => p.handle === params.policy)
+
+  if (!policy) return notFound();
+
+  return {
+    title: searchParams.title,
+    description: "Store policy"
+  };
+}
+
 
 export default async function page({
   params,

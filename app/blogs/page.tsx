@@ -4,6 +4,11 @@ import Link from "next/link";
 import articlePlaceholderImage from '../../public/static/image/article-placeholder.jpg'
 import { getBlogs } from "lib/shopify";
 
+export const metadata = {
+  title: 'Stories',
+  description: 'Blogs and articles from us'
+}
+
 export default async function page() {
   const blogs = await getBlogs({first: 250})
   return (
@@ -13,7 +18,9 @@ export default async function page() {
         <ul className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
         {
           blogs.map((blog: Blog) => (
-            <li key={blog.handle}>
+            <li
+              className='animate-fade-up' 
+              key={blog.handle}>
               <Link
                 href={{
                   pathname: `/blogs/${blog.handle}`,

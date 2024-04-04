@@ -3,6 +3,25 @@ import { Article } from "lib/shopify/types";
 import Image from "next/image";
 import Link from "next/link";
 import articlePlaceholderImage from '../../../public/static/image/article-placeholder.jpg'
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export async function generateMetadata({
+  searchParams
+}: {
+  searchParams: { id: string }
+}): Promise<Metadata> {
+
+  const blogInfo = await getArticles({id: searchParams.id, first: 1});
+
+  if (!blogInfo) return notFound();
+
+
+  return {
+    title: blogInfo.seo.title || blogInfo.title,
+    description: blogInfo.seo.description,
+  };
+}
 
 export default async function page({
   searchParams
@@ -20,7 +39,9 @@ export default async function page({
         <ul className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
         {
           blog.articles.map((article: Article) => (
-            <li key={article.handle}>
+            <li
+              className='animate-fade-up' 
+              key={article.handle}>
               <Link
                 href={{
                   pathname: `/articles/${article.handle}`,
