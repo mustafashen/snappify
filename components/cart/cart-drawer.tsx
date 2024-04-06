@@ -21,7 +21,11 @@ export default function CartDrawer({ cart }: { cart: Cart | undefined }) {
         className='btn btn-ghost btn-square relative'
         type="button"
         onClick={openModal}>
-          <span className='absolute bottom-0 right-0 rounded-full bg-neutral flex justify-center items-center w-5 h-5'>{cart?.lines.length}</span>
+          {
+            cart && cart?.lines.length > 0 ? (
+              <span className='absolute bottom-0 right-0 rounded-full bg-neutral flex justify-center items-center w-5 h-5'>{cart?.lines.length}</span>
+            ) : null
+          }
           <ShoppingBagIcon className='w-5 h-5'/>
     </button>
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
