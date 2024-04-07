@@ -1,28 +1,33 @@
 'use client'
-import { toggleItem } from "./actions"
-import { HeartIcon } from "@heroicons/react/24/outline"
+import { useEffect, useState } from "react"
+import { getWishlist, toggleItem } from "./actions"
+import { HeartIcon as HeartChecked } from "@heroicons/react/24/solid"
+import { HeartIcon as HeartUnChecked } from "@heroicons/react/24/outline"
 
-export default function AddToWishlist({productHandle, className}: {productHandle?: string, className?: string}) {
+export default function AddToWishlist({productHandle, className}: {productHandle: string, className?: string}) {
+  const [wistlisted, setWistlisted] = useState(false)
+
   const handleToggleLine = (productHandle: string) => {
     toggleItem(productHandle)
+    setWistlisted(!wistlisted)
   }
+
+  useEffect(() => {
+    getWishlist().then((wishlist: string[]) => {
+      wishlist.includes(productHandle) ? setWistlisted(true) : setWistlisted(false)
+    })
+  },[productHandle])
+
   const buttonStyle = `btn btn-secondary ${className}`
-  if (productHandle) {
     return (
       <button 
         className={buttonStyle}
         onClick={() => handleToggleLine(productHandle)}>
-        <HeartIcon className="w-5 h-5"/>
+        {
+          wistlisted ? 
+            <HeartChecked className="w-5 h-5"/> : 
+            <HeartUnChecked className="w-5 h-5"/>
+        }
       </button>
     )
-  } else {
-    return (
-      <button
-        disabled={true}
-        className={`${buttonStyle} btn-disabled`}>
-          <HeartIcon className="w-5 h-5"/>
-      </button>
-    )
-  }
-
 }

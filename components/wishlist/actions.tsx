@@ -15,7 +15,6 @@ export async function toggleItem(productHandle: string) {
   if (wishlist) {
     wishlistItems = JSON.parse(wishlist.value)
 
-    console.log(wishlistItems)
     const lineIndex = wishlistItems.findIndex((item: string) => item === productHandle)
     if (lineIndex === -1) wishlistItems.push(productHandle)
     else if (lineIndex > -1) wishlistItems.splice(lineIndex, 1)
