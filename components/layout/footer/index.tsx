@@ -9,7 +9,7 @@ export default async function Footer() {
   const menu = await getMenu('footer')
   const policies = await getPolicies()
   return (
-    <div className='bg-base-100'>
+    <div className='bg-base-300'>
       <div className='footer p-5 text-base-content'>
         <LogoIcon/>
         <FooterMenuItems menu={menu}/>

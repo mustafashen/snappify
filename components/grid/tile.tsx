@@ -12,7 +12,7 @@ export default function Tile({product}: {product: Product}) {
       href={{
           pathname: `/product/${product.handle}`
       }}>
-        <div className="card bg-base-300 shadow-xl grid grid-rows-5 aspect-[10/16] overflow-hidden h-full animate-fade-up">
+        <div className="card bg-base-100 shadow-xl grid grid-rows-5 aspect-[10/16] overflow-hidden h-full animate-fade-up">
           <div className='relative row-span-4'>
             <figure>
               {product.featuredImage ? 

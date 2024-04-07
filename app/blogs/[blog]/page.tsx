@@ -33,9 +33,9 @@ export default async function page({
     
     const blog = await getArticles({first: 250, id: searchParams.id})
     return (
-    <div className='card lg:max-w-[60vw] m-auto'>
+    <div className='card lg:max-w-[60vw] m-auto bg-base-200 mt-10'>
       <div className='card-body'>
-        <h1 className="card-title text-3xl py-12">{blog.title}</h1>
+        <h1 className="card-title text-3xl py-6">{blog.title}</h1>
         <ul className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
         {
           blog.articles.map((article: Article) => (

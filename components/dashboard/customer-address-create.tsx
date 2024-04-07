@@ -23,8 +23,7 @@ export default function CustomerAddressCreate() {
   }
 
   const handleSubmit = async () => {
-    const res = await addressCreate({address: newAddress})
-    console.log(res)
+    await addressCreate({address: newAddress})
   }
 
   return (
@@ -33,7 +32,7 @@ export default function CustomerAddressCreate() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className='btn btn-primary w-full'>
+          className='btn btn-primary btn-block'>
           Create Address
         </button>
       </div>

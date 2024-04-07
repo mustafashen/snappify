@@ -24,13 +24,11 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
   }
 
   const handleSubmit = async () => {
-    const res = await addressUpdate({id: address.id as string, address: newAddress})
-    console.log(res)
+    await addressUpdate({id: address.id as string, address: newAddress})
   }
 
   const handleSetDefault = async () => {
-    const res = await addressUpdateDefault({id: address.id as string})
-    console.log(res)
+    await addressUpdateDefault({id: address.id as string})
   }
 
   return (
@@ -44,7 +42,7 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
       <Dialog 
         open={isOpen} 
         onClose={() => setIsOpen(false)}
-        className='card'>
+        className='card bg-base-100'>
         <div className='fixed top-0 w-full h-full flex justify-center items-center'>
           <Dialog.Panel className='card bg-base-200 w-[600px] animate-fade-up'>
             <div className='card-body'>

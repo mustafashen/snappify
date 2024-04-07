@@ -20,7 +20,7 @@ export default function EditCard({customer}: {customer: Customer}) {
   }
 
   return (
-    <div className='card-body'>
+    <div className='card-body px-0'>
       <form 
         onSubmit={handleCustomerUpdate}
         className='flex flex-col gap-4 *:flex *:flex-col *:gap-2'
@@ -28,7 +28,7 @@ export default function EditCard({customer}: {customer: Customer}) {
         <div>
           <label htmlFor='firstName'>First name:</label>
           <input
-            className='input input-bordered'
+            className='input input-bordered input-primary'
             id='firstName' 
             type='text' 
             value={customerData.firstName ? customerData.firstName : ''}
@@ -38,7 +38,7 @@ export default function EditCard({customer}: {customer: Customer}) {
         <div>
           <label htmlFor='lastName'>Last name:</label>
           <input
-            className='input input-bordered'
+            className='input input-bordered input-primary'
             id='lastName' 
             type='text' 
             value={customerData.firstName ? customerData.lastName : ''}
@@ -48,7 +48,7 @@ export default function EditCard({customer}: {customer: Customer}) {
         <div>
           <label htmlFor='email'>Email:</label>
           <input
-            className='input input-bordered'
+            className='input input-bordered input-primary'
             id='email' 
             type='text' 
             value={customerData.email ? customerData.email : ''}
@@ -58,7 +58,7 @@ export default function EditCard({customer}: {customer: Customer}) {
         <div>
           <label htmlFor='password'>Password:</label>
           <input
-            className='input input-bordered'
+            className='input input-bordered input-primary'
             id='password' 
             type='text' 
             value={customerData.password ? customerData.password : ''}
@@ -68,7 +68,7 @@ export default function EditCard({customer}: {customer: Customer}) {
         <div>
           <label htmlFor='phone'>Phone:</label>
           <input
-            className='input input-bordered'
+            className='input input-bordered input-primary'
             id='phone' 
             type='text' 
             value={customerData.phone ? customerData.phone : ''}

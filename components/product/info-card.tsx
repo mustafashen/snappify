@@ -55,7 +55,7 @@ export default function InfoCard({ productInfo }: { productInfo: Product }) {
 
   return (
     <div className='card-body *:mb-8'>
-      <h1 className='card-title'>{productInfo.title}</h1>
+      <h1 className='card-title text-3xl'>{productInfo.title}</h1>
       <Price
         className='text-xl font-bold flex-grow-0'
         amount={selectedVariant?.price.amount as string}

@@ -27,7 +27,7 @@ export default function RegisterCard() {
   return (
     <form
       onSubmit={handleLogin}
-      className='card'>
+      className='card bg-base-100'>
       <div className='card-body px-0'>
         <h2 className='card-title'>Register</h2>
         <p>Create a new account</p>

@@ -6,7 +6,7 @@ export default function CustomerAddressCard({address}: {address: CustomerAddress
   return (
     <li 
       key={address.id}
-      className="card card-bordered shadow-xl">
+      className="card card-bordered shadow-xl bg-base-100">
       <div className="card-body">
         <h2 className="card-title">{address.city}/{address.country}</h2>
         <p>

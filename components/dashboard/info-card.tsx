@@ -3,8 +3,8 @@ import React from 'react'
 
 export default function InfoCard({customer}: {customer: Customer}) {
   return (
-    <div className='card'>
-      <div className='card-body'>
+    <div className='card bg-base-100'>
+      <div className='card-body px-0'>
         <h1 className='card-title'>User info</h1>
         <ul>
           <li>First name: {customer.firstName}</li>

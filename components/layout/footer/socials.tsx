@@ -39,8 +39,6 @@ export default function Socials() {
               className='link link-hover'
               key={index}
               href={social.url}>
-              {social.icon}
-              &nbsp;
               {social.name}
             </Link>
           )

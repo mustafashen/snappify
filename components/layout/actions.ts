@@ -17,7 +17,6 @@ export async function logoutCustomer() {
     }
 
   } catch(error: unknown) {
-    console.log(error)
     return 'Error during logout'
   }
 }

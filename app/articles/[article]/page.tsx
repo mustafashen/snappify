@@ -53,12 +53,16 @@ export default async function page({
     
     const article = await getArticle({id: searchParams.id})
     return (
-    <div className='card lg:max-w-[60vw] m-auto'>
+    <div className='card lg:max-w-[60vw] m-auto bg-base-100 mt-10'>
       <div className='card-body'>
-        <h1 className="card-title text-3xl py-12">{article.title}</h1>
+        <h1 className="card-title text-3xl py-6">{article.title}</h1>
         {article ? <Prose className="" html={article.contentHtml as string} /> : null}
-        {article.author.name}
-        {article.publishedAt}
+        <em>
+          <br />
+          {article.author.name}
+          <br />
+          {article.publishedAt}
+        </em>
       </div>
     </div>
   );

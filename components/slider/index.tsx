@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function Slider({products}: {products: Product[]}) {
   return (
-    <ul className='flex flex-nowrap w-full h-[500px] overflow-y-scroll snap-x snap-mandatory *:snap-center gap-5 py-5'>
+    <ul className='flex flex-nowrap w-full h-[500px] overflow-y-scroll snap-x snap-mandatory *:snap-center gap-5 py-10'>
       {
         products.map((product, idx) => (
           <Tile key={idx} product={product}/>

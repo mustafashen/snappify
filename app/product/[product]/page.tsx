@@ -65,7 +65,7 @@ export default async function page({
   else {
     return (
       <div>
-        <div className='card card-side bg-base-100 shadow-xl grid lg:grid-cols-2 max-lg:grid-rows-2 min-h-[90vh]'>
+        <div className='card card-side bg-base-100 shadow-xl grid lg:grid-cols-2 max-lg:grid-rows-2 min-h-[90vh] mt-10'>
           <figure>
             {
               productInfo.images.length > 0 ?
@@ -77,7 +77,7 @@ export default async function page({
             <InfoCard productInfo={productInfo} />
           }
         </div>
-        <div>
+        <div className='my-10'>
             <ProductRecommendations productId={productInfo.id}/>
         </div>
     </div>

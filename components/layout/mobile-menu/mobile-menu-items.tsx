@@ -56,7 +56,7 @@ export default async function MobileMenuItems({
                   <li 
                     key={idx}>
                     <Link
-                      className='py-2 pl-5 w-full inline-block hover:bg-base-300'
+                      className='py-2 pl-5 w-full inline-block hover:bg-base-100'
                       href={{
                       pathname: `/blogs/${blog.handle}`,
                       query: {id: blog.id}

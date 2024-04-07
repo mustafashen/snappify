@@ -19,8 +19,8 @@ export default function CustomerAddresses() {
   }, [])
 
   return (
-    <div className="card">
-      <div className="card-body">
+    <div className="card bg-base-100">
+      <div className="card-body px-0">
         <div>
           <CustomerAddressCreate/>
         </div>

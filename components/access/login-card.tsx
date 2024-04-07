@@ -25,7 +25,7 @@ export default function LoginCard({switchRecover}: {switchRecover: ReactElement}
   return (
     <form
       onSubmit={handleLogin}
-      className='card'>
+      className='card bg-base-100'>
       <div className='card-body px-0'>
         <h2 className='card-title'>Login</h2>
         <p>Login to your account</p>

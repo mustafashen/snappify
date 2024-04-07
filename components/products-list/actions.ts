@@ -41,7 +41,6 @@ export async function getNewCollectionProducts({
   sortKey: string, 
   reverse: boolean
 }) {
-  console.log(collection, sortKey, reverse)
   return await getCollectionProducts({collection, sortKey, reverse})
 
 }

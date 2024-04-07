@@ -12,9 +12,9 @@ export const metadata = {
 export default async function page() {
   const blogs = await getBlogs({first: 250})
   return (
-    <div className='card lg:max-w-[60vw] m-auto'>
+    <div className='card lg:max-w-[60vw] m-auto mt-10 bg-base-200'>
       <div className='card-body'>
-        <h1 className="card-title text-3xl py-12">Stories</h1>
+        <h1 className="card-title text-3xl py-6">Stories</h1>
         <ul className="grid grid-cols-2 max-md:grid-cols-1 gap-5">
         {
           blogs.map((blog: Blog) => (

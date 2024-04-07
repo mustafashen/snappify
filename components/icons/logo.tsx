@@ -6,7 +6,7 @@ import { logoGet } from './actions';
 import { Logo } from 'lib/shopify/types';
 
 
-export default async function LogoIcon({
+export default function LogoIcon({
   width,
   height
 }: {

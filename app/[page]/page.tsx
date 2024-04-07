@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { page: string } }) {
   if (!page) return notFound();
 
   return (
-    <div className='card lg:max-w-[60vw] m-auto'>
+    <div className='card lg:max-w-[60vw] m-auto bg-base-100'>
       <div className='card-body'>
         <h1 className="card-title text-3xl py-12">{page.title}</h1>
         <Prose className="" html={page.body as string} />

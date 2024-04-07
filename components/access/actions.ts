@@ -37,7 +37,6 @@ export async function customerRegister({
     })
 
   } catch (error: unknown) {
-    console.log(error)
     return "Error logging in customer"
   }
 }

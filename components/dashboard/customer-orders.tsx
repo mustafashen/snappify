@@ -21,8 +21,8 @@ export default function CustomerOrders() {
 
   if (customerOrders.length > 0) {
     return (
-      <div className="card">
-        <div className="card-body">
+      <div className="card bg-base-100">
+        <div className="card-body px-0">
           <ul>
             {
               customerOrders.map((order: CustomerOrder) => {
@@ -41,7 +41,7 @@ export default function CustomerOrders() {
 
   return (
     <div className="card">
-      <div className="card-body">
+      <div className="card-body px-0">
         <p>No orders found.</p>
       </div>
     </div>

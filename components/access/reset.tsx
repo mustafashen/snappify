@@ -13,14 +13,14 @@ export default function Reset({domain}: {domain: string}) {
       customerReset({
         password: e.target[0].value,
         resetUrl,
-      }).then(res => console.log(res))
+      })
     }
   }
 
   return (
     <form
       onSubmit={handleReset}
-      className='card card-bordered w-96 mx-auto mt-24'>
+      className='card card-bordered w-96 mx-auto mt-24 bg-base-100'>
       <div className='card-body gap-3'>
         <h2 className='card-title'>Reset account password</h2>
         <p>Enter a new password</p>

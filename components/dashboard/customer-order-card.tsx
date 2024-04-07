@@ -4,7 +4,7 @@ export default function CustomerOrderCard({order}: {order: CustomerOrder}) {
   return (
     <li 
     key={order.id}
-    className="card card-bordered shadow-xl">
+    className="card card-bordered shadow-xl bg-base-100">
     <div className="card-body">
       <h2 className="card-title">{order.name}</h2>
       <p>

@@ -22,7 +22,7 @@ export default function RecoverCard({returnLogin}: {returnLogin: ReactElement}) 
   return (
     <form
       onSubmit={handleRecover}
-      className='card'>
+      className='card bg-base-100'>
       <div className='card-body px-0'>
         <h2 className='card-title'>Recover Account</h2>
         <p>Enter email address for password change</p>
