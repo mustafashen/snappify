@@ -5,15 +5,16 @@ import { redirect } from 'next/navigation'
 
 export default async function Dashboard() {
 
-  const customer = await customerGet()
-  
-  if (typeof customer === 'object') {
+  try {
+    const customer = await customerGet()
+
     return (
       <div>
         <CustomerCard customer={customer}/>
       </div>
     )
-  } else {
+
+  } catch (error) {
     redirect('/')
   }
 

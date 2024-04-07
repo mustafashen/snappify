@@ -6,20 +6,19 @@ import { cookies } from "next/headers"
 
 export async function customerGet() {
   const customerAccessToken = cookies().get('accessToken')?.value
-  let customer;
 
-  if (customerAccessToken) {
-    customer = await getCustomer({customerAccessToken})
-  } else {
-    return 'No access token found'
+  if (!customerAccessToken) {
+    throw new Error('No access token found')
   }
 
-  if (customer) {
-    return customer
-  } else {
-    return 'No customer found'
+  const customer = await getCustomer({ customerAccessToken })
+
+  if (!customer) {
+    throw new Error('No customer found')
   }
-} 
+
+  return customer
+}
 
 export async function customerUpdate({updates}: {updates: Customer}) {
   const customerAccessToken = cookies().get('accessToken')?.value
@@ -161,7 +160,6 @@ export async function ordersGet({first}: {first: number}) {
     const currentAccessToken = cookies().get('accessToken')?.value
 
     if (typeof currentAccessToken === 'string') {
-      const accessToken = currentAccessToken as string
       const payload = await getCustomerOrders({first, customerAccessToken: currentAccessToken})
 
       if (payload) {

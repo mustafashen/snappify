@@ -20,3 +20,13 @@ export async function logoutCustomer() {
     return 'Error during logout'
   }
 }
+
+export async function getCustomerAccessToken() {
+  const customerAccessToken = cookies().get('accessToken')?.value
+
+  if (!customerAccessToken) {
+    throw new Error('No access token found')
+  }
+
+  return customerAccessToken
+}

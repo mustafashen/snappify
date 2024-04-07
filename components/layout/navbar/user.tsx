@@ -1,39 +1,72 @@
 'use client'
 import { Menu } from '@headlessui/react'
 import { UserIcon } from '@heroicons/react/24/outline'
-import { logoutCustomer } from '../actions'
+import { getCustomerAccessToken, logoutCustomer } from '../actions'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function UserAction() {
 
+  const [loggedInCustomer, setLoggedInCustomer] = useState(false)
+
+  function checkLoggedInUser() {
+    getCustomerAccessToken().then(() => {
+      setLoggedInCustomer(true)
+    }).catch(() => {
+      setLoggedInCustomer(false)
+    })
+  }
+
+  useEffect(() => {
+    checkLoggedInUser()
+  }, [])
+
   const handleLogout = () => {
     logoutCustomer()
+    setLoggedInCustomer(false)
   }
 
   return (
     <Menu as={'div'} className="dropdown dropdown-end">
-      <Menu.Button className='btn btn-ghost'>
+      <Menu.Button 
+        className='btn btn-ghost'
+        onClick={() => checkLoggedInUser()}>
         <UserIcon className='w-5 h-5'/>
       </Menu.Button>
       <Menu.Items>
-        <ul className='dropdown-content z-[1] menu bg-base-200'>
-          <li>
-            <Menu.Item>
-              <Link
-                href={'/account'}>
-                Account
-              </Link>
-            </Menu.Item>
-          </li>
-          <li>
-            <Menu.Item>
-              <button
-                onClick={handleLogout}>
-                Logout
-              </button>
-            </Menu.Item>
-          </li>
-        </ul>
+        {
+          loggedInCustomer ? (
+            <ul className='dropdown-content z-[1] menu bg-base-200'>
+              <li>
+                <Menu.Item>
+                  <Link
+                    href={'/account'}>
+                    Account
+                  </Link>
+                </Menu.Item>
+              </li>
+              <li>
+                <Menu.Item>
+                  <button
+                    onClick={handleLogout}>
+                    Logout
+                  </button>
+                </Menu.Item>
+              </li>
+            </ul>
+          ) : (
+            <ul className='dropdown-content z-[1] menu bg-base-200'>
+              <li>
+                <Menu.Item>
+                  <Link
+                    href={'/access'}>
+                    Login
+                  </Link>
+                </Menu.Item>
+              </li>
+            </ul>
+          )
+        }
       </Menu.Items>
     </Menu>
   )
