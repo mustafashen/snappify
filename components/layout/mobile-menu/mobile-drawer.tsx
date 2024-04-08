@@ -19,7 +19,7 @@ export default function MobileDrawer({
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className='bg-base-200'>
+    <div>
       <button
         type="button"
         onClick={() => setIsOpen(true)}
