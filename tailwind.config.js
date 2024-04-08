@@ -29,15 +29,15 @@ module.exports = {
         "--border-btn": "2.5px",
         "--tab-border": "2.5px",
         "--tab-radius": "0.3rem",
-        "primary": "#0094de",
-        "secondary": "#007eff",
-        "accent": "#006af6",
-        "neutral": "#060509",
-        "base-100": "#242025",
-        "info": "#00c3ff",
-        "success": "#00db7b",
-        "warning": "#fdb700",
-        "error": "#ff6580"
+        "primary": "#d6e1f8",
+        "secondary": "#b7d4f9",
+        "accent": "#9ec2e3",
+        "neutral": "#e6e6e6",
+        "base-100": "#fff",
+        "info": "#c6e6ff",
+        "success": "#d6f2e0",
+        "warning": "#ffe0b3",
+        "error": "#ffb6c1"
       }
     }]
   }

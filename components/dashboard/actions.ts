@@ -167,16 +167,16 @@ export async function addressCreate({address}: {address: CustomerAddress}) {
   }
 }
 
-export async function addressDelete({id}: {id: string}) {
+export async function addressDelete({id}: {id?: string}) {
     try {
       const currentAccessToken = cookies().get('accessToken')?.value
   
-      if (typeof currentAccessToken === 'string') {
+      if (typeof currentAccessToken === 'string' && id) {
         const accessToken = currentAccessToken as string
         const payload = await deleteCustomerAddress({customerAccessToken: accessToken, id})
   
         if (payload) {
-          return payload
+          return {payload}
         }
       }
   
