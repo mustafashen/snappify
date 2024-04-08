@@ -7,6 +7,7 @@ import {
   recoverCustomer,
   resetCustomer
 } from 'lib/shopify';
+import { validateEmail, validatePhone } from 'lib/utils';
 import { cookies } from 'next/headers';
 
 export async function customerRegister({
@@ -28,6 +29,9 @@ export async function customerRegister({
     if (!email?.trim() || !password?.trim() || !firstName?.trim() || !lastName?.trim()) {
       throw new Error('Missing required fields');
     }
+
+    if (!validateEmail(email)) throw new Error('Invalid email address');
+    if (phone && phone.trim() && !validatePhone(phone)) throw new Error('Invalid phone number')
 
     const payload = await createCustomer({
       email,
@@ -64,9 +68,12 @@ export async function customerLogin({ email, password }: { email: string; passwo
       throw new Error('Missing required fields');
     }
 
+    if (!validateEmail(email)) throw new Error('Invalid email address');
+    
     const currentAccessToken = cookies().get('accessToken')?.value;
 
     if (!currentAccessToken) {
+
       const payload = await createCustomerAccessToken({ email, password });
 
       if (payload.accessToken) {

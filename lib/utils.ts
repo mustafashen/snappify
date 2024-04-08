@@ -37,3 +37,13 @@ export const validateEnvironmentVariables = () => {
     );
   }
 };
+
+export function validateEmail(email: string) {
+  const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+  return regex.test(email)
+}
+
+export function validatePhone(phone: string) {
+  const regex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/g
+  return regex.test(phone)
+}
