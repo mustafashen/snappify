@@ -1,6 +1,5 @@
 import { 
 	customerAccessTokenFragment, 
-	// customerAddressFragment, 
 	customerFragment } from "../fragments/customer";
 
 export const customerCreateMutation = /* GraphQL */ `

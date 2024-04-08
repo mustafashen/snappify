@@ -6,19 +6,10 @@ const moneyV2Fragment = /* GraphQL */ `
         currencyCode
     }
 `
-
-const discountApplicationFragment = `
-    fragment discountApplication on DiscountApplication {
-        allocationMethod
-        targetSelection
-        targetType
-        value
-    }
-`
 const customerOrderFragment = /* GraphQL */ `
     fragment order on Order {
         billingAddress {
-            ...customerAddress
+            ...mailingAddress
         }
         cancelReason
         canceledAt
@@ -53,17 +44,12 @@ const customerOrderFragment = /* GraphQL */ `
         phone
         processedAt
         shippingAddress {
-            ...customerAddress
-        }
-        shippingDiscountAllocations {
-            allocatedAmount {
-                ...moneyV2
-            }
-            ...discountApplication
+            ...mailingAddress
         }
         statusUrl
-        subtotalPrices
-        successfulFulfillments
+        subtotalPrice {
+            ...moneyV2
+        }
         totalPrice {
             ...moneyV2
         }
@@ -79,7 +65,6 @@ const customerOrderFragment = /* GraphQL */ `
     }
     ${customerAddressFragment}
     ${moneyV2Fragment}
-    ${discountApplicationFragment}
 `;
 
 export {

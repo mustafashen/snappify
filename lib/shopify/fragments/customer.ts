@@ -16,7 +16,7 @@ const customerAccessTokenFragment = /* GraphQL */`
 `
 
 const customerAddressFragment = /* GraphQL */`
-  fragment customerAddress on CustomerAddress {
+  fragment mailingAddress on MailingAddress {
     address1 
     address2 
     city 

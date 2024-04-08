@@ -718,7 +718,7 @@ export async function recoverCustomer({
     cache: 'no-store'
   })
 
-  return res.status === 200
+  return res.body.data
 }
 
 export async function resetCustomer({
