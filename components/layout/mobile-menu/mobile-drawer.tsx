@@ -20,15 +20,12 @@ export default function MobileDrawer({
 
   return (
     <div className='bg-base-200'>
-      <div>
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          className="btn btn-ghost xl:hidden"
-        >
-          <Bars3Icon className='w-5 h-5'/>
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        className="btn btn-ghost xl:hidden">
+        <Bars3Icon className='w-5 h-5'/>
+      </button>
       <Dialog 
         open={isOpen} 
         onClose={() => setIsOpen(false)}>

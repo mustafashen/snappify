@@ -2,7 +2,7 @@ import { Blog, Collection, Menu } from 'lib/shopify/types'
 import Link from 'next/link'
 import MobileMenuItem from './mobile-menu-item'
 
-export default async function MobileMenuItems({
+export default function MobileMenuItems({
   menu, 
   blogs,
   collections
