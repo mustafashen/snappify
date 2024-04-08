@@ -17,16 +17,44 @@ export async function logoutCustomer() {
     }
 
   } catch(error: unknown) {
-    return 'Error during logout'
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
   }
 }
 
 export async function getCustomerAccessToken() {
-  const customerAccessToken = cookies().get('accessToken')?.value
+  try {
+    const customerAccessToken = cookies().get('accessToken')?.value
 
-  if (!customerAccessToken) {
-    throw new Error('No access token found')
+    if (!customerAccessToken) {
+      throw new Error('No access token found')
+    }
+  
+    return {customerAccessToken}
+  } catch (error) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
   }
-
-  return customerAccessToken
 }

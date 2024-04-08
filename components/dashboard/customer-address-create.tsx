@@ -4,7 +4,8 @@ import { addressCreate } from './actions'
 
 export default function CustomerAddressCreate() {
   const [isOpen, setIsOpen] = useState(false)
-
+  const [message, setMessage] = useState('')
+  
   const [newAddress, setNewAddress] = useState({
     address1: '',
     address2: '',
@@ -23,7 +24,11 @@ export default function CustomerAddressCreate() {
   }
 
   const handleSubmit = async () => {
-    await addressCreate({address: newAddress})
+    const res = await addressCreate({address: newAddress})
+    if ('Error' in res) {
+      setMessage(res.Error.message)
+    }
+    setIsOpen(false)
   }
 
   return (
@@ -136,7 +141,7 @@ export default function CustomerAddressCreate() {
                 </div>
                 <div className='card-actions'>
                   <button 
-                    className='btn btn-primary' 
+                    className='btn btn-primary'
                     type='submit'>
                     Create Address
                   </button>
@@ -152,6 +157,15 @@ export default function CustomerAddressCreate() {
           </Dialog.Panel>
         </div>
       </Dialog>
+      {
+        message ? (
+          <div className="toast toast-center">
+            <div className="alert alert-error">
+              <span>{message}</span>
+            </div>
+          </div>
+        ) : null
+      }
     </>
   )
 

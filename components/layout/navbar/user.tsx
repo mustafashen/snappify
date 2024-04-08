@@ -10,10 +10,12 @@ export default function UserAction() {
   const [loggedInCustomer, setLoggedInCustomer] = useState(false)
 
   function checkLoggedInUser() {
-    getCustomerAccessToken().then(() => {
-      setLoggedInCustomer(true)
-    }).catch(() => {
-      setLoggedInCustomer(false)
+    getCustomerAccessToken().then((response) => {
+      if ('Error' in response) {
+        setLoggedInCustomer(false)
+      } else {
+        setLoggedInCustomer(true)
+      }
     })
   }
 

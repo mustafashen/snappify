@@ -7,13 +7,14 @@ import { ordersGet } from "./actions"
 
 export default function CustomerOrders() {
   const [customerOrders, setCustomerOrders] = useState<CustomerOrder[]>([])
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
-    ordersGet({first: 10}).then((response: string | CustomerOrder[]) => {
-      if (Array.isArray(response)) {
-        setCustomerOrders(response)
+    ordersGet({first: 10}).then((response: {Error: {message: string}} | CustomerOrder[]) => {
+      if ('Error' in response) {
+        setMessage(response.Error.message)
       } else {
-        // handle error
+        setCustomerOrders(response)
       }
     })
   }, [])
@@ -40,10 +41,21 @@ export default function CustomerOrders() {
   }
 
   return (
-    <div className="card">
-      <div className="card-body px-0">
-        <p>No orders found.</p>
+    <>
+      <div className="card">
+        <div className="card-body px-0">
+          <p>No orders found.</p>
+        </div>
       </div>
-    </div>
+      {
+        message ? (
+          <div className="toast toast-center">
+            <div className="alert alert-error">
+              <span>{message}</span>
+            </div>
+          </div>
+        ) : null
+      }
+    </>
   )
 }

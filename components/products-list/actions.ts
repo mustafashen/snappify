@@ -12,7 +12,23 @@ export async function getNewSearchProducts({
   reverse: boolean
 }) {
   
-  return await searchProducts({query, sortKey, reverse})
+  try {
+    return await searchProducts({query, sortKey, reverse})
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
+  }
 
 }
 
@@ -28,7 +44,23 @@ export async function getMoreSearchProducts({
   reverse: boolean
 }) {
   
-  return await searchProducts({query, sortKey, reverse, after: cursor})
+  try {
+    return await searchProducts({query, sortKey, reverse, after: cursor})
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
+  }
 
 }
 
@@ -41,8 +73,23 @@ export async function getNewCollectionProducts({
   sortKey: string, 
   reverse: boolean
 }) {
-  return await getCollectionProducts({collection, sortKey, reverse})
-
+  try {
+    return await getCollectionProducts({collection, sortKey, reverse})
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
+  }
 }
 
 
@@ -58,6 +105,22 @@ export async function getMoreCollectionProducts({
   reverse: boolean
 }) {
   
-  return await getCollectionProducts({collection, sortKey, reverse, after: cursor})
+  try {
+    return await getCollectionProducts({collection, sortKey, reverse, after: cursor})
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
+  }
 
 }

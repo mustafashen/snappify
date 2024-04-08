@@ -6,43 +6,67 @@ import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
 export async function addItem(prevState: any, selectedVariantId: string | undefined) {
-  let cartId = cookies().get('cartId')?.value;
-  let cart;
-
-  if (cartId) {
-    cart = await getCart(cartId);
-  }
-
-  if (!cartId || !cart) {
-    cart = await createCart();
-    cartId = cart.id;
-    cookies().set('cartId', cartId);
-  }
-
-  if (!selectedVariantId) {
-    return 'Missing product variant ID';
-  }
-
   try {
+    let cartId = cookies().get('cartId')?.value;
+    let cart;
+
+    if (cartId) {
+      cart = await getCart(cartId);
+    }
+
+    if (!cartId || !cart) {
+      cart = await createCart();
+      cartId = cart.id;
+      cookies().set('cartId', cartId);
+    }
+
+    if (!selectedVariantId) {
+      throw new Error('Missing product variant ID');
+    }
+
     await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
     revalidateTag(TAGS.cart);
-  } catch (e) {
-    return 'Error adding item to cart';
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
   }
 }
 
 export async function removeItem(prevState: any, lineId: string) {
-  const cartId = cookies().get('cartId')?.value;
-
-  if (!cartId) {
-    return 'Missing cart ID';
-  }
-
   try {
+    const cartId = cookies().get('cartId')?.value;
+
+    if (!cartId) {
+      throw new Error('Missing cart ID')
+    }
+
     await removeFromCart(cartId, [lineId]);
     revalidateTag(TAGS.cart);
-  } catch (e) {
-    return 'Error removing item from cart';
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
   }
 }
 
@@ -55,14 +79,14 @@ export async function updateItemQuantity(
   }
 ) {
   const cartId = cookies().get('cartId')?.value;
-
-  if (!cartId) {
-    return 'Missing cart ID';
-  }
-
-  const { lineId, variantId, quantity } = payload;
-
   try {
+    if (!cartId) {
+      return 'Missing cart ID';
+    }
+
+    const { lineId, variantId, quantity } = payload;
+
+
     if (quantity === 0) {
       await removeFromCart(cartId, [lineId]);
       revalidateTag(TAGS.cart);
@@ -77,7 +101,19 @@ export async function updateItemQuantity(
       }
     ]);
     revalidateTag(TAGS.cart);
-  } catch (e) {
-    return 'Error updating item quantity';
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { 
+        Error: {
+          message: error.message
+        }
+      };
+    } else {
+      return { 
+        Error: {
+          message: 'An unexpected error occurred'
+        }
+      };
+    }
   }
 }

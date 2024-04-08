@@ -25,20 +25,29 @@ export default function SearchProducts({
   const [hasNextPage, setHasNextPage] = useState(pageInfo.hasNextPage);
   const [endCursor, setEndCursor] = useState(pageInfo.endCursor);
   const [sortState, setSortState] = useState(defaultSort)
+  const [message, setMessage] = useState('')
 
   const handleLoadMore = async () => {
     const nextProducts = await getMoreSearchProducts({sortKey: sortState.sortKey, reverse: sortState.reverse, query, cursor: endCursor})
     
-    setEndCursor(nextProducts.pageInfo.endCursor)
-    setHasNextPage(nextProducts.pageInfo.hasNextPage)
-    setCurrentProducts([...currentProducts, ...(nextProducts.productList)])
+    if ('Error' in nextProducts) {
+      setMessage(nextProducts.Error.message)
+    } else {
+      setEndCursor(nextProducts.pageInfo.endCursor)
+      setHasNextPage(nextProducts.pageInfo.hasNextPage)
+      setCurrentProducts([...currentProducts, ...(nextProducts.productList)])
+    }
   }
 
   useEffect(() => {
     getNewSearchProducts({query, sortKey: sortState.sortKey, reverse: sortState.reverse}).then((nextProducts) => {
-      setEndCursor(nextProducts.pageInfo.endCursor)
-      setHasNextPage(nextProducts.pageInfo.hasNextPage)
-      setCurrentProducts([...(nextProducts.productList)])
+      if ('Error' in nextProducts) {
+        setMessage(nextProducts.Error.message)
+      } else {
+        setEndCursor(nextProducts.pageInfo.endCursor)
+        setHasNextPage(nextProducts.pageInfo.hasNextPage)
+        setCurrentProducts([...(nextProducts.productList)])
+      }
     })
   }, [sortState, query])
 
@@ -75,6 +84,15 @@ export default function SearchProducts({
           </button>
         )}
       </div>
+      {
+        message ? (
+          <div className="toast toast-center">
+            <div className="alert alert-error">
+              <span>{message}</span>
+            </div>
+          </div>
+        ) : null
+      }
     </div>
   )
 }

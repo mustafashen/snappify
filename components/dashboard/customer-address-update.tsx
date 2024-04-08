@@ -5,6 +5,7 @@ import { addressUpdate, addressUpdateDefault } from './actions'
 
 export default function CustomerAddressUpdate({address}: {address: CustomerAddress}) {
   const [isOpen, setIsOpen] = useState(false)
+  const [message, setMessage] = useState('')
 
   const [newAddress, setNewAddress] = useState({
     address1: address.address1,
@@ -24,11 +25,18 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
   }
 
   const handleSubmit = async () => {
-    await addressUpdate({id: address.id as string, address: newAddress})
+    const res = await addressUpdate({id: address.id as string, address: newAddress})
+    if ('Error' in res) {
+      setMessage(res.Error.message)
+    }
+    setIsOpen(false)
   }
 
   const handleSetDefault = async () => {
-    await addressUpdateDefault({id: address.id as string})
+    const res = await addressUpdateDefault({id: address.id as string})
+    if ('Error' in res) {
+      setMessage(res.Error.message)
+    }
   }
 
   return (
@@ -172,6 +180,15 @@ export default function CustomerAddressUpdate({address}: {address: CustomerAddre
           </Dialog.Panel>
         </div>
       </Dialog>
+      {
+        message ? (
+          <div className="toast toast-center">
+            <div className="alert alert-error">
+              <span>{message}</span>
+            </div>
+          </div>
+        ) : null
+      }
     </>
   )
 }
